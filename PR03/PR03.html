@@ -113,7 +113,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <h2 id="3">Introducci&oacute;n</h2>
 <p>Se realiz&oacute; la investigaci&oacute;n del uso de Python para la realizaci&oacute;n de gr&aacute;ficas, a continuaci&oacute;n se muestran las gr&aacute;ficas correspondientes al problema 4 mediante Python.</p>
 <p>
-<img vspace="5" hspace="5" src="C:\Users\porti\OneDrive\Escritorio\Se%C3%B1ales y Sistemas\PR03\html\intro.png" alt=""> </p>
+<img vspace="5" hspace="5" src="intro.png" alt=""> </p>
 <p>Se puede consultar el c&oacute;digo realizado con Python en el siguiente <a href="https://colab.research.google.com/drive/1XnKYDQmnbECtDmMwu0-lw2WxHoELL3KE?usp=sharing">enlace</a>.</p>
 <h2 id="4">Desarrollo</h2>
 <p>A continuaci&oacute;n se realizar&aacute; el desarrollo de los siguientes problemas planteados para entregar en la pr&aacute;ctica.</p>
@@ -203,13 +203,82 @@ xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'u(t)'</spa
 axis([-2 2 -0.1 1.1]);
 </pre>
 <img vspace="5" hspace="5" src="PR03_04.png" alt=""> <p>El argumento vectorial de cuatro elementos del eje especifica el eje x m&iacute;nimo, el eje x m&aacute;ximo, el eje y m&iacute;nimo y el m&aacute;ximo del eje y, respectivamente. Como se puede obserbar en la gr&aacute;fica anterior.</p>
-<p>Los operadores relacionales se pueden combinar usando AND l&oacute;gico, O l&oacute;gico y negaci&oacute;n l&oacute;gica: &amp;, | y ~, respectivamente. Por ejemplo, (t&gt;0)&amp;(t&lt;1) y ~((t&lt;=0)|(t&gt;=1)) prueban si 0&lt;t &lt;1. Para demostrarlo, considere definir y trazar el pulso unitario p(t) = u(t)&minus;u(t &minus;1), como se muestra:</p>
+<p>Los operadores relacionales se pueden combinar usando AND l&oacute;gico, O l&oacute;gico y negaci&oacute;n l&oacute;gica: &amp;, | y ~, respectivamente. Por ejemplo, (t&gt;0)&amp;(t&lt;1) y ~((t&lt;=0)|(t&gt;=1)) prueban si 0&lt;t &lt;1. Para demostrarlo, considere definir y trazar el pulso unitario p(t)=u(t)&minus;u(t&minus;1), como se muestra:</p>
 <pre class="codeinput">p = @(t) 1.0.*((t&gt;=0)&amp;(t&lt;1));
 t = (-1:0.01:2); plot(t,p(t));
 xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'p(t) = u(t)-u(t-1)'</span>);
 axis([-1 2 -.1 1.1]);
 </pre>
 <img vspace="5" hspace="5" src="PR03_05.png" alt=""> <p>Para operandos escalares, MATLAB tambi&eacute;n admite dos construcciones l&oacute;gicas de cortocircuito. El AND l&oacute;gico de cortocircuito se realiza mediante &amp;&amp;, y el OR l&oacute;gico de cortocircuito se realiza usando. Los operadores l&oacute;gicos de cortocircuito suelen ser m&aacute;s eficientes que los operadores l&oacute;gicos tradicionales porque prueban la segunda parte de la expresi&oacute;n s&oacute;lo cuando es necesario. Es decir, cuandouna expresi&oacute;n escalar A se encuentra falsa en (A&amp;&amp;B), la expresi&oacute;n escalar B no se eval&uacute;a, ya que un resultado falso ya est&aacute; garantizado. De manera similar, la expresi&oacute;n escalar B no se eval&uacute;a cuando la expresi&oacute;n escalar A es encontrado verdadero en (A||B), ya que ya se garantiza un resultado verdadero.</p>
+<p>1.11-3 Visualizaci&oacute;n de operaciones en la variable independiente</p>
+<p>Com&uacute;nmente se encuentran dos operaciones sobre la variable independiente de una funci&oacute;n: desplazamiento y escalada. Las funciones an&oacute;nimas son muy adecuadas para investigar ambas operaciones. Considere g(t) = f (t)u(t) = e&minus;t cos (2πt)u(t), una versi&oacute;n causal de f (t). MATLAB f&aacute;cilmente multiplica funciones an&oacute;nimas. Por lo tanto, creamos g(t) multiplicando nuestras funciones an&oacute;nimas para f (t) y u(t).</p>
+<pre class="codeinput">g = @(t) f(t).*u(t);
+</pre>
+<p>Una operaci&oacute;n combinada de desplazamiento y escalamiento est&aacute; representada por g(at + b), donde a y b son constantes reales arbitrarias. Como ejemplo, considere graficar g(2t+1) sobre (&minus;2 &le; t &le; 2). Con a = 2, la funci&oacute;n se comprime por un factor de 2, lo que da como resultado el doble de oscilaciones por unidad t. A&ntilde;adiendo la condici&oacute;n b &gt; 0 desplaza la forma de onda hacia la izquierda. Dada la funci&oacute;n an&oacute;nima g, una gr&aacute;fica precisa es casi trivial de obtener.</p>
+<pre class="codeinput">t = (-2:0.01:2);
+plot(t,g(2*t+1)); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'g(2t+1)'</span>); grid;
+</pre>
+<img vspace="5" hspace="5" src="PR03_06.png" alt=""> <p>Confirma la compresi&oacute;n esperada de la forma de onda y el desplazamiento hacia la izquierda. Como comprobaci&oacute;n final, tenga en cuenta esa funci&oacute;n g(&middot;) se activa cuando el argumento de entrada es cero. Por lo tanto, g(2t +1) deber&iacute;a activarse cuando 2t+1 = 0 o en t=&minus;0.5, un hecho nuevamente confirmado,</p>
+<p>Considere trazar g(&minus;t + 1) sobre (&minus;2 &le; t &le; 2). Como a &lt; 0, la forma de onda ser&aacute; reflejada. Agregar la condici&oacute;n b &gt; 0 desplaza la forma de onda final hacia la derecha.</p>
+<pre class="codeinput">plot(t,g(-t+1)); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'g(-t+1)'</span>); grid;
+</pre>
+<img vspace="5" hspace="5" src="PR03_07.png" alt=""> <p>Hasta este punto, las gr&aacute;ficas anteriores pueden ser graficadas razonablemente a mano. Considere la posibilidad de trazar la funci&oacute;n m&aacute;s complicada h(t) = g(2t + 1) + g(&minus;t + 1) sobre (&minus;2 &le; t &le; 2) un boceto a mano preciso ser&iacute;a bastante dif&iacute;cil. Con MATLAB, el trabajo es mucho menos pesado.</p>
+<pre class="codeinput">plot(t,g(2*t+1)+g(-t+1)); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'h(t)'</span>); grid;
+</pre>
+<img vspace="5" hspace="5" src="PR03_08.png" alt=""> <p>1.11-4 Integraci&oacute;n num&eacute;rica y estimaci&oacute;n de la energ&iacute;a de la se&ntilde;al</p>
+<p>Las se&ntilde;ales interesantes suelen tener representaciones matem&aacute;ticas no triviales. Computar la energ&iacute;a de la se&ntilde;al, que implica integrar el cuadrado de estas expresiones, puede ser una tarea desalentadora. Afortunadamente, muchas integrales dif&iacute;ciles se pueden estimar con precisi&oacute;n mediante t&eacute;cnicas de integraci&oacute;n num&eacute;rica.</p>
+<p>Incluso si la integraci&oacute;n parece simple, la integraci&oacute;n num&eacute;rica proporciona una buena manera de verificar resultados anal&iacute;ticos.</p>
+<p>Para empezar, considere la se&ntilde;al simple <img src="PR03_eq12615705837752770589.png" alt="$x(t) = e^{-t} (u(t)-u(t-1))$">. La energ&iacute;a de x(t) se expresa como <img src="PR03_eq02923008350305632635.png" alt="$Ex = \int_{-\infty}^{\infty} |x(t)|^2 dt = \int_{0}^{1} e^{-2t}dt$">. Integrando rendimientos <img src="PR03_eq05025388734129832857.png" alt="$Ex = 0.5(1-e^{-2}) = 0.4323$">. La energ&iacute;a integral tambi&eacute;n se puede evaluar num&eacute;ricamente. Evaluar el integrando en puntos uniformemente separados por t, multiplicar cada uno por t para calcular las &aacute;reas del rect&aacute;ngulo y luego sumar todos los rect&aacute;ngulos. Primero, creamos la funci&oacute;n x(t).</p>
+<pre class="codeinput">x = @(t) exp(-t).*((t&gt;=0)&amp;(t&lt;1));
+</pre>
+<p>Con t = 0,01 se crea un vector de tiempo adecuado.</p>
+<pre class="codeinput">t=(0:0.01:1);
+</pre>
+<p>El resultado final es computado usango el comando sum:</p>
+<pre class="codeinput">E_x = sum(x(t).*x(t)*0.01)
+</pre>
+<pre class="codeoutput">
+E_x =
+
+    0.4367
+
+</pre>
+<p>El resultado no es perfecto, pero con un error relativo del 1% est&aacute; cerca. Reduciendo t, la aproximaci&oacute;n mejora. Por ejemplo, t = 0,001 produce E_x = 0,4328, o un error relativo del 0,1%.</p>
+<p>Aunque es f&aacute;cil de visualizar, la aproximaci&oacute;n rectangular no es la mejor t&eacute;cnica de integraci&oacute;n num&eacute;rica. La funci&oacute;n quad de MATLAB implementa una mejor t&eacute;cnica de integraci&oacute;n num&eacute;rica llamada cuadratura de Simpson adaptativa recursiva. Para operar, quad requiere una funci&oacute;n que describa el integrando, el l&iacute;mite inferior de integraci&oacute;n y el l&iacute;mite superior de integraci&oacute;n. Observe que no es necesario especificar.</p>
+<p>Para utilizar quad para estimar Ex, primero se debe describir el integrando.</p>
+<pre class="codeinput">x_squared = @(t) x(t).*x(t);
+</pre>
+<p>Estimando Ex, le sigue:</p>
+<pre class="codeinput">E_x = quad(x_squared,0,1)
+</pre>
+<pre class="codeoutput">
+E_x =
+
+    0.4323
+
+</pre>
+<p>En este caso el error relativo es de -0.0026%. Se pueden utilizar las mismas t&eacute;cnicas para estimar la energ&iacute;a de se&ntilde;ales m&aacute;s complejas. Considerar g(t), definido previamente. La energ&iacute;a est&aacute; expresada como <img src="PR03_eq03864113705538071334.png" alt="$Eg = \int_{0}^{\infty} e^{-2t}cos^2(2 \pi t) dt$">. Una soluci&oacute;n de forma cerrada existe, pero requiere algo de esfuerzo. MATLAB proporciona una respuesta m&aacute;s r&aacute;pidamente.</p>
+<pre class="codeinput">g_squared = @(t) g(t).*g(t);
+</pre>
+<p>Aunque el l&iacute;mite superior de integraci&oacute;n es infinito, la envolvente que decae exponencialmente asegura g(t) es efectivamente cero mucho antes de t = 100. Por lo tanto, se utiliza un l&iacute;mite superior de t = 100 junto con t = 0,001.</p>
+<pre class="codeinput">t = (0:0.001:100);
+E_g = sum(g_squared(t)*0.001)
+</pre>
+<pre class="codeoutput">
+E_g =
+
+    0.2567
+
+</pre>
+<p>Se obtiene una aproximaci&oacute;n ligeramente mejor con la funci&oacute;n quad.</p>
+<pre class="codeinput">E_g = quad(g_squared,0,100)
+</pre>
+<pre class="codeoutput">
+E_g =
+
+    0.2562
+
+</pre>
 <p class="footer">
 <br>
 <a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023b</a>
@@ -237,7 +306,7 @@ axis([-1 2 -.1 1.1]);
 % Se realizó la investigación del uso de Python para la realización de
 % gráficas, a continuación se muestran las gráficas correspondientes al problema 4 mediante Python.
 % 
-% <<C:\Users\porti\OneDrive\Escritorio\Señales y Sistemas\PR03\html\intro.png>>
+% <<intro.png>>
 %
 % Se puede consultar el código realizado con Python en el siguiente <https://colab.research.google.com/drive/1XnKYDQmnbECtDmMwu0-lw2WxHoELL3KE?usp=sharing enlace>. 
 %
@@ -378,8 +447,7 @@ axis([-2 2 -0.1 1.1]);
 %
 % Los operadores relacionales se pueden combinar usando AND lógico, O lógico y negación lógica: &, | y ~, respectivamente. 
 % Por ejemplo, (t>0)&(t<1) y ~((t<=0)|(t>=1)) prueban si 0<t <1.
-% Para demostrarlo, considere definir y trazar el pulso unitario p(t) =
-% u(t)−u(t −1), como se muestra:
+% Para demostrarlo, considere definir y trazar el pulso unitario p(t)=u(t)−u(t−1), como se muestra:
 p = @(t) 1.0.*((t>=0)&(t<1));
 t = (-1:0.01:2); plot(t,p(t));
 xlabel('t'); ylabel('p(t) = u(t)-u(t-1)');
@@ -391,6 +459,101 @@ axis([-1 2 -.1 1.1]);
 % Los operadores lógicos de cortocircuito suelen ser más eficientes que los operadores lógicos tradicionales porque prueban la segunda parte de la expresión sólo cuando es necesario. 
 % Es decir, cuandouna expresión escalar A se encuentra falsa en (A&&B), la expresión escalar B no se evalúa, ya que un resultado falso ya está garantizado. 
 % De manera similar, la expresión escalar B no se evalúa cuando la expresión escalar A es encontrado verdadero en (A||B), ya que ya se garantiza un resultado verdadero.
+%
+% 1.11-3 Visualización de operaciones en la variable independiente
+%
+% Comúnmente se encuentran dos operaciones sobre la variable independiente de una función: desplazamiento y escalada. 
+% Las funciones anónimas son muy adecuadas para investigar ambas operaciones.
+% Considere g(t) = f (t)u(t) = e−t cos (2πt)u(t), una versión causal de f (t). 
+% MATLAB fácilmente multiplica funciones anónimas. 
+% Por lo tanto, creamos g(t) multiplicando nuestras funciones anónimas para f (t) y u(t).
+g = @(t) f(t).*u(t);
+
+%%
+% Una operación combinada de desplazamiento y escalamiento está representada por g(at + b), donde a y b son constantes reales arbitrarias. 
+% Como ejemplo, considere graficar g(2t+1) sobre (−2 ≤ t ≤ 2). Con a = 2, la función se comprime por un factor de 2, lo que da como resultado el doble de oscilaciones por unidad t. 
+% Añadiendo la condición b > 0 desplaza la forma de onda hacia la izquierda. 
+% Dada la función anónima g, una gráfica precisa es casi trivial de obtener.
+t = (-2:0.01:2);
+plot(t,g(2*t+1)); xlabel('t'); ylabel('g(2t+1)'); grid;
+
+%%
+% Confirma la compresión esperada de la forma de onda y el desplazamiento hacia la izquierda. 
+% Como comprobación final, tenga en cuenta esa función g(·) se activa cuando el argumento de entrada es cero. 
+% Por lo tanto, g(2t +1) debería activarse cuando 2t+1 = 0 o en t=−0.5, un
+% hecho nuevamente confirmado,
+%
+% Considere trazar g(−t + 1) sobre (−2 ≤ t ≤ 2). 
+% Como a < 0, la forma de onda será reflejada. Agregar la condición b > 0 desplaza la forma de onda final hacia la derecha.
+plot(t,g(-t+1)); xlabel('t'); ylabel('g(-t+1)'); grid;
+
+%%
+% Hasta este punto, las gráficas anteriores pueden ser graficadas
+% razonablemente a mano.
+% Considere la posibilidad de trazar la función más complicada h(t) = g(2t + 1) + g(−t + 1) sobre (−2 ≤ t ≤ 2) un boceto a mano preciso sería bastante difícil. 
+% Con MATLAB, el trabajo es mucho menos pesado.
+plot(t,g(2*t+1)+g(-t+1)); xlabel('t'); ylabel('h(t)'); grid;
+
+%%
+% 1.11-4 Integración numérica y estimación de la energía de la señal
+%
+% Las señales interesantes suelen tener representaciones matemáticas no triviales.
+% Computar la energía de la señal, que implica integrar el cuadrado de estas expresiones, puede ser una tarea desalentadora. 
+% Afortunadamente, muchas integrales difíciles se pueden estimar con precisión mediante técnicas de integración numérica.
+%
+% Incluso si la integración parece simple, la integración numérica proporciona una buena manera de verificar resultados analíticos.
+%
+% Para empezar, considere la señal simple $$x(t) = e^{-t} (u(t)-u(t-1))$$.
+% La energía de x(t) se expresa como $$Ex = \int_{-\infty}^{\infty} |x(t)|^2 dt = \int_{0}^{1} e^{-2t}dt$$.
+% Integrando rendimientos $$Ex = 0.5(1-e^{-2}) = 0.4323$$.
+% La energía integral también se puede evaluar numéricamente.
+% Evaluar el integrando en puntos uniformemente separados por t, multiplicar cada uno por t para calcular las áreas del rectángulo y luego sumar todos los rectángulos. 
+% Primero, creamos la función x(t).
+x = @(t) exp(-t).*((t>=0)&(t<1));
+
+%%
+% Con t = 0,01 se crea un vector de tiempo adecuado.
+t=(0:0.01:1);
+
+%%
+% El resultado final es computado usango el comando sum:
+E_x = sum(x(t).*x(t)*0.01)
+
+%%
+% El resultado no es perfecto, pero con un error relativo del 1% está cerca. 
+% Reduciendo t, la aproximación mejora. 
+% Por ejemplo, t = 0,001 produce E_x = 0,4328, o un error relativo del 0,1%.
+%
+% Aunque es fácil de visualizar, la aproximación rectangular no es la mejor técnica de integración numérica. 
+% La función quad de MATLAB implementa una mejor técnica de integración numérica llamada cuadratura de Simpson adaptativa recursiva.
+% Para operar, quad requiere una función que describa el integrando, el límite inferior de integración y el límite superior de integración. 
+% Observe que no es necesario especificar.
+%
+% Para utilizar quad para estimar Ex, primero se debe describir el integrando.
+x_squared = @(t) x(t).*x(t);
+
+%%
+% Estimando Ex, le sigue:
+E_x = quad(x_squared,0,1)
+
+%%
+% En este caso el error relativo es de -0.0026%.
+% Se pueden utilizar las mismas técnicas para estimar la energía de señales
+% más complejas. Considerar g(t), definido previamente.
+% La energía está expresada como $$Eg = \int_{0}^{\infty} e^{-2t}cos^2(2 \pi t) dt$$.
+% Una solución de forma cerrada existe, pero requiere algo de esfuerzo. 
+% MATLAB proporciona una respuesta más rápidamente.
+g_squared = @(t) g(t).*g(t);
+
+%%
+% Aunque el límite superior de integración es infinito, la envolvente que decae exponencialmente asegura g(t) es efectivamente cero mucho antes de t = 100. 
+% Por lo tanto, se utiliza un límite superior de t = 100 junto con t = 0,001.
+t = (0:0.001:100);
+E_g = sum(g_squared(t)*0.001)
+
+%%
+% Se obtiene una aproximación ligeramente mejor con la función quad.
+E_g = quad(g_squared,0,100)
 ##### SOURCE END #####
 -->
 </body>
