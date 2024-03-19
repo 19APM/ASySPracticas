@@ -97,6 +97,21 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <li>
 <a href="#5">Problema 1</a>
 </li>
+<li>
+<a href="#30">Problema 2</a>
+</li>
+<li>
+<a href="#32">Problema 3</a>
+</li>
+<li>
+<a href="#34">Problema 4</a>
+</li>
+<li>
+<a href="#35">Problema 5</a>
+</li>
+<li>
+<a href="#41">Problema 6</a>
+</li>
 </ul>
 </div>
 <h2 id="1">Integrantes</h2>
@@ -278,6 +293,224 @@ E_g =
 
     0.2562
 
+</pre>
+<p>EJERCICIO 1.21 C&aacute;lculo de la energ&iacute;a de la se&ntilde;al con MATLAB</p>
+<p>Utilice MATLAB para confirmar que la energ&iacute;a de la se&ntilde;al h(t), definida previamente como h(t) = g(2t+1)+g(&minus;t+1), es Eh = 0.3768.</p>
+<pre class="codeinput">h = @(t) g(2*t+1)+g(-t+1);
+h_squared = @(t) h(t).*h(t);
+E_h = quad(h_squared,-100,100)
+</pre>
+<pre class="codeoutput">
+E_h =
+
+    0.3768
+
+</pre>
+<h2 id="30">Problema 2</h2>
+<p>Resolver el problema 1.2-2 usando las herramientas del problema anterior.</p>
+<p>1.2-2 Para la se&ntilde;al <img src="PR03_eq12659395712222829305.png" alt="$x(t)$"> mostrada a continuaci&oacute;n, graficar:</p>
+<p>
+<b>(a)</b> <img src="PR03_eq01500215214527907328.png" alt="$x(t-4)$"></p>
+<p>
+<b>(b)</b> <img src="PR03_eq04159074189963937569.png" alt="$x(t/1.5)$"></p>
+<p>
+<b>(c)</b> <img src="PR03_eq03478510484075753106.png" alt="$x(-t)$"></p>
+<p>
+<b>(d)</b> <img src="PR03_eq06043308101618656396.png" alt="$x(2t-4)$"></p>
+<p>
+<b>(e)</b> <img src="PR03_eq00276141918373872221.png" alt="$x(2-t)$"></p>
+<p>
+<img vspace="5" hspace="5" src="P1.2-2.png" alt=""> </p>
+<p>Tenemos que la funci&oacute;n x(t) = -t.*(u(t+4)-u(t)) + t.*(u(t)-u(t-2))</p>
+<pre class="codeinput">t = (-10:0.01:10);
+x = @(t) -t.*(u(t+4)-u(t)) + t.*(u(t)-u(t-2));
+plot(t,x(t)); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'x(t)'</span>); grid;
+</pre>
+<img vspace="5" hspace="5" src="PR03_09.png" alt=""> <p>Vamos a graficar las 5 gr&aacute;ficas solicitadas en un subploat de 3x2 con su identificador correspondiente a cada gr&aacute;fica:</p>
+<pre class="codeinput">figure()
+subplot(3,2,1)
+plot(t,x(t-4),<span class="string">'LineWidth'</span>,2); title(<span class="string">'(a)'</span>); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'x(t-4)'</span>); grid; axis([-5 7,0,5])
+subplot(3,2,2)
+plot(t,x(t/1.5),<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2); title(<span class="string">'(b)'</span>); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'x(t/1.5)'</span>); grid; axis([-7 5,0,5])
+subplot(3,2,3)
+plot(t,x(-t),<span class="string">'k'</span>,<span class="string">'LineWidth'</span>,2); title(<span class="string">'(c)'</span>); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'x(-t)'</span>); grid; axis([-6 6,0,5])
+subplot(3,2,4)
+plot(t,x(t.*2-4),<span class="string">'m'</span>,<span class="string">'LineWidth'</span>,2); title(<span class="string">'(d)'</span>); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'x(2t-4)'</span>); grid; axis([-6 6,0,5])
+subplot(3,2,5)
+plot(t,x(2-t),<span class="string">'c'</span>,<span class="string">'LineWidth'</span>,2); title(<span class="string">'(e)'</span>); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'x(2-t)'</span>); grid; axis([-5 7,0,5])
+</pre>
+<img vspace="5" hspace="5" src="PR03_10.png" alt=""> <h2 id="32">Problema 3</h2>
+<p>Resolver el problema 1.11-1, los ejes deben mostrarse en el origen adem&aacute;s de la edici&oacute;n de tu preferencia.</p>
+<p>1.11-1 Proporcionar el c&oacute;digo de MATLAB y los resultados que tracen la porci&oacute;n impar Xo(t) de la funci&oacute;n <img src="PR03_eq14714011988538647792.png" alt="$x(t) = 2^{-t} cos(2 \pi t) u(t - \pi)$"> en un intervalo de longitud adecuada utilizando un n&uacute;mero adecuado de puntos.</p>
+<p>Tenmos que <img src="PR03_eq14714011988538647792.png" alt="$x(t) = 2^{-t} cos(2 \pi t) u(t - \pi)$"></p>
+<pre class="codeinput">figure()
+x = @(t) (2.^(-t)).*cos(2.*pi.*t).*u(t-pi);
+t = (-10:0.01:10);
+plot(t,x(t),<span class="string">'LineWidth'</span>,1); title(<span class="string">'Problema 1.11-1'</span>); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'x(t)'</span>); grid; axis([2 10,-0.09,0.09])
+ax = gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+ax.Box = <span class="string">'off'</span>;
+</pre>
+<img vspace="5" hspace="5" src="PR03_11.png" alt=""> <p>Ahora se graficar&aacute; la parte impar de la se&ntilde;al</p>
+<pre class="codeinput">figure()
+Xo = @(t) (x(t) - x(-t))/2;
+plot(t,Xo(t),<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,1); title(<span class="string">'Problema 1.11-1 parte impar'</span>); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'Xo(t)'</span>); grid; axis([-10 10,-0.05,0.05])
+ax = gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+ax.Box = <span class="string">'off'</span>;
+</pre>
+<img vspace="5" hspace="5" src="PR03_12.png" alt=""> <h2 id="34">Problema 4</h2>
+<p>Construye la gr&aacute;fica de: <img src="PR03_eq01254418086591493464.png" alt="$x(t) = \sum_{k=1}^{10} cos(2\pi k t)$"> para cuatro rangos (figura 2x2). Los ejes deben mostrarse en el origen ademas de la edici&oacute;n de su preferencia.</p>
+<pre class="codeinput">x = @(t) cos(2.*pi.*1.*t) + cos(2.*pi.*2.*t) + cos(2.*pi.*3.*t) + cos(2.*pi.*4.*t) + cos(2.*pi.*5.*t) + cos(2.*pi.*6.*t) + cos(2.*pi.*7.*t) + cos(2.*pi.*8.*t) + cos(2.*pi.*9.*t) + cos(2.*pi.*10.*t);
+figure()
+subplot(2,2,1)
+plot(t,x(t),<span class="string">'LineWidth'</span>,0.3); title(<span class="string">'Funci&oacute;n x(t) de -3 a 3'</span>); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'x(t)'</span>); grid; axis([-3 3,-3,10])
+ax = gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+ax.Box = <span class="string">'off'</span>;
+
+subplot(2,2,2)
+plot(t,x(t),<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,0.3); title(<span class="string">'Funci&oacute;n x(t) de 0 a 1'</span>); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'x(t)'</span>); grid; axis([0 1,-3,10])
+ax = gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+ax.Box = <span class="string">'off'</span>;
+
+subplot(2,2,3)
+plot(t,x(t),<span class="string">'g'</span>,<span class="string">'LineWidth'</span>,0.3); title(<span class="string">'Funci&oacute;n x(t) de 2 a 5'</span>); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'x(t)'</span>); grid; axis([2 5,-3,10])
+ax = gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+ax.Box = <span class="string">'off'</span>;
+
+subplot(2,2,4)
+plot(t,x(t),<span class="string">'k'</span>,<span class="string">'LineWidth'</span>,0.3); title(<span class="string">'Funci&oacute;n x(t) de -1 a 1'</span>); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'x(t)'</span>); grid; axis([-1 1,-3,10])
+ax = gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+ax.Box = <span class="string">'off'</span>;
+</pre>
+<img vspace="5" hspace="5" src="PR03_13.png" alt=""> <h2 id="35">Problema 5</h2>
+<p>Resolver el problema 1.11-3, agregar como inciso (e) la gr&aacute;fica de <img src="PR03_eq12659395712222829305.png" alt="$x(t)$"> para <img src="PR03_eq16434444273656135249.png" alt="$t\in[-10,10]$">.</p>
+<p>1.11-3 Define <img src="PR03_eq17392014776415934218.png" alt="$x(t) = e^{t(1+j2\pi)}u(-t)$"> y <img src="PR03_eq11108666508949447005.png" alt="$y(t) = Re\{2x(\frac{-5-t} 2 \}$"></p>
+<p>
+<b>(a)</b> Utilice MATLAB para graficar <img src="PR03_eq12322047428404766036.png" alt="$Re \{ x(t) \}$"> con respecto <img src="PR03_eq16187411168842112666.png" alt="$Im \{ x(at) \}$"> para <img src="PR03_eq16256654715526823454.png" alt="$a = 0.5, 1, 2$"> y <img src="PR03_eq14634900462739659407.png" alt="$-10 <= t <=10$"> &iquest;Qu&eacute; importante es el factor escalar <img src="PR03_eq04574278970515790912.png" alt="$a$"> en la forma de la figura resultante?</p>
+<p>
+<b>(b)</b> Utilice MATLAB para graficar <img src="PR03_eq17784377804790973832.png" alt="$y(t)$"> sobre <img src="PR03_eq14634900462739659407.png" alt="$-10 <= t <=10$"> Determine anal&iacute;ticamente el tiempo <img src="PR03_eq06345596366822266005.png" alt="$t_0$"> donde y(t) tiene una discontinuidad de salto. Verifique su c&aacute;lculo de <img src="PR03_eq06345596366822266005.png" alt="$t_0$"> utilizando la gr&aacute;fica de y(t).</p>
+<p>
+<b>(c)</b> Utilice MATLAB y la integraci&oacute;n num&eacute;rica para calcular la energ&iacute;a <img src="PR03_eq05569007377996954769.png" alt="$E_x$"> de la se&ntilde;al <img src="PR03_eq12659395712222829305.png" alt="$x(t)$">.</p>
+<p>
+<b>(d)</b> Utilice MATLAB y la integraci&oacute;n num&eacute;rica para calcular la energ&iacute;a <img src="PR03_eq00014393055024678951.png" alt="$E_y$"> de la se&ntilde;al <img src="PR03_eq17784377804790973832.png" alt="$y(t)$">.</p>
+<p>
+<b>(e)</b> Graficar <img src="PR03_eq12659395712222829305.png" alt="$x(t)$"> para <img src="PR03_eq16434444273656135249.png" alt="$t\in[-10,10]$">.</p>
+<p>
+<b>(a)</b>
+</p>
+<pre class="codeinput">t=(-10:0.01:10);
+a = [0.5, 1, 2];
+x = @(t) exp(t.*(1+(2*pi*1j))).*u(-t);
+y = @(t) real(2*x((-5-t)/2));
+xr = real(x(t));
+xi = imag (x(a(1)*t));
+
+figure()
+plot(xi,xr,<span class="string">'LineWidth'</span>,0.3); title(<span class="string">'Inciso (a) con a = 0.5'</span>); xlabel(<span class="string">'Im\{x(at)\}'</span>); ylabel(<span class="string">'Re\{x(t)\}'</span>); grid; axis([-1 1,-1.1,1.1])
+ax = gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+ax.Box = <span class="string">'off'</span>;
+
+figure()
+xi = imag (x(a(2)*t));
+plot(xi,xr,<span class="string">'LineWidth'</span>,0.3); title(<span class="string">'Inciso (a) con a = 1'</span>); xlabel(<span class="string">'Im\{x(at)\}'</span>); ylabel(<span class="string">'Re\{x(t)\}'</span>); grid; axis([-1 1,-1.1,1.1])
+ax = gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+ax.Box = <span class="string">'off'</span>;
+
+figure()
+xi = imag (x(a(3)*t));
+plot(xi,xr,<span class="string">'LineWidth'</span>,0.3); title(<span class="string">'Inciso (a) con a = 2'</span>); xlabel(<span class="string">'Im\{x(at)\}'</span>); ylabel(<span class="string">'Re\{x(t)\}'</span>); grid; axis([-1 1,-1.1,1.1])
+ax = gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+ax.Box = <span class="string">'off'</span>;
+</pre>
+<img vspace="5" hspace="5" src="PR03_14.png" alt=""> <img vspace="5" hspace="5" src="PR03_15.png" alt=""> <img vspace="5" hspace="5" src="PR03_16.png" alt=""> <p>
+<b>(b)</b>
+</p>
+<pre class="codeinput">figure()
+t = (-10:0.01:10);
+plot(t,y(t),<span class="string">'LineWidth'</span>,0.3); title(<span class="string">'Inciso (b)'</span>); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'y(t)'</span>); grid; axis([-10 10,-2.5,2.5])
+ax = gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+ax.Box = <span class="string">'off'</span>;
+</pre>
+<img vspace="5" hspace="5" src="PR03_17.png" alt=""> <p>Comprobando analinitcamente la discontinuidad <img src="PR03_eq06345596366822266005.png" alt="$t_0$"> si <img src="PR03_eq11108666508949447005.png" alt="$y(t) = Re\{2x(\frac{-5-t} 2 \}$"></p>
+<pre class="codeinput">dis = find(diff(y(t)));
+t0 = t(dis(1))
+</pre>
+<pre class="codeoutput">
+t0 =
+
+   -5.0100
+
+</pre>
+<p>
+<b>(c)</b>
+</p>
+<pre class="codeinput">fun = @(t) abs(x(t)).^2;
+Ex = integral(fun,-Inf,Inf)
+</pre>
+<pre class="codeoutput">
+Ex =
+
+    0.5000
+
+</pre>
+<p>
+<b>(d)</b>
+</p>
+<pre class="codeinput">fun2 = @(t) abs(y(t)).^2;
+Ey = integral(fun2,-Inf,Inf)
+</pre>
+<pre class="codeoutput">
+Ey =
+
+    2.0494
+
+</pre>
+<p>
+<b>(e)</b>
+</p>
+<pre class="codeinput">figure()
+t = (-10:0.01:10);
+plot(t,x(t),<span class="string">'LineWidth'</span>,0.3); title(<span class="string">'Inciso (e)'</span>); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'x(t)'</span>); grid; axis([-10 10,-1.1,1.1])
+ax = gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+ax.Box = <span class="string">'off'</span>;
+</pre>
+<pre class="codeoutput">Warning: Imaginary parts of complex X and/or Y arguments ignored. 
+</pre>
+<img vspace="5" hspace="5" src="PR03_18.png" alt=""> <h2 id="41">Problema 6</h2>
+<p>Construir una app que permita:</p>
+<div>
+<ul>
+<li>Gr&aacute;ficar se&ntilde;ales en tiempo continuo reales, el usuario ingresa la definici&oacute;n de la se&ntilde;al en el formato especifico.</li>
+<li>El usuario puede definir el intervalo de la gr&aacute;fica.</li>
+<li>El usuario puede seleccionar el tipo de transformaci&oacute;n (horizontal, vertical o combinaci&oacute;n) que desee realizar a la se&ntilde;al, la app deber&aacute; mostrar la gr&aacute;fica de esta transformaci&oacute;n.</li>
+<li>Se adjunta una imagen de la app a la pr&aacute;ctica, y el archivo de la app.</li>
+</ul>
+</div>
+<p>
+<img vspace="5" hspace="5" src="app.png" alt=""> </p>
+<pre class="codeinput">
+<span class="comment">%</span>
 </pre>
 <p class="footer">
 <br>
@@ -554,6 +787,221 @@ E_g = sum(g_squared(t)*0.001)
 %%
 % Se obtiene una aproximación ligeramente mejor con la función quad.
 E_g = quad(g_squared,0,100)
+
+%%
+% EJERCICIO 1.21 Cálculo de la energía de la señal con MATLAB
+%
+% Utilice MATLAB para confirmar que la energía de la señal h(t), definida previamente como h(t) = g(2t+1)+g(−t+1), es Eh = 0.3768.
+h = @(t) g(2*t+1)+g(-t+1);
+h_squared = @(t) h(t).*h(t);
+E_h = quad(h_squared,-100,100)
+
+%% Problema 2
+%
+% Resolver el problema 1.2-2 usando las herramientas del problema anterior.
+%
+% 1.2-2 Para la señal $$x(t)$$ mostrada a continuación, graficar:
+%
+% *(a)* $$x(t-4)$$
+%
+% *(b)* $$x(t/1.5)$$
+%
+% *(c)* $$x(-t)$$
+%
+% *(d)* $$x(2t-4)$$
+%
+% *(e)* $$x(2-t)$$
+%
+% <<P1.2-2.png>>
+% 
+% Tenemos que la función x(t) = -t.*(u(t+4)-u(t)) + t.*(u(t)-u(t-2))
+t = (-10:0.01:10);
+x = @(t) -t.*(u(t+4)-u(t)) + t.*(u(t)-u(t-2));
+plot(t,x(t)); xlabel('t'); ylabel('x(t)'); grid;
+
+%%
+% Vamos a graficar las 5 gráficas solicitadas en un subploat de 3x2 con su
+% identificador correspondiente a cada gráfica:
+figure()
+subplot(3,2,1)
+plot(t,x(t-4),'LineWidth',2); title('(a)'); xlabel('t'); ylabel('x(t-4)'); grid; axis([-5 7,0,5])
+subplot(3,2,2)
+plot(t,x(t/1.5),'r','LineWidth',2); title('(b)'); xlabel('t'); ylabel('x(t/1.5)'); grid; axis([-7 5,0,5])
+subplot(3,2,3)
+plot(t,x(-t),'k','LineWidth',2); title('(c)'); xlabel('t'); ylabel('x(-t)'); grid; axis([-6 6,0,5])
+subplot(3,2,4)
+plot(t,x(t.*2-4),'m','LineWidth',2); title('(d)'); xlabel('t'); ylabel('x(2t-4)'); grid; axis([-6 6,0,5])
+subplot(3,2,5)
+plot(t,x(2-t),'c','LineWidth',2); title('(e)'); xlabel('t'); ylabel('x(2-t)'); grid; axis([-5 7,0,5])
+
+%% Problema 3
+%
+% Resolver el problema 1.11-1, los ejes deben mostrarse en el origen además de la edición de tu preferencia.
+%
+% 1.11-1 Proporcionar el código  de MATLAB y  los resultados que tracen la porción impar Xo(t) de la función $$x(t) = 2^{-t} cos(2 \pi t) u(t - \pi)$$ en un intervalo de longitud adecuada utilizando un número adecuado de puntos.
+%
+% Tenmos que $$x(t) = 2^{-t} cos(2 \pi t) u(t - \pi)$$
+figure()
+x = @(t) (2.^(-t)).*cos(2.*pi.*t).*u(t-pi);
+t = (-10:0.01:10);
+plot(t,x(t),'LineWidth',1); title('Problema 1.11-1'); xlabel('t'); ylabel('x(t)'); grid; axis([2 10,-0.09,0.09])
+ax = gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+ax.Box = 'off';
+
+%%
+% Ahora se graficará la parte impar de la señal
+figure()
+Xo = @(t) (x(t) - x(-t))/2;
+plot(t,Xo(t),'r','LineWidth',1); title('Problema 1.11-1 parte impar'); xlabel('t'); ylabel('Xo(t)'); grid; axis([-10 10,-0.05,0.05])
+ax = gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+ax.Box = 'off';
+
+%% Problema 4
+%
+% Construye la gráfica de: $$x(t) = \sum_{k=1}^{10} cos(2\pi k t)$$  para cuatro rangos (figura 2x2).
+% Los ejes deben mostrarse en el origen ademas de la edición de su preferencia.
+x = @(t) cos(2.*pi.*1.*t) + cos(2.*pi.*2.*t) + cos(2.*pi.*3.*t) + cos(2.*pi.*4.*t) + cos(2.*pi.*5.*t) + cos(2.*pi.*6.*t) + cos(2.*pi.*7.*t) + cos(2.*pi.*8.*t) + cos(2.*pi.*9.*t) + cos(2.*pi.*10.*t);
+figure()
+subplot(2,2,1)
+plot(t,x(t),'LineWidth',0.3); title('Función x(t) de -3 a 3'); xlabel('t'); ylabel('x(t)'); grid; axis([-3 3,-3,10])
+ax = gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+ax.Box = 'off';
+
+subplot(2,2,2)
+plot(t,x(t),'r','LineWidth',0.3); title('Función x(t) de 0 a 1'); xlabel('t'); ylabel('x(t)'); grid; axis([0 1,-3,10])
+ax = gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+ax.Box = 'off';
+
+subplot(2,2,3)
+plot(t,x(t),'g','LineWidth',0.3); title('Función x(t) de 2 a 5'); xlabel('t'); ylabel('x(t)'); grid; axis([2 5,-3,10])
+ax = gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+ax.Box = 'off';
+
+subplot(2,2,4)
+plot(t,x(t),'k','LineWidth',0.3); title('Función x(t) de -1 a 1'); xlabel('t'); ylabel('x(t)'); grid; axis([-1 1,-3,10])
+ax = gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+ax.Box = 'off';
+
+%% Problema 5
+%
+% Resolver el problema 1.11-3, agregar como inciso (e) la gráfica de
+% $x(t)$ para $t\in[-10,10]$.
+%
+% 1.11-3 Define $$x(t) = e^{t(1+j2\pi)}u(-t)$$ y $$y(t) = Re\{2x(\frac{-5-t} 2 \}$$
+%
+% *(a)* Utilice MATLAB para graficar $$Re \{ x(t) \}$$ con respecto $$Im \{ x(at) \}$$ para $$a = 0.5, 1, 2$$ y $$-10 <= t <=10$$ ¿Qué importante es el factor escalar $$a$$ en la forma de la figura resultante? 
+%
+% *(b)* Utilice MATLAB para graficar $$y(t)$$ sobre $$-10 <= t <=10$$ Determine analíticamente el tiempo $$t_0$$ donde y(t) tiene una discontinuidad de salto. 
+% Verifique su cálculo de $$t_0$$ utilizando la gráfica de y(t).
+%
+% *(c)* Utilice MATLAB y la integración numérica para calcular la energía $$E_x$$ de la señal $$x(t)$$.
+%
+% *(d)* Utilice MATLAB y la integración numérica para calcular la energía $$E_y$$ de la señal $$y(t)$$.
+%
+% *(e)* Graficar $x(t)$ para $t\in[-10,10]$.
+%
+%
+% *(a)*
+
+
+t=(-10:0.01:10);
+a = [0.5, 1, 2];
+x = @(t) exp(t.*(1+(2*pi*1j))).*u(-t);
+y = @(t) real(2*x((-5-t)/2));
+xr = real(x(t));
+xi = imag (x(a(1)*t));
+
+figure()
+plot(xi,xr,'LineWidth',0.3); title('Inciso (a) con a = 0.5'); xlabel('Im\{x(at)\}'); ylabel('Re\{x(t)\}'); grid; axis([-1 1,-1.1,1.1])
+ax = gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+ax.Box = 'off';
+
+figure()
+xi = imag (x(a(2)*t));
+plot(xi,xr,'LineWidth',0.3); title('Inciso (a) con a = 1'); xlabel('Im\{x(at)\}'); ylabel('Re\{x(t)\}'); grid; axis([-1 1,-1.1,1.1])
+ax = gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+ax.Box = 'off';
+
+figure()
+xi = imag (x(a(3)*t));
+plot(xi,xr,'LineWidth',0.3); title('Inciso (a) con a = 2'); xlabel('Im\{x(at)\}'); ylabel('Re\{x(t)\}'); grid; axis([-1 1,-1.1,1.1])
+ax = gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+ax.Box = 'off';
+
+%%
+%
+% *(b)*
+figure()
+t = (-10:0.01:10);
+plot(t,y(t),'LineWidth',0.3); title('Inciso (b)'); xlabel('t'); ylabel('y(t)'); grid; axis([-10 10,-2.5,2.5])
+ax = gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+ax.Box = 'off';
+
+%%
+% Comprobando analinitcamente la discontinuidad $$t_0$$ si $$y(t) = Re\{2x(\frac{-5-t} 2 \}$$
+dis = find(diff(y(t)));
+t0 = t(dis(1))
+
+%%
+%
+% *(c)*
+fun = @(t) abs(x(t)).^2;
+Ex = integral(fun,-Inf,Inf)
+
+%%
+%
+% *(d)*
+fun2 = @(t) abs(y(t)).^2;
+Ey = integral(fun2,-Inf,Inf)
+
+%%
+%
+% *(e)*
+figure()
+t = (-10:0.01:10);
+plot(t,x(t),'LineWidth',0.3); title('Inciso (e)'); xlabel('t'); ylabel('x(t)'); grid; axis([-10 10,-1.1,1.1])
+ax = gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+ax.Box = 'off';
+
+%% Problema 6
+%
+% Construir una app que permita:
+%
+% * Gráficar señales en tiempo continuo reales, el usuario ingresa la
+% definición de la señal en el formato especifico.
+% * El usuario puede definir el intervalo de la gráfica.
+% * El usuario puede seleccionar el tipo de transformación (horizontal,
+% vertical o combinación) que desee realizar a la señal, la app deberá
+% mostrar la gráfica de esta transformación.
+% * Se adjunta una imagen de la app a la práctica, y el archivo de la app.
+% 
+% <<app.png>>
+% 
+
+%
+
 ##### SOURCE END #####
 -->
 </body>
