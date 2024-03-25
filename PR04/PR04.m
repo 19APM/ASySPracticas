@@ -47,25 +47,29 @@
 %
 % Resuelve el problema 3.11-2.
 % 
-% Escriba un programa en MATLAB que recursivamente calcule y luego trace la
-% solución a 
+% 3.11-2 Considere la función de tiempo discreto
 %
-% $$y[n]-frac{1} 3y[n-1] + frac{1} 2y[n-2] =  x[n]$$ para $$(0<=n<=100)$$.
+% $$f[n] = e^{-n/5}cos(\pi n/5)u[n]$$
 %
-% Dada 
+% La sección 3.11 utiliza funciones anónimas describiendo señales DT.
+% 
+% f = @(n) exp(-n/5).*cos(pi*n/5).*(n>=0)
 %
-% $$x[n] = \delta[n] + u[n-50]$$ y $$y[-2] = y[-1] = 2$$
+% Si bien esta función anónima funciona correctamente para una operación de
+% reducción de resolución como f[2n], no funciona correctamente durante una
+% operación de muestreo superior, como f[n/2]. Modifica la función anónima
+% f para que también se adapte correctamente a las operaciones de
+% sobremuestreo. Pruebe su código computando y trazando:
 %
+% f(n/2) en (-10<=n<=10).
+
+
+
 %% Problema 2
 %
 % Resuelve el problema 3.2-7, tenga cuidado en los escalamientos horizontales.
 %
-
-%% Problema 3
-%
-% Resuelva el problema 3.11-6.
-%
-% Para la siguiente señal mostrada grafique las siguientes señales
+% 3.2-7 Para la siguiente señal mostrada grafique las siguientes señales
 %
 % *(a)* $$x[-n]$$
 %
@@ -75,18 +79,50 @@
 %
 % *(d)* $$x[3n]$$
 %
-% *(e)* $$x[frac{n} 3]$$
+% *(e)* $$x[\frac{n} 3]$$
 %
 % *(f)* $$x[3-n]$$
 % 
-% <<3.1-1b.PNG>>
+% <<3.1-1b.png>>
 % 
+
+
+
+%% Problema 3
+%
+% Resuelva el problema 3.11-6.
+%
+% 3.11-6 Supongamos que existe un vector x en el espacio de trabajo de
+% MATLAB, correspondiente a una señal DT x[n] de duración finita.
+%
+% *(a)* Escriba una función en MATLAB que, cuando pase el vector x, calcule
+% y devuelva Ex, la energía de x[n].
+%
+% *(b)* Escriba una función en MATLAB que, cuando pase el vector x, calcule
+% y devuelva Px, la potencia de x[n]. Suponiendo que x[n] es periódico y
+% ese vector x contiene datos para un número entero de períodos de x[n].
+%
+
 
 
 %% Problema 4
 %
 % Con los programas desarrollados en el punto 3, resuelva 3.1-1 c) y 3.1-2 b).
 %
+% 3.1-1 Encuentre la energía de la señal representada en:
+%
+% c)
+%
+% <<3.1-1c.png>>
+% 
+% 3.1-2 Encuentre el poder de la señal ilustrada en:
+%
+% b)
+%
+% <<3.1-2b.png>>
+% 
+
+
 
 %% Problema 5
 %
@@ -99,5 +135,3 @@
 %
 % <<app.png>>
 % 
-
-%
