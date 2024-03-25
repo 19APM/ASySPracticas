@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>Pr&aacute;ctica 4: Se&ntilde;ales en tiempo discreto</title>
+<meta name="generator" content="MATLAB 23.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-03-24">
+<meta name="DC.source" content="PR04.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>Pr&aacute;ctica 4: Se&ntilde;ales en tiempo discreto</h1>
+<!--introduction-->
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Integrantes</a>
+</li>
+<li>
+<a href="#2">Objetivos</a>
+</li>
+<li>
+<a href="#3">Introducci&oacute;n</a>
+</li>
+<li>
+<a href="#4">Desarrollo</a>
+</li>
+<li>
+<a href="#5">Problema 1</a>
+</li>
+<li>
+<a href="#6">Problema 2</a>
+</li>
+<li>
+<a href="#7">Problema 3</a>
+</li>
+<li>
+<a href="#8">Problema 4</a>
+</li>
+<li>
+<a href="#9">Problema 5</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Integrantes</h2>
+<p>Portillo Mart&iacute;nez Arturo</p>
+<h2 id="2">Objetivos</h2>
+<div>
+<ul>
+<li>Manipulaci&oacute;n b&aacute;sica de MATLAB.</li>
+<li>Gr&aacute;ficas de se&ntilde;ales reales y complejas discretas.</li>
+<li>Transformaci&oacute;n de se&ntilde;ales discretas (escalamientos y traslaciones).</li>
+</ul>
+</div>
+<h2 id="3">Introducci&oacute;n</h2>
+<p>Se realiz&oacute; la investigaci&oacute;n del uso de Python para la realizaci&oacute;n de gr&aacute;ficas, a continuaci&oacute;n se muestran las gr&aacute;ficas correspondientes al problema 1 mediante Python.</p>
+<p>
+<img vspace="5" hspace="5" src="intro.png" alt=""> </p>
+<p>Se puede consultar el c&oacute;digo realizado con Python en el siguiente <a href="https://colab.research.google.com/drive/1XnKYDQmnbECtDmMwu0-lw2WxHoELL3KE?usp=sharing">enlace</a>.</p>
+<h2 id="4">Desarrollo</h2>
+<p>A continuaci&oacute;n se realizar&aacute; el desarrollo de los siguientes problemas planteados para entregar en la pr&aacute;ctica.</p>
+<p>
+<b>1.</b> Resuelve el problema 3.11-2.</p>
+<p>
+<b>2.</b> Resuelve el problema 3.2-7, tenga cuidado en los escalamientos horizontales.</p>
+<p>
+<b>3.</b> Resuelva el problema 3.11-6.</p>
+<p>
+<b>4.</b> Con los programas desarrollados en el punto 3, resuelva 3.1-1 c) y 3.1-2 b).</p>
+<p>
+<b>5.</b> Construya una app que permita (consultar los ejemplos preconstruidos):</p>
+<div>
+<ul>
+<li>Gr&aacute;ficar se&ntilde;ales en tiempo discreto reales, el usuario ingresa la definici&oacute;n de la se&ntilde;al en el formato especifico.</li>
+<li>El usuario puede definir el intervalo de la gr&aacute;fica.</li>
+<li>El usuario puede seleccionar el tipo de transformaci&oacute;n (horizontal, vertical o combinaci&oacute;n) que desee realizar a la se&ntilde;al, la app deber&aacute; mostrar la gr&aacute;fica de esta transformaci&oacute;n.</li>
+<li>Se adjunta una imagen de la app a la pr&aacute;ctica, y el archivo de la app.</li>
+</ul>
+</div>
+<p>No es necesario incluir conclusiones en esta pr&aacute;ctica, si lo considera necesario puede incluir ap&eacute;ndices, no olvide incluir sus referencias.</p>
+<h2 id="5">Problema 1</h2>
+<p>Resuelve el problema 3.11-2.</p>
+<p>Escriba un programa en MATLAB que recursivamente calcule y luego trace la soluci&oacute;n a</p>
+<p>
+<img src="PR04_eq00021730498201126821.png" alt="$y[n]-frac{1} 3y[n-1] + frac{1} 2y[n-2] =  x[n]$"> para <img src="PR04_eq16692397905488506559.png" alt="$(0<=n<=100)$">.</p>
+<p>Dada</p>
+<p>
+<img src="PR04_eq02592456601398664852.png" alt="$x[n] = \delta[n] + u[n-50]$"> y <img src="PR04_eq11364661734471872295.png" alt="$y[-2] = y[-1] = 2$"></p>
+<h2 id="6">Problema 2</h2>
+<p>Resuelve el problema 3.2-7, tenga cuidado en los escalamientos horizontales.</p>
+<h2 id="7">Problema 3</h2>
+<p>Resuelva el problema 3.11-6.</p>
+<p>Para la siguiente se&ntilde;al mostrada grafique las siguientes se&ntilde;ales</p>
+<p>
+<b>(a)</b> <img src="PR04_eq05395281542964823302.png" alt="$x[-n]$"></p>
+<p>
+<b>(b)</b> <img src="PR04_eq16447856845229195726.png" alt="$x[n+6]$"></p>
+<p>
+<b>(c)</b> <img src="PR04_eq02148719982501823899.png" alt="$x[n-6]$"></p>
+<p>
+<b>(d)</b> <img src="PR04_eq00551023738942954947.png" alt="$x[3n]$"></p>
+<p>
+<b>(e)</b> <img src="PR04_eq17120525535788500264.png" alt="$x[frac{n} 3]$"></p>
+<p>
+<b>(f)</b> <img src="PR04_eq07644242805143406490.png" alt="$x[3-n]$"></p>
+<p>
+<img vspace="5" hspace="5" src="3.1-1b.PNG" alt=""> </p>
+<h2 id="8">Problema 4</h2>
+<p>Con los programas desarrollados en el punto 3, resuelva 3.1-1 c) y 3.1-2 b).</p>
+<h2 id="9">Problema 5</h2>
+<p>Construya una app que permita (consultar los ejemplos preconstruidos):</p>
+<div>
+<ul>
+<li>Gr&aacute;ficar se&ntilde;ales en tiempo discreto reales, el usuario ingresa la definici&oacute;n de la se&ntilde;al en el formato especifico.</li>
+<li>El usuario puede definir el intervalo de la gr&aacute;fica.</li>
+<li>El usuario puede seleccionar el tipo de transformaci&oacute;n (horizontal, vertical o combinaci&oacute;n) que desee realizar a la se&ntilde;al, la app deber&aacute; mostrar la gr&aacute;fica de esta transformaci&oacute;n.</li>
+<li>Se adjunta una imagen de la app a la pr&aacute;ctica, y el archivo de la app.</li>
+</ul>
+</div>
+<p>
+<img vspace="5" hspace="5" src="app.png" alt=""> </p>
+<pre class="codeinput">
+<span class="comment">%</span>
+</pre>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Práctica 4: Señales en tiempo discreto
+%
+%
+%% Integrantes
+%
+% Portillo Martínez Arturo
+%
+%% Objetivos
+%
+% * Manipulación básica de MATLAB.
+% * Gráficas de señales reales y complejas discretas.
+% * Transformación de señales discretas (escalamientos y traslaciones).
+%
+%% Introducción
+%
+% Se realizó la investigación del uso de Python para la realización de
+% gráficas, a continuación se muestran las gráficas correspondientes al problema 1 mediante Python.
+% 
+% <<intro.png>>
+%
+% Se puede consultar el código realizado con Python en el siguiente <https://colab.research.google.com/drive/1XnKYDQmnbECtDmMwu0-lw2WxHoELL3KE?usp=sharing enlace>. 
+%
+%% Desarrollo
+%
+% A continuación se realizará el desarrollo de los siguientes problemas
+% planteados para entregar en la práctica.
+% 
+% *1.* Resuelve el problema 3.11-2.
+%
+% *2.* Resuelve el problema 3.2-7, tenga cuidado en los escalamientos horizontales.
+%
+% *3.* Resuelva el problema 3.11-6.
+%
+% *4.* Con los programas desarrollados en el punto 3, resuelva 3.1-1 c) y 3.1-2 b).
+%
+% *5.* Construya una app que permita (consultar los ejemplos preconstruidos):
+%
+% * Gráficar señales en tiempo discreto reales, el usuario ingresa la definición de la señal en el formato especifico.
+% * El usuario puede definir el intervalo de la gráfica.
+% * El usuario puede seleccionar el tipo de transformación (horizontal, vertical o combinación) que desee realizar a la señal, la app deberá mostrar la gráfica de esta transformación.
+% * Se adjunta una imagen de la app a la práctica, y el archivo de la app.
+%
+% No es necesario incluir conclusiones en esta práctica, si lo considera
+% necesario puede incluir apéndices, no olvide incluir sus referencias.
+%
+%% Problema 1
+%
+% Resuelve el problema 3.11-2.
+% 
+% Escriba un programa en MATLAB que recursivamente calcule y luego trace la
+% solución a 
+%
+% $$y[n]-frac{1} 3y[n-1] + frac{1} 2y[n-2] =  x[n]$$ para $$(0<=n<=100)$$.
+%
+% Dada 
+%
+% $$x[n] = \delta[n] + u[n-50]$$ y $$y[-2] = y[-1] = 2$$
+%
+%% Problema 2
+%
+% Resuelve el problema 3.2-7, tenga cuidado en los escalamientos horizontales.
+%
+
+%% Problema 3
+%
+% Resuelva el problema 3.11-6.
+%
+% Para la siguiente señal mostrada grafique las siguientes señales
+%
+% *(a)* $$x[-n]$$
+%
+% *(b)* $$x[n+6]$$
+%
+% *(c)* $$x[n-6]$$
+%
+% *(d)* $$x[3n]$$
+%
+% *(e)* $$x[frac{n} 3]$$
+%
+% *(f)* $$x[3-n]$$
+% 
+% <<3.1-1b.PNG>>
+% 
+
+
+%% Problema 4
+%
+% Con los programas desarrollados en el punto 3, resuelva 3.1-1 c) y 3.1-2 b).
+%
+
+%% Problema 5
+%
+% Construya una app que permita (consultar los ejemplos preconstruidos):
+%
+% * Gráficar señales en tiempo discreto reales, el usuario ingresa la definición de la señal en el formato especifico.
+% * El usuario puede definir el intervalo de la gráfica.
+% * El usuario puede seleccionar el tipo de transformación (horizontal, vertical o combinación) que desee realizar a la señal, la app deberá mostrar la gráfica de esta transformación.
+% * Se adjunta una imagen de la app a la práctica, y el archivo de la app.
+%
+% <<app.png>>
+% 
+
+%
+
+##### SOURCE END #####
+-->
+</body>
+</html>
