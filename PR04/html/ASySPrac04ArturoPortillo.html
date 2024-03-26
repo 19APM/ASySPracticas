@@ -1,0 +1,580 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>Pr&aacute;ctica 4: Se&ntilde;ales en tiempo discreto</title>
+<meta name="generator" content="MATLAB 23.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-03-25">
+<meta name="DC.source" content="PR04.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>Pr&aacute;ctica 4: Se&ntilde;ales en tiempo discreto</h1>
+<!--introduction-->
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Integrantes</a>
+</li>
+<li>
+<a href="#2">Objetivos</a>
+</li>
+<li>
+<a href="#3">Introducci&oacute;n</a>
+</li>
+<li>
+<a href="#4">Desarrollo</a>
+</li>
+<li>
+<a href="#5">Problema 1</a>
+</li>
+<li>
+<a href="#8">Problema 2</a>
+</li>
+<li>
+<a href="#15">Problema 3</a>
+</li>
+<li>
+<a href="#18">Problema 4</a>
+</li>
+<li>
+<a href="#22">Problema 5</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Integrantes</h2>
+<p>Portillo Mart&iacute;nez Arturo</p>
+<h2 id="2">Objetivos</h2>
+<div>
+<ul>
+<li>Manipulaci&oacute;n b&aacute;sica de MATLAB.</li>
+<li>Gr&aacute;ficas de se&ntilde;ales reales y complejas discretas.</li>
+<li>Transformaci&oacute;n de se&ntilde;ales discretas (escalamientos y traslaciones).</li>
+</ul>
+</div>
+<h2 id="3">Introducci&oacute;n</h2>
+<p>Se realiz&oacute; la investigaci&oacute;n del uso de Python para la realizaci&oacute;n de gr&aacute;ficas, a continuaci&oacute;n se muestran las gr&aacute;ficas correspondientes al problema 1 mediante Python.</p>
+<p>Esta es la primer gr&aacute;fica sin modificar</p>
+<p>
+<img vspace="5" hspace="5" src="intro1.png" alt=""> </p>
+<p>Esta es la segunda gr&aacute;fica ya modificada</p>
+<p>
+<img vspace="5" hspace="5" src="intro2.png" alt=""> </p>
+<p>Se puede consultar el c&oacute;digo realizado con Python en el siguiente <a href="https://colab.research.google.com/drive/1faHYpa43-ickpVptmwIjHGMVIsl39thM?usp=sharing">enlace</a>.</p>
+<h2 id="4">Desarrollo</h2>
+<p>A continuaci&oacute;n se realizar&aacute; el desarrollo de los siguientes problemas planteados para entregar en la pr&aacute;ctica.</p>
+<p>
+<b>1.</b> Resuelve el problema 3.11-2.</p>
+<p>
+<b>2.</b> Resuelve el problema 3.2-7, tenga cuidado en los escalamientos horizontales.</p>
+<p>
+<b>3.</b> Resuelva el problema 3.11-6.</p>
+<p>
+<b>4.</b> Con los programas desarrollados en el punto 3, resuelva 3.1-1 c) y 3.1-2 b).</p>
+<p>
+<b>5.</b> Construya una app que permita (consultar los ejemplos preconstruidos):</p>
+<div>
+<ul>
+<li>Gr&aacute;ficar se&ntilde;ales en tiempo discreto reales, el usuario ingresa la definici&oacute;n de la se&ntilde;al en el formato especifico.</li>
+<li>El usuario puede definir el intervalo de la gr&aacute;fica.</li>
+<li>El usuario puede seleccionar el tipo de transformaci&oacute;n (horizontal, vertical o combinaci&oacute;n) que desee realizar a la se&ntilde;al, la app deber&aacute; mostrar la gr&aacute;fica de esta transformaci&oacute;n.</li>
+<li>Se adjunta una imagen de la app a la pr&aacute;ctica, y el archivo de la app.</li>
+</ul>
+</div>
+<p>No es necesario incluir conclusiones en esta pr&aacute;ctica, si lo considera necesario puede incluir ap&eacute;ndices, no olvide incluir sus referencias.</p>
+<h2 id="5">Problema 1</h2>
+<p>Resuelve el problema 3.11-2.</p>
+<p>3.11-2 Considere la funci&oacute;n de tiempo discreto</p>
+<p>
+<img src="PR04_eq14185042252310882784.png" alt="$$f[n] = e^{-n/5}cos(\pi n/5)u[n]$$"></p>
+<p>La secci&oacute;n 3.11 utiliza funciones an&oacute;nimas describiendo se&ntilde;ales DT.</p>
+<p>f = @(n) exp(-n/5).*cos(pi*n/5).*(n&gt;=0);</p>
+<p>Si bien esta funci&oacute;n an&oacute;nima funciona correctamente para una operaci&oacute;n de reducci&oacute;n de resoluci&oacute;n como f[2n], no funciona correctamente durante una operaci&oacute;n de muestreo superior, como f[n/2]. Modifica la funci&oacute;n an&oacute;nima f para que tambi&eacute;n se adapte correctamente a las operaciones de sobremuestreo. Pruebe su c&oacute;digo computando y trazando:</p>
+<p>f(n/2) en (-10&lt;=n&lt;=10).</p>
+<p>Tenemos la funci&oacute;n f inical y veremos como se comporta con la se&ntilde;al dada.</p>
+<pre class="codeinput">n = -10:1:10;
+f = @(n) exp(-n/5).*cos(pi*n/5).*(n&gt;=0);
+stem(n,f(n/2)); title(<span class="string">'Funci&oacute;n inicial'</span>); xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'f(n/2)'</span>); grid <span class="string">on</span>;
+</pre>
+<img vspace="5" hspace="5" src="PR04_01.png" alt=""> <p>Modificando la funci&oacute;n</p>
+<pre class="codeinput">f = @(n) exp((-n)/5).*cos((pi*n)/5).*(n&gt;=0).*(round(n)==n);
+stem(n,f(n/2)); title(<span class="string">'Funci&oacute;n modificada'</span>); xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'f(n/2)'</span>); grid <span class="string">on</span>;
+</pre>
+<img vspace="5" hspace="5" src="PR04_02.png" alt=""> <p>Mi propuesta para modificar la funci&oacute;n creada es agregar una parte l&oacute;gica a la funci&oacute;n modificando la interpolaci&oacute;n lineal por una interpolaci&oacute;n 0.</p>
+<p>Siendo que cada que el valor sea entero se graficar&aacute; el valor correspondiente de la funci&oacute;n.</p>
+<h2 id="8">Problema 2</h2>
+<p>Resuelve el problema 3.2-7, tenga cuidado en los escalamientos horizontales.</p>
+<p>3.2-7 Para la siguiente se&ntilde;al mostrada grafique las siguientes se&ntilde;ales</p>
+<p>
+<b>(a)</b> <img src="PR04_eq05395281542964823302.png" alt="$x[-n]$"></p>
+<p>
+<b>(b)</b> <img src="PR04_eq16447856845229195726.png" alt="$x[n+6]$"></p>
+<p>
+<b>(c)</b> <img src="PR04_eq02148719982501823899.png" alt="$x[n-6]$"></p>
+<p>
+<b>(d)</b> <img src="PR04_eq00551023738942954947.png" alt="$x[3n]$"></p>
+<p>
+<b>(e)</b> <img src="PR04_eq13135759918633898736.png" alt="$x[\frac{n} 3]$"></p>
+<p>
+<b>(f)</b> <img src="PR04_eq07644242805143406490.png" alt="$x[3-n]$"></p>
+<p>
+<img vspace="5" hspace="5" src="3.1-1b.png" alt=""> </p>
+<p>La se&ntilde;al anterior puede ser dada por la siguiente funci&oacute;n:</p>
+<pre class="codeinput">n = -20:1:20;
+f = @(n) (n.*(n&gt;=0) - n.*(n&gt;3) - (n-6).*(n&gt;3) + (n-6).*(n&gt;6)).*(round(n)==n);
+stem(n,f(n)); title(<span class="string">'Funci&oacute;n Original'</span>); xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'f(n)'</span>); grid <span class="string">on</span>; axis([-2 8,0,3]);
+</pre>
+<img vspace="5" hspace="5" src="PR04_03.png" alt=""> <p>
+<b>(a)</b> <img src="PR04_eq05395281542964823302.png" alt="$x[-n]$"></p>
+<pre class="codeinput">stem(n,f(-1*n)); title(<span class="string">'(a)'</span>); xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'f(-n)'</span>); grid <span class="string">on</span>; axis([-8 2,0,3]);
+</pre>
+<img vspace="5" hspace="5" src="PR04_04.png" alt=""> <p>
+<b>(b)</b> <img src="PR04_eq16447856845229195726.png" alt="$x[n+6]$"></p>
+<pre class="codeinput">stem(n,f(n+6)); title(<span class="string">'(b)'</span>); xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'f(n+6)'</span>); grid <span class="string">on</span>; axis([-8 2,0,3]);
+</pre>
+<img vspace="5" hspace="5" src="PR04_05.png" alt=""> <p>
+<b>(c)</b> <img src="PR04_eq02148719982501823899.png" alt="$x[n-6]$"></p>
+<pre class="codeinput">stem(n,f(n-6)); title(<span class="string">'(c)'</span>); xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'f(n-6)'</span>); grid <span class="string">on</span>; axis([4 14,0,3]);
+</pre>
+<img vspace="5" hspace="5" src="PR04_06.png" alt=""> <p>
+<b>(d)</b> <img src="PR04_eq00551023738942954947.png" alt="$x[3n]$"></p>
+<pre class="codeinput">stem(n,f(3*n)); title(<span class="string">'(d)'</span>); xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'f(3n)'</span>); grid <span class="string">on</span>; axis([-2 8,0,3]);
+</pre>
+<img vspace="5" hspace="5" src="PR04_07.png" alt=""> <p>
+<b>(e)</b> <img src="PR04_eq13135759918633898736.png" alt="$x[\frac{n} 3]$"></p>
+<pre class="codeinput">stem(n,f(n/3)); title(<span class="string">'(e)'</span>); xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'f(n/3)'</span>); grid <span class="string">on</span>; axis([-2 18,0,3]);
+</pre>
+<img vspace="5" hspace="5" src="PR04_08.png" alt=""> <p>
+<b>(f)</b> <img src="PR04_eq07644242805143406490.png" alt="$x[3-n]$"></p>
+<pre class="codeinput">stem(n,f(3-n)); title(<span class="string">'(f)'</span>); xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'f(3-n)'</span>); grid <span class="string">on</span>; axis([-4 6,0,3]);
+</pre>
+<img vspace="5" hspace="5" src="PR04_09.png" alt=""> <h2 id="15">Problema 3</h2>
+<p>Resuelva el problema 3.11-6.</p>
+<p>3.11-6 Supongamos que existe un vector x en el espacio de trabajo de MATLAB, correspondiente a una se&ntilde;al DT x[n] de duraci&oacute;n finita.</p>
+<p>
+<b>(a)</b> Escriba una funci&oacute;n en MATLAB que, cuando pase el vector x, calcule y devuelva Ex, la energ&iacute;a de x[n].</p>
+<p>
+<b>(b)</b> Escriba una funci&oacute;n en MATLAB que, cuando pase el vector x, calcule y devuelva Px, la potencia de x[n]. Suponiendo que x[n] es peri&oacute;dico y ese vector x contiene datos para un n&uacute;mero entero de per&iacute;odos de x[n].</p>
+<p>
+<b>(a)</b> crearemos la funci&oacute;n Ex = Energia(x) solicitando solamente el vector x.</p>
+<p>
+<img vspace="5" hspace="5" src="Energia.png" alt=""> </p>
+<p>Podemos observar que se crea la funci&oacute;n, la cual obtiene el &iacute;ndice del primer y &uacute;ltimo valor del vector x, despu&eacute;s se crea un arreglo for para realizar la sumatoria y obtener el valor de Ex.</p>
+<p>Se adjunt&oacute; una imagen ya que es una funci&oacute;n y solo se permite una funci&oacute;n principal por script.</p>
+<p>Pero se cre&oacute; la funci&oacute;n Energia a parte y puede acceder a ella <a href="https://19apm.github.io/ASySPracticas/PR04/Energia.m">aqui</a>
+</p>
+<p>
+<b>(b)</b> Crearemos la funci&oacute;n Px = Poder(x,n) solicitando el vector x y el vector n.</p>
+<p>
+<img vspace="5" hspace="5" src="Poder.png" alt=""> </p>
+<p>Podemos observar que se crea la funci&oacute;n, la cual implementa la funci&oacute;n Ex agregando la parte final donde de calcula el l&iacute;mite de N cuando tiende al &uacute;ltimo valor del vector n de 1/2N+1 multiplicado por la sumatoria realizada.</p>
+<p>Se adjunt&oacute; una imagen ya que es una funci&oacute;n y solo se permite una funci&oacute;n principal por script.</p>
+<p>Pero se cre&oacute; la funci&oacute;n Poder a parte y puede acceder a ella <a href="https://19apm.github.io/ASySPracticas/PR04/Poder.m">aqui</a>
+</p>
+<h2 id="18">Problema 4</h2>
+<p>Con los programas desarrollados en el punto 3, resuelva 3.1-1 c) y 3.1-2 b).</p>
+<p>3.1-1 Encuentre la energ&iacute;a de la se&ntilde;al representada en:</p>
+<p>c)</p>
+<p>
+<img vspace="5" hspace="5" src="3.1-1c.png" alt=""> </p>
+<p>3.1-2 Encuentre el poder de la se&ntilde;al ilustrada en:</p>
+<p>b)</p>
+<p>
+<img vspace="5" hspace="5" src="3.1-2b.png" alt=""> </p>
+<p>
+<b>Problema 3.1-1 c)</b> Definimos la funci&oacute;n de la gr&aacute;fica mostrada en (-4&lt;=n&lt;=6)</p>
+<pre class="codeinput">f = @(n) n.*(n+3&gt;=0) + (-n).*(n-3&gt;0);
+n = -4:1:6;
+stem (n,f(n)); title(<span class="string">'3.1-1c)'</span>); xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'f(n)'</span>); grid <span class="string">on</span>; axis([-4 6,-4,4]);
+</pre>
+<img vspace="5" hspace="5" src="PR04_10.png" alt=""> <p>Posteriormente provamos la funci&oacute;n Ex primero definiendo el vector x y despues llamando a la funci&oacute;n.</p>
+<pre class="codeinput">f = @(n) n.*(n+3&gt;=0) + (-n).*(n-3&gt;0);
+n = -10:1:10
+x = f(n)
+Ex = Energia(x)
+</pre>
+<pre class="codeoutput">
+n =
+
+  Columns 1 through 13
+
+   -10    -9    -8    -7    -6    -5    -4    -3    -2    -1     0     1     2
+
+  Columns 14 through 21
+
+     3     4     5     6     7     8     9    10
+
+
+x =
+
+  Columns 1 through 13
+
+     0     0     0     0     0     0     0    -3    -2    -1     0     1     2
+
+  Columns 14 through 21
+
+     3     0     0     0     0     0     0     0
+
+
+Ex =
+
+    28
+
+</pre>
+<p>
+<b>Problema 3.1-2 c)</b> Definimos la funci&oacute;n de la gr&aacute;fica mostrada en el intervalo mostrado (-15&lt;=n&lt;=15)</p>
+<pre class="codeinput">f = @(n) 1*(mod((n-1),12) == 0) + 2*(mod((n-2),12) == 0) + 3*(mod((n-3),12) == 0) - 1*(mod((n+1),12) == 0) - 2*(mod((n+2),12) == 0) - 3*(mod((n+3),12) == 0) ;
+n = -15:1:15;
+stem (n,f(n)); title(<span class="string">'3.1-2b)'</span>); xlabel(<span class="string">'n'</span>); ylabel(<span class="string">'f(n)'</span>); grid <span class="string">on</span>; axis([-16 16,-4,4]);
+</pre>
+<img vspace="5" hspace="5" src="PR04_11.png" alt=""> <p>Posteriormente provamos la funci&oacute;n Px primero definiendo el vector x y despues llamando a la funci&oacute;n.</p>
+<pre class="codeinput">f = @(n) 1*(mod((n-1),12) == 0) + 2*(mod((n-2),12) == 0) + 3*(mod((n-3),12) == 0) - 1*(mod((n+1),12) == 0) - 2*(mod((n+2),12) == 0) - 3*(mod((n+3),12) == 0) ;
+n = -15:1:15;
+x = f(n)
+Px = Poder(x,n)
+</pre>
+<pre class="codeoutput">
+x =
+
+  Columns 1 through 13
+
+    -3    -2    -1     0     1     2     3     0     0     0     0     0    -3
+
+  Columns 14 through 26
+
+    -2    -1     0     1     2     3     0     0     0     0     0    -3    -2
+
+  Columns 27 through 31
+
+    -1     0     1     2     3
+
+ 
+Px =
+ 
+84/31
+ 
+</pre>
+<h2 id="22">Problema 5</h2>
+<p>Construya una app que permita (consultar los ejemplos preconstruidos):</p>
+<div>
+<ul>
+<li>Gr&aacute;ficar se&ntilde;ales en tiempo discreto reales, el usuario ingresa la definici&oacute;n de la se&ntilde;al en el formato especifico.</li>
+<li>El usuario puede definir el intervalo de la gr&aacute;fica.</li>
+<li>El usuario puede seleccionar el tipo de transformaci&oacute;n (horizontal, vertical o combinaci&oacute;n) que desee realizar a la se&ntilde;al, la app deber&aacute; mostrar la gr&aacute;fica de esta transformaci&oacute;n.</li>
+<li>Se adjunta una imagen de la app a la pr&aacute;ctica, y el archivo de la app.</li>
+</ul>
+</div>
+<p>Se puede consultar el archivo de la app <a href="https://19apm.github.io/ASySPracticas/PR04/Problema5.mlapp">aqui</a>
+</p>
+<p>
+<img vspace="5" hspace="5" src="app.png" alt=""> </p>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Práctica 4: Señales en tiempo discreto
+%
+%
+%% Integrantes
+%
+% Portillo Martínez Arturo
+%
+%% Objetivos
+%
+% * Manipulación básica de MATLAB.
+% * Gráficas de señales reales y complejas discretas.
+% * Transformación de señales discretas (escalamientos y traslaciones).
+%
+%% Introducción
+%
+% Se realizó la investigación del uso de Python para la realización de
+% gráficas, a continuación se muestran las gráficas correspondientes al problema 1 mediante Python.
+% 
+% Esta es la primer gráfica sin modificar
+%
+% <<intro1.png>>
+%
+% Esta es la segunda gráfica ya modificada
+%
+% <<intro2.png>>
+% 
+% Se puede consultar el código realizado con Python en el siguiente <https://colab.research.google.com/drive/1faHYpa43-ickpVptmwIjHGMVIsl39thM?usp=sharing enlace>. 
+%
+%% Desarrollo
+%
+% A continuación se realizará el desarrollo de los siguientes problemas
+% planteados para entregar en la práctica.
+% 
+% *1.* Resuelve el problema 3.11-2.
+%
+% *2.* Resuelve el problema 3.2-7, tenga cuidado en los escalamientos horizontales.
+%
+% *3.* Resuelva el problema 3.11-6.
+%
+% *4.* Con los programas desarrollados en el punto 3, resuelva 3.1-1 c) y 3.1-2 b).
+%
+% *5.* Construya una app que permita (consultar los ejemplos preconstruidos):
+%
+% * Gráficar señales en tiempo discreto reales, el usuario ingresa la definición de la señal en el formato especifico.
+% * El usuario puede definir el intervalo de la gráfica.
+% * El usuario puede seleccionar el tipo de transformación (horizontal, vertical o combinación) que desee realizar a la señal, la app deberá mostrar la gráfica de esta transformación.
+% * Se adjunta una imagen de la app a la práctica, y el archivo de la app.
+%
+% No es necesario incluir conclusiones en esta práctica, si lo considera
+% necesario puede incluir apéndices, no olvide incluir sus referencias.
+%
+%% Problema 1
+%
+% Resuelve el problema 3.11-2.
+% 
+% 3.11-2 Considere la función de tiempo discreto
+%
+% $$f[n] = e^{-n/5}cos(\pi n/5)u[n]$$
+%
+% La sección 3.11 utiliza funciones anónimas describiendo señales DT.
+% 
+% f = @(n) exp(-n/5).*cos(pi*n/5).*(n>=0);
+%
+% Si bien esta función anónima funciona correctamente para una operación de
+% reducción de resolución como f[2n], no funciona correctamente durante una
+% operación de muestreo superior, como f[n/2]. Modifica la función anónima
+% f para que también se adapte correctamente a las operaciones de
+% sobremuestreo. Pruebe su código computando y trazando:
+%
+% f(n/2) en (-10<=n<=10).
+%
+% Tenemos la función f inical y veremos como se comporta con la señal dada.
+n = -10:1:10;
+f = @(n) exp(-n/5).*cos(pi*n/5).*(n>=0);
+stem(n,f(n/2)); title('Función inicial'); xlabel('n'); ylabel('f(n/2)'); grid on;
+%%
+% Modificando la función 
+f = @(n) exp((-n)/5).*cos((pi*n)/5).*(n>=0).*(round(n)==n);
+stem(n,f(n/2)); title('Función modificada'); xlabel('n'); ylabel('f(n/2)'); grid on;
+%%
+% Mi propuesta para modificar la función creada es agregar una parte lógica
+% a la función modificando la interpolación lineal por una interpolación 0.
+%
+% Siendo que cada que el valor sea entero se graficará el valor
+% correspondiente de la función. 
+%
+%% Problema 2
+%
+% Resuelve el problema 3.2-7, tenga cuidado en los escalamientos horizontales.
+%
+% 3.2-7 Para la siguiente señal mostrada grafique las siguientes señales
+%
+% *(a)* $$x[-n]$$
+%
+% *(b)* $$x[n+6]$$
+%
+% *(c)* $$x[n-6]$$
+%
+% *(d)* $$x[3n]$$
+%
+% *(e)* $$x[\frac{n} 3]$$
+%
+% *(f)* $$x[3-n]$$
+% 
+% <<3.1-1b.png>>
+% 
+% La señal anterior puede ser dada por la siguiente función:
+n = -20:1:20;
+f = @(n) (n.*(n>=0) - n.*(n>3) - (n-6).*(n>3) + (n-6).*(n>6)).*(round(n)==n);
+stem(n,f(n)); title('Función Original'); xlabel('n'); ylabel('f(n)'); grid on; axis([-2 8,0,3]);
+%%
+% *(a)* $$x[-n]$$
+stem(n,f(-1*n)); title('(a)'); xlabel('n'); ylabel('f(-n)'); grid on; axis([-8 2,0,3]);
+%%
+% *(b)* $$x[n+6]$$
+stem(n,f(n+6)); title('(b)'); xlabel('n'); ylabel('f(n+6)'); grid on; axis([-8 2,0,3]);
+%%
+% *(c)* $$x[n-6]$$
+stem(n,f(n-6)); title('(c)'); xlabel('n'); ylabel('f(n-6)'); grid on; axis([4 14,0,3]);
+%%
+% *(d)* $$x[3n]$$
+stem(n,f(3*n)); title('(d)'); xlabel('n'); ylabel('f(3n)'); grid on; axis([-2 8,0,3]);
+%%
+% *(e)* $$x[\frac{n} 3]$$
+stem(n,f(n/3)); title('(e)'); xlabel('n'); ylabel('f(n/3)'); grid on; axis([-2 18,0,3]);
+%%
+% *(f)* $$x[3-n]$$
+stem(n,f(3-n)); title('(f)'); xlabel('n'); ylabel('f(3-n)'); grid on; axis([-4 6,0,3]);
+%% Problema 3
+%
+% Resuelva el problema 3.11-6.
+%
+% 3.11-6 Supongamos que existe un vector x en el espacio de trabajo de
+% MATLAB, correspondiente a una señal DT x[n] de duración finita.
+%
+% *(a)* Escriba una función en MATLAB que, cuando pase el vector x, calcule
+% y devuelva Ex, la energía de x[n].
+%
+% *(b)* Escriba una función en MATLAB que, cuando pase el vector x, calcule
+% y devuelva Px, la potencia de x[n]. Suponiendo que x[n] es periódico y
+% ese vector x contiene datos para un número entero de períodos de x[n].
+%
+% *(a)* crearemos la función Ex = Energia(x) solicitando solamente el vector x. 
+% 
+% <<Energia.png>>
+% 
+%%
+% Podemos observar que se crea la función, la cual obtiene el índice del
+% primer y último valor del vector x, después se crea un arreglo for para
+% realizar la sumatoria y obtener el valor de Ex.
+%
+% Se adjuntó una imagen ya que es una función y solo se permite una función
+% principal por script.
+%
+% Pero se creó la función Energia a parte y puede acceder a ella <https://19apm.github.io/ASySPracticas/PR04/Energia.m aqui> 
+%
+% *(b)* Crearemos la función Px = Poder(x,n) solicitando el vector x y el
+% vector n.
+% 
+% <<Poder.png>>
+% 
+%%
+% Podemos observar que se crea la función, la cual implementa la función Ex
+% agregando la parte final donde de calcula el límite de N cuando tiende al
+% último valor del vector n de 1/2N+1 multiplicado por la sumatoria
+% realizada.
+%
+% Se adjuntó una imagen ya que es una función y solo se permite una función
+% principal por script.
+%
+% Pero se creó la función Poder a parte y puede acceder a ella <https://19apm.github.io/ASySPracticas/PR04/Poder.m aqui> 
+%
+%% Problema 4
+%
+% Con los programas desarrollados en el punto 3, resuelva 3.1-1 c) y 3.1-2 b).
+%
+% 3.1-1 Encuentre la energía de la señal representada en:
+%
+% c)
+%
+% <<3.1-1c.png>>
+% 
+% 3.1-2 Encuentre el poder de la señal ilustrada en:
+%
+% b)
+%
+% <<3.1-2b.png>>
+% 
+% *Problema 3.1-1 c)* Definimos la función de la gráfica mostrada en
+% (-4<=n<=6)
+f = @(n) n.*(n+3>=0) + (-n).*(n-3>0); 
+n = -4:1:6;
+stem (n,f(n)); title('3.1-1c)'); xlabel('n'); ylabel('f(n)'); grid on; axis([-4 6,-4,4]);
+%%
+% Posteriormente provamos la función Ex primero definiendo el vector x y
+% despues llamando a la función.
+f = @(n) n.*(n+3>=0) + (-n).*(n-3>0); 
+n = -10:1:10
+x = f(n)
+Ex = Energia(x)
+%%
+% *Problema 3.1-2 c)* Definimos la función de la gráfica mostrada en el
+% intervalo mostrado
+% (-15<=n<=15)
+f = @(n) 1*(mod((n-1),12) == 0) + 2*(mod((n-2),12) == 0) + 3*(mod((n-3),12) == 0) - 1*(mod((n+1),12) == 0) - 2*(mod((n+2),12) == 0) - 3*(mod((n+3),12) == 0) ;
+n = -15:1:15;
+stem (n,f(n)); title('3.1-2b)'); xlabel('n'); ylabel('f(n)'); grid on; axis([-16 16,-4,4]);
+%%
+% Posteriormente provamos la función Px primero definiendo el vector x y
+% despues llamando a la función.
+f = @(n) 1*(mod((n-1),12) == 0) + 2*(mod((n-2),12) == 0) + 3*(mod((n-3),12) == 0) - 1*(mod((n+1),12) == 0) - 2*(mod((n+2),12) == 0) - 3*(mod((n+3),12) == 0) ;
+n = -15:1:15;
+x = f(n)
+Px = Poder(x,n)
+%% Problema 5
+%
+% Construya una app que permita (consultar los ejemplos preconstruidos):
+%
+% * Gráficar señales en tiempo discreto reales, el usuario ingresa la definición de la señal en el formato especifico.
+% * El usuario puede definir el intervalo de la gráfica.
+% * El usuario puede seleccionar el tipo de transformación (horizontal, vertical o combinación) que desee realizar a la señal, la app deberá mostrar la gráfica de esta transformación.
+% * Se adjunta una imagen de la app a la práctica, y el archivo de la app.
+%
+% Se puede consultar el archivo de la app <https://19apm.github.io/ASySPracticas/PR04/Problema5.mlapp aqui>
+%
+% <<app.png>>
+% 
+ 
+
+##### SOURCE END #####
+-->
+</body>
+</html>
