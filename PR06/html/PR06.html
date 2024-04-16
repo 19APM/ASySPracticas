@@ -1,0 +1,779 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>Pr&aacute;ctica 6: Convoluci&oacute;n y Correlaci&oacute;n de se&ntilde;ales</title>
+<meta name="generator" content="MATLAB 23.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-04-15">
+<meta name="DC.source" content="PR06.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>Pr&aacute;ctica 6: Convoluci&oacute;n y Correlaci&oacute;n de se&ntilde;ales</h1>
+<!--introduction-->
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Integrantes</a>
+</li>
+<li>
+<a href="#2">Objetivos</a>
+</li>
+<li>
+<a href="#3">Introducci&oacute;n</a>
+</li>
+<li>
+<a href="#5">Desarrollo</a>
+</li>
+<li>
+<a href="#6">Problema 1</a>
+</li>
+<li>
+<a href="#9">Problema 2</a>
+</li>
+<li>
+<a href="#11">Problema 3</a>
+</li>
+<li>
+<a href="#13">Problema 4</a>
+</li>
+<li>
+<a href="#15">Problema 5</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Integrantes</h2>
+<p>Portillo Mart&iacute;nez Arturo</p>
+<h2 id="2">Objetivos</h2>
+<div>
+<ul>
+<li>Conocer m&eacute;todos b&aacute;sicos de integraci&oacute;n num&eacute;rica.</li>
+<li>Manipulaci&oacute;n de instrucciones en MATLAB.</li>
+<li>Simular convoluciones y correlaciones de se&ntilde;ales continuas.</li>
+<li>Simular convoluciones y correlaciones de se&ntilde;ales discretas.</li>
+</ul>
+</div>
+<h2 id="3">Introducci&oacute;n</h2>
+<p>M&eacute;todos num&eacute;ricos de integraci&oacute;n</p>
+<p>
+<b>1.</b> <b>Integraci&oacute;n</b>
+</p>
+<p>
+<img src="PR06_eq17180570626015688788.png" alt="$$\int_a^bf(x)dx$$"></p>
+<p>El teorema fundamental del c&aacute;lculo (en una de sus funciones). Si f es integrable, y <img src="PR06_eq03482886466749066698.png" alt="$\frac {dF(x)} {dx} = f(x)$"></p>
+<p>
+<img src="PR06_eq01945761659313093100.png" alt="$$\int_a^bf(x)dx = F(b) - F(a)$$"></p>
+<p>Encontrar F es dif&iacute;cil o imposible. (t&eacute;cnicas de integraci&oacute;n, cambio de variable, integraci&oacute;n por parte,etc.)</p>
+<p>Se aproxima utilizando polinomios, por ejemplo:</p>
+<p>
+<img src="PR06_eq13975868655617530770.png" alt="$$f(x) = e^{-x^2}$$"></p>
+<p>
+<img src="PR06_eq18259100301145942602.png" alt="$\int_{-1}^1f(x)dx = \int_{-1}^1e^{-x^2}dx = F(1) - F(-1)$"> con  <img src="PR06_eq03482886466749066698.png" alt="$\frac {dF(x)} {dx} = f(x)$"></p>
+<p>Aproxiamremos con el polinomio <img src="PR06_eq16267979445002835757.png" alt="$P(x)=1$"> teniendo:</p>
+<p>
+<img src="PR06_eq02062793332835381673.png" alt="$$\int_{-1}^1P(x)dx = \int_{-1}^1 1dx = x\Big|_{-1}^1 = 2$$"></p>
+<p>
+<img src="PR06_eq05716863409375365497.png" alt="$$\int_{-1}^1e^{-x^2}dx < 2$$"></p>
+<p>
+<img src="PR06_eq12718503797239422542.png" alt="$$\int_{-1}^1e^{-x^2}dx \approx 1.4936$$"></p>
+<pre class="codeinput">x = -1:0.001:1;
+f = @(x) exp(-x.^2);
+P = 1;
+figure()
+plot(x,f(x),<span class="string">'LineWidth'</span>,0.3); title(<span class="string">'Ejemplo'</span>); xlabel(<span class="string">'x'</span>); ylabel(<span class="string">'Funci&oacute;n'</span>); grid; axis([-1 1, 0, 2])
+hold <span class="string">on</span>
+yline(P,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,0.3)
+legend(<span class="string">"f(x)"</span>,<span class="string">"P(x)"</span>)
+ax = gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+ax.Box = <span class="string">'off'</span>;
+hold <span class="string">off</span>
+</pre>
+<img vspace="5" hspace="5" src="PR06_01.png" alt=""> <p>
+<b>2.</b> <b>F&oacute;rmulas cerradas de Newton-Cotes</b>
+</p>
+<p>Se utilizan los polinomiso de interpolaci&oacute;n de lagrange</p>
+<p>
+<img src="PR06_eq04399476898745160708.png" alt="$f\epsilon C^{n+1}[a,b]$"> existe <img src="PR06_eq08827494621898404802.png" alt="$\varepsilon (x) \epsilon (a,b)$"></p>
+<p>
+<img src="PR06_eq01842329351718664248.png" alt="$f(x) = P(x) + \frac {f^{n+1}(\varepsilon (x))} {(n+1)!} (x-x_0) (x-x_1)...(x-x_n)$"> con <img src="PR06_eq06096267010305772579.png" alt="$x\epsilon [a,b] \;\; x_i\epsilon [a,b]$"></p>
+<p>F&oacute;rmula cerrada de (n+1) puntos de Newton-Cotes</p>
+<div>
+<ul>
+<li>
+<img src="PR06_eq15870223664606287034.png" alt="$x_0 = a$"></li>
+<li>
+<img src="PR06_eq12146484688857746188.png" alt="$x_n = b$"></li>
+<li>
+<img src="PR06_eq00705075589723339280.png" alt="$h = \frac {b-a} n$"></li>
+<li>
+<img src="PR06_eq04808210694529982116.png" alt="$x_i = x_0 + ih \;\; i = 0,1,...,n$"></li>
+</ul>
+</div>
+<p>
+<b>Regla del trapecio (n=1)</b>
+</p>
+<p>
+<img src="PR06_eq12293336250106073099.png" alt="$$\int_{x_0}^{x_1}f(x)dx = \frac h 2 [f(x_0)+f(x_1)]-\frac {h^3} {12} f''(\varepsilon) \;\; x_0<\varepsilon<x_1$$"></p>
+<div>
+<ul>
+<li>
+<img src="PR06_eq09978063340301083111.png" alt="$x_0 = a \;\;\;\;\;\; x_0 = x_0$"></li>
+<li>
+<img src="PR06_eq14371001583946229203.png" alt="$x_1 = b \;\;\;\;\;\; x_1 = a+b-a = b$"></li>
+<li>
+<img src="PR06_eq08105153173455345815.png" alt="$h = b-a$"> (paso)</li>
+<li>
+<img src="PR06_eq16900950284044807676.png" alt="$x_i = a + i(b-a) \;\; i = 0,1$"></li>
+</ul>
+</div>
+<p>
+<img src="PR06_eq07210265541736174893.png" alt="$$\int_{-1}^1e^{-x^2}dx = \frac 2 2 [e^{-1}+e^{-1}]-\frac 8 {12}[-2e^{-\varepsilon ^2}(1-2\varepsilon ^2)] \;\;\;\; -1<\varepsilon <1$$"></p>
+<p>
+<img src="PR06_eq07654019863410472065.png" alt="$$= 0.7357 + \frac 4 3 e^{-\varepsilon ^2}(1-2\varepsilon ^2) \;\;\;\; -1<\varepsilon <1$$"></p>
+<p>
+<b>Regla de Simpson (n=2)</b>
+</p>
+<p>
+<img src="PR06_eq12159836053849731268.png" alt="$$\int_{x_0}^{x_2}f(x)dx = \frac h 3 [f(x_0)+4f(x_1)+f(x_2)]-\frac {h^5} {90} f^{(4)}(\varepsilon) \;\; x_0<\varepsilon<x_2$$"></p>
+<div>
+<ul>
+<li>
+<img src="PR06_eq15870223664606287034.png" alt="$x_0 = a$"></li>
+<li>
+<img src="PR06_eq10676583144032701477.png" alt="$x_2 = b$"></li>
+<li>
+<img src="PR06_eq08498955005629655922.png" alt="$h = \frac {b-a} 2$"> (paso)</li>
+<li>
+<img src="PR06_eq18290047685587277575.png" alt="$x_i = a + ih \;\; i = 0,1,2$"></li>
+<li>
+<img src="PR06_eq09563816793809495107.png" alt="$x_1 = a + \frac {b-a} 2 = \frac {b+a} 2$"></li>
+</ul>
+</div>
+<p>
+<img src="PR06_eq17969077933642035194.png" alt="$$\int_{-1}^1e^{-x^2}dx = \frac 1 3 [e^{-1}+4e^{0}+e^{-1}]-\frac 1 {90}[-4e^{-\varepsilon ^2}(-4\varepsilon ^4 + 12\varepsilon ^2 - 3)] \;\;\;\; -1<\varepsilon <1$$"></p>
+<p>
+<img src="PR06_eq05319795984293261717.png" alt="$$= 1.5785 + \frac 2 {45} e^{-\varepsilon ^2}(-4\varepsilon ^4 + 12\varepsilon ^2 - 3)) \;\;\;\; -1<\varepsilon <1$$"></p>
+<p>
+<b>Regla de tres octavos Simpson (n=3)</b>
+</p>
+<p>
+<img src="PR06_eq10621902496614984258.png" alt="$$\int_{x_0}^{x_3}f(x)dx = \frac 3 8 h[f(x_0)+3f(x_1)+3f(x_2)+f(x_3)]-\frac {3h^5} {80} f^{(4)}(\varepsilon) \;\; x_0<\varepsilon<x_3$$"></p>
+<div>
+<ul>
+<li>
+<img src="PR06_eq15870223664606287034.png" alt="$x_0 = a$"></li>
+<li>
+<img src="PR06_eq02842274916592553891.png" alt="$x_3 = b$"></li>
+<li>
+<img src="PR06_eq15281583333941167600.png" alt="$h = \frac {b-a} 3$"> (paso)</li>
+<li>
+<img src="PR06_eq16670968603217458276.png" alt="$x_i = a + ih \;\; i = 0,1,2,3$"></li>
+<li>
+<img src="PR06_eq07281637885100710773.png" alt="$x_1 = a + \frac {b-a} 3 = \frac {2a+b} 3$"></li>
+<li>
+<img src="PR06_eq07914385990533714126.png" alt="$x_2 = a + \frac {2b-2a} 3 = \frac {2b+a} 3$"></li>
+</ul>
+</div>
+<p>
+<img src="PR06_eq12171540383084340334.png" alt="$$\int_{-1}^1e^{-x^2}dx = \frac 3 8 (\frac 2 3)[e^{-1}+3e^{-\frac 1 9}+3e^{-\frac 1 9}+e^{-1}]-\frac 3 {80}(\frac 2 3)^5[-4e^{-\varepsilon ^2}(-4\varepsilon ^4 + 12\varepsilon ^2 - 3)] \;\;\;\; -1<\varepsilon <1$$"></p>
+<p>
+<img src="PR06_eq12191121833523858609.png" alt="$$= 1.5261 + \frac 8 {405} e^{-\varepsilon ^2}(-4\varepsilon ^4 + 12\varepsilon ^2 - 3)) \;\;\;\; -1<\varepsilon <1$$"></p>
+<p>
+<b>3.</b> <b>F&oacute;rmulas cerradas de Newton-Cotes Compuestas</b>
+</p>
+<p>
+<b>Regla compuesta del trapecio</b>
+</p>
+<p>
+<img src="PR06_eq06973045720788939471.png" alt="$$\int_{a}^{b}f(x)dx = \frac h 2 [f(a)+2\sum_{j=1}^{n-1}f(x_j)+f(b)]-\frac&#10;{b-a} {12} h^2f''(\mu) \;\; \mu \epsilon(a,b)$$"></p>
+<div>
+<ul>
+<li>n n&uacute;mero de subintervalos.</li>
+<li>
+<img src="PR06_eq00705075589723339280.png" alt="$h = \frac {b-a} n$"> (paso)</li>
+<li>
+<img src="PR06_eq05562973852872626128.png" alt="$x_j = a + jh \;\; j = 0,1,2,...,n$"></li>
+</ul>
+</div>
+<p>Con n = 10 tenemos h = 0.2</p>
+<p>
+<img src="PR06_eq00847052303536470119.png" alt="$$\int_{-1}^1e^{-x^2}dx = \frac {0.2} 2 [e^{-1}+2\sum_{j=1}^{n-1}e^{-x_j^2}+e^{-1}]-\frac 2 {12}(0.2)^2[-2e^{-\mu ^2}(1-2\mu ^2)] \;\;\;\; -1<\mu <1$$"></p>
+<p>
+<img src="PR06_eq16002702427769304424.png" alt="$$= 1.4887 + 0.0133 e^{-\mu ^2}(1-2\mu ^2) \;\;\;\; -1<\mu <1$$"></p>
+<p>
+<b>Regla compuesta de Simpson</b>
+</p>
+<p>
+<img src="PR06_eq08113004213304127310.png" alt="$$\int_{a}^{b}f(x)dx = \frac h 3 [f(a)+2\sum_{j=1}^{(\frac n 2)-1}f(x_{2j})+4\sum_{j=1}^{(\frac n 2)}f(x_{2j-1})+f(b)]-\frac&#10;{b-a} {180} h^4f^{(4)}(\mu) \;\; \mu \epsilon(a,b)$$"></p>
+<div>
+<ul>
+<li>n par n&uacute;mero de subintervalos.</li>
+<li>
+<img src="PR06_eq00705075589723339280.png" alt="$h = \frac {b-a} n$"> (paso)</li>
+<li>
+<img src="PR06_eq05562973852872626128.png" alt="$x_j = a + jh \;\; j = 0,1,2,...,n$"></li>
+</ul>
+</div>
+<p>Con n = 10 tenemos h = 0.2</p>
+<p>
+<img src="PR06_eq02659403108139425866.png" alt="$$\int_{-1}^1e^{-x^2}dx = \frac {0.2} 3 [e^{-1}+2\sum_{j=1}^4 e^{-x_{2j}^2}+4\sum_{j=1}^5 e^{-x_{2j-1}^2}+e^{-1}]-\frac 2 {180}(0.2)^4[-4e^{-\mu ^2}(-4\mu ^4+12\mu ^2 -3)] \;\;\;\; -1<\mu <1$$"></p>
+<p>
+<img src="PR06_eq09042496353132320712.png" alt="$$= 1.4936 + 0.000071 e^{-\mu ^2}(-4\mu ^4+12\mu ^2-3) \;\;\;\; -1<\mu <1$$"></p>
+<p>
+<b>3.</b> <b>Cuadratura gaussiana</b>
+</p>
+<p>% <img src="PR06_eq18334802289183356100.png" alt="$\int_{a}^b f(x)dx \approx \sum_{i=1}^n C_i f(x_i);$"> 2n par&aacute;metros</p>
+<div>
+<ul>
+<li>Polinomios de Lagrange.</li>
+<li>Polinomis de Legendre.</li>
+</ul>
+</div>
+<p>
+<img src="PR06_eq15546426897488380683.png" alt="$$\{1, x, x^2-\frac 1 3, x^3-\frac 3 5x,x^4-\frac 6 7x^2+\frac 3&#10;{35},...\}$$"></p>
+<p>Teniedo:</p>
+<div>
+<ul>
+<li>
+<img src="PR06_eq10589132746306250705.png" alt="$P_n(x)$"> polinomio de Legendre de grado n</li>
+<li>
+<img src="PR06_eq01034817656244987442.png" alt="$x_1,x_2,...,x_n$"> de <img src="PR06_eq10589132746306250705.png" alt="$P_n(x)$"></li>
+<li>
+<img src="PR06_eq10937462168406602302.png" alt="$\int_{-1}^1P(x)dx = \sum_{i=1}^nC_iP(x_i)$"> P(x) con grado menos que 2n</li>
+</ul>
+</div>
+<p>Teniendo como resultado</p>
+<p>
+<img src="PR06_eq03130138366804367848.png" alt="$$\int_a^b f(x)dx = \int_{-1}^1 f(\frac {(b-a)t+b+a} 2) \frac {b-a} 2&#10;dt$$"></p>
+<p>Con n=2</p>
+<p>
+<img src="PR06_eq12598814945197262902.png" alt="$$\int_{-1}^1 e^{-x^2}dx \approx e^{-(0.5773502692)^2} +&#10;e^{-(0.5773502692)^2}\approx 1.4331$$"></p>
+<p>Con n=3</p>
+<p>
+<img src="PR06_eq00613178613843110574.png" alt="$$\int_{-1}^1 e^{-x^2}dx \approx 0.5555555556e^{-(0.7745966692)^2} +&#10;0.8888888889 + 0.5555555556e^{-(0.7745966692)^2} \approx 1.4986$$"></p>
+<h2 id="5">Desarrollo</h2>
+<p>Resolver cada uno de los siguientes problemas:</p>
+<div>
+<ol>
+<li>Para el PR04 reporte la grafica de la simulaci&oacute;n n&uacute;merica de la convoluci&oacute;n y compare con el resultado an&aacute;litico que obtuvo para el problema 1, esto es, su pr&aacute;ctica tendr&aacute; que incluir una llamada a la funci&oacute;nn <i>convconm</i> y posteriormente se tendr&aacute; que mostrar (mediante el Publish) la gr&aacute;fica tanto de las se&ntilde;ales involucradas como el resultado de la convoluci&oacute;n, y en esta &uacute;ltima gr&aacute;ficara su resultado analitico, se tendr&aacute; que incluir el resultado analitico.</li>
+<li>Para el PR05 reporte la grafica de la simulaci&oacute;n n&uacute;merica de la correalci&oacute;n y compare con el resultado an&aacute;litico que obtuvo para el problema e), esto es, su pr&aacute;ctica tendr&aacute; que incluir una llamada a la funci&oacute;nn <i>convconm</i> y posteriormente se tendr&aacute; que mostrar (mediante el Publish) la gr&aacute;fica tanto de las se&ntilde;ales involucradas como el resultado de su correlaci&oacute;n, y en esta &uacute;ltima graficara su resultado analitico, se tendr&aacute; que incluir el resultado analitico.</li>
+<li>Realice la simuaci&oacute;n de la convoluci&oacute;n de las se&ntilde;ales (c) con (d) del problema 3.1-1</li>
+<li>Realice la simuaci&oacute;n de la correlaci&oacute;n de las se&ntilde;ales (c) con (d) del problema 3.1-1</li>
+<li>Realice la la convoluci&oacute;n de las se&ntilde;ales (c) con (d) del problema 3.1-1 utilizando el comando <b>conv</b> de MATLAB, muestre el c&oacute;digo utilizado y gr&aacute;fique el resultado, sugerencia: Utilice las propiedades de traslaci&oacute;n de la convoluci&oacute;n.</li>
+</ol>
+</div>
+<h2 id="6">Problema 1</h2>
+<p>Para el PR04 reporte la grafica de la simulaci&oacute;n n&uacute;merica de la convoluci&oacute;n y compare con el resultado an&aacute;litico que obtuvo para el problema 1, esto es, su pr&aacute;ctica tendr&aacute; que incluir una llamada a la funci&oacute;nn <i>convconm</i> y posteriormente se tendr&aacute; que mostrar (mediante el Publish) la gr&aacute;fica tanto de las se&ntilde;ales involucradas como el resultado de la convoluci&oacute;n, y en esta &uacute;ltima gr&aacute;ficara su resultado analitico, se tendr&aacute; que incluir el resultado analitico.</p>
+<p>Realiza la convoluci&oacute;n de las siguientes se&ntilde;ales:</p>
+<pre class="codeinput">t =-2:0.001:2;
+f = @(t) exp(-t).*(t&gt;=0 &amp; t&lt;=1);
+g = @(t) t.*(t&gt;=-1 &amp; t&lt;=1);
+
+figure()
+plot(t,f(t),<span class="string">'LineWidth'</span>,1); title(<span class="string">'Funci&oacute;n f(t)'</span>); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'f(t)'</span>); grid; axis([-2 2,-1,2])
+ax = gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+ax.Box = <span class="string">'off'</span>;
+
+figure()
+plot(t,g(t),<span class="string">'LineWidth'</span>,1); title(<span class="string">'Funci&oacute;n g(t)'</span>); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'g(t)'</span>); grid; axis([-2 2,-2,2])
+ax = gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+ax.Box = <span class="string">'off'</span>;
+</pre>
+<img vspace="5" hspace="5" src="PR06_02.png" alt=""> <img vspace="5" hspace="5" src="PR06_03.png" alt=""> <p>Se tiene las siguientes 2 se&ntilde;ales con su convoluci&oacute;n en anal&iacute;tico:</p>
+<p>
+<b>f(t)</b>
+</p>
+<p>
+<img vspace="5" hspace="5" src="f(t).png" alt=""> </p>
+<p>
+<b>g(t)</b>
+</p>
+<p>
+<img vspace="5" hspace="5" src="g(t).png" alt=""> </p>
+<p>
+<b>y(t)</b>
+</p>
+<p>
+<img vspace="5" hspace="5" src="y(t).png" alt=""> </p>
+<pre class="codeinput">f = @(t) exp(-t).*(t&gt;=0 &amp; t&lt;=1);
+g = @(t) t.*(t&gt;=-1 &amp; t&lt;=1);
+convconm(f,g)
+</pre>
+<img vspace="5" hspace="5" src="PR06_04.png" alt=""> <p>
+<img vspace="5" hspace="5" src="P1.gif" alt=""> </p>
+<h2 id="9">Problema 2</h2>
+<p>Para el PR05 reporte la grafica de la simulaci&oacute;n n&uacute;merica de la correalci&oacute;n y compare con el resultado an&aacute;litico que obtuvo para el problema e), esto es, su pr&aacute;ctica tendr&aacute; que incluir una llamada a la funci&oacute;nn <i>convconm</i> y posteriormente se tendr&aacute; que mostrar (mediante el Publish) la gr&aacute;fica tanto de las se&ntilde;ales involucradas como el resultado de su correlaci&oacute;n, y en esta &uacute;ltima graficara su resultado analitico, se tendr&aacute; que incluir el resultado analitico.</p>
+<p>Realiza la autocorrelaci&oacute;n de</p>
+<p>
+<img src="PR06_eq04462021562628097066.png" alt="$$x_1(t)=u(t)-2u(t-3)+u(t-4)$$"></p>
+<p>Se tiene la se&ntilde;al con su autocorrelaci&oacute;n en anal&iacute;tico:</p>
+<p>
+<img src="PR06_eq12797536771239165412.png" alt="$$x_1(t)$$"></p>
+<p>
+<img vspace="5" hspace="5" src="x1(t).png" alt=""> </p>
+<p>
+<img src="PR06_eq09613765289789847073.png" alt="$$\Upsilon_{x_1x_1}(t)$$"></p>
+<p>
+<img vspace="5" hspace="5" src="x11(t).png" alt=""> </p>
+<pre class="codeinput">f = @(t) 1*(t&lt;=0)-2*(t&lt;=-3)+1*(t&lt;=-4);
+g = @(t) 1*(t&gt;=0)-2*(t&gt;=3)+1*(t&gt;=4);
+convconm2(f,g)
+</pre>
+<img vspace="5" hspace="5" src="PR06_05.png" alt=""> <p>
+<img vspace="5" hspace="5" src="P2.gif" alt=""> </p>
+<h2 id="11">Problema 3</h2>
+<p>Realice la simulaci&oacute;n de la convoluci&oacute;n de las se&ntilde;ales (c) con (d) del problema 3.1-1</p>
+<p>
+<img vspace="5" hspace="5" src="P3_1-1.png" alt=""> </p>
+<pre class="codeinput">n=-3:3;
+a=[-9 -6 -3 0 3 6 9];
+b=[0 4 2 0 2 4 0];
+convdisc([n;a],[n;b])
+</pre>
+<img vspace="5" hspace="5" src="PR06_06.png" alt=""> <p>
+<img vspace="5" hspace="5" src="P3.gif" alt=""> </p>
+<h2 id="13">Problema 4</h2>
+<p>Realice la simuaci&oacute;n de la correlaci&oacute;n de las se&ntilde;ales (c) con (d) del problema 3.1-1</p>
+<p>
+<img vspace="5" hspace="5" src="P3_1-1.png" alt=""> </p>
+<pre class="codeinput">n=-3:3;
+a=[-9 -6 -3 0 3 6 9];
+b=[0 4 2 0 2 4 0];
+convdisc2([n;a],[n;b])
+</pre>
+<img vspace="5" hspace="5" src="PR06_07.png" alt=""> <p>
+<img vspace="5" hspace="5" src="P4.gif" alt=""> </p>
+<p>Resulta ser que la convoluci&oacute;n y la correlaci&oacute;n tienen el mismo resultado ya que el espejo de la segunda funci&oacute;n es la misma que la original.</p>
+<h2 id="15">Problema 5</h2>
+<p>Realice la la convoluci&oacute;n de las se&ntilde;ales (c) con (d) del problema 3.1-1 utilizando el comando <b>conv</b> de MATLAB, muestre el c&oacute;digo utilizado y gr&aacute;fique el resultado, sugerencia: Utilice las propiedades de traslaci&oacute;n de la convoluci&oacute;n.</p>
+<pre class="codeinput">figure()
+a=[-9 -6 -3 0 3 6 9];
+b=[0 4 2 0 2 4 0];
+w=conv(a,b,<span class="string">"full"</span>);
+m = (length(w) - 1)/2;
+n= -m:m;
+stem(n,w,<span class="string">'LineWidth'</span>,3); title(<span class="string">'Funci&oacute;n r(t)'</span>); xlabel(<span class="string">'t'</span>); ylabel(<span class="string">'r(t)'</span>); grid;
+</pre>
+<img vspace="5" hspace="5" src="PR06_08.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Práctica 6: Convolución y Correlación de señales
+%
+%
+%% Integrantes
+%
+% Portillo Martínez Arturo
+%
+%% Objetivos
+%
+% * Conocer métodos básicos de integración numérica.
+% * Manipulación de instrucciones en MATLAB.
+% * Simular convoluciones y correlaciones de señales continuas.
+% * Simular convoluciones y correlaciones de señales discretas.
+%
+%% Introducción
+%
+% Métodos numéricos de integración
+%
+% *1.* *Integración*
+% 
+% $$\int_a^bf(x)dx$$
+%
+% El teorema fundamental del cálculo (en una de sus funciones). Si f es
+% integrable, y $$\frac {dF(x)} {dx} = f(x)$$
+%
+% $$\int_a^bf(x)dx = F(b) - F(a)$$
+%
+% Encontrar F es difícil o imposible.
+% (técnicas de integración, cambio de variable, integración por parte,etc.)
+%
+% Se aproxima utilizando polinomios, por ejemplo:
+%
+% $$f(x) = e^{-x^2}$$
+%
+% $$\int_{-1}^1f(x)dx = \int_{-1}^1e^{-x^2}dx = F(1) - F(-1)$$  con  $$\frac {dF(x)} {dx} = f(x)$$
+%
+% Aproxiamremos con el polinomio $$P(x)=1$$  teniendo:
+%
+% $$\int_{-1}^1P(x)dx = \int_{-1}^1 1dx = x\Big|_{-1}^1 = 2$$
+%
+% $$\int_{-1}^1e^{-x^2}dx < 2$$
+% 
+% $$\int_{-1}^1e^{-x^2}dx \approx 1.4936$$
+x = -1:0.001:1;
+f = @(x) exp(-x.^2);
+P = 1;
+figure()
+plot(x,f(x),'LineWidth',0.3); title('Ejemplo'); xlabel('x'); ylabel('Función'); grid; axis([-1 1, 0, 2])
+hold on
+yline(P,'r','LineWidth',0.3)
+legend("f(x)","P(x)")
+ax = gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+ax.Box = 'off';
+hold off
+%%
+%
+% *2.* *Fórmulas cerradas de Newton-Cotes*
+%
+% Se utilizan los polinomiso de interpolación de lagrange
+%
+% $$f\epsilon C^{n+1}[a,b]$$ existe $$\varepsilon (x) \epsilon (a,b)$$
+%
+% $$f(x) = P(x) + \frac {f^{n+1}(\varepsilon (x))} {(n+1)!} (x-x_0)
+% (x-x_1)...(x-x_n)$$ con $$x\epsilon [a,b] \;\; x_i\epsilon [a,b]$$
+%
+% Fórmula cerrada de (n+1) puntos de Newton-Cotes
+%
+% * $$x_0 = a$$
+% * $$x_n = b$$
+% * $$h = \frac {b-a} n$$
+% * $$x_i = x_0 + ih \;\; i = 0,1,...,n$$
+%
+% *Regla del trapecio (n=1)* 
+%
+% $$\int_{x_0}^{x_1}f(x)dx = \frac h 2 [f(x_0)+f(x_1)]-\frac {h^3} {12} f''(\varepsilon) \;\; x_0<\varepsilon<x_1$$
+%
+% * $$x_0 = a \;\;\;\;\;\; x_0 = x_0$$
+% * $$x_1 = b \;\;\;\;\;\; x_1 = a+b-a = b$$
+% * $$h = b-a$$ (paso)
+% * $$x_i = a + i(b-a) \;\; i = 0,1$$
+%
+% $$\int_{-1}^1e^{-x^2}dx = \frac 2 2 [e^{-1}+e^{-1}]-\frac 8 {12}[-2e^{-\varepsilon ^2}(1-2\varepsilon ^2)] \;\;\;\; -1<\varepsilon <1$$
+%
+% $$= 0.7357 + \frac 4 3 e^{-\varepsilon ^2}(1-2\varepsilon ^2) \;\;\;\; -1<\varepsilon <1$$
+%
+% *Regla de Simpson (n=2)* 
+%
+% $$\int_{x_0}^{x_2}f(x)dx = \frac h 3 [f(x_0)+4f(x_1)+f(x_2)]-\frac {h^5} {90} f^{(4)}(\varepsilon) \;\; x_0<\varepsilon<x_2$$
+%
+% * $$x_0 = a$$
+% * $$x_2 = b$$
+% * $$h = \frac {b-a} 2$$ (paso)
+% * $$x_i = a + ih \;\; i = 0,1,2$$
+% * $$x_1 = a + \frac {b-a} 2 = \frac {b+a} 2$$
+%
+% $$\int_{-1}^1e^{-x^2}dx = \frac 1 3 [e^{-1}+4e^{0}+e^{-1}]-\frac 1 {90}[-4e^{-\varepsilon ^2}(-4\varepsilon ^4 + 12\varepsilon ^2 - 3)] \;\;\;\; -1<\varepsilon <1$$
+%
+% $$= 1.5785 + \frac 2 {45} e^{-\varepsilon ^2}(-4\varepsilon ^4 + 12\varepsilon ^2 - 3)) \;\;\;\; -1<\varepsilon <1$$
+%
+% *Regla de tres octavos Simpson (n=3)* 
+%
+% $$\int_{x_0}^{x_3}f(x)dx = \frac 3 8 h[f(x_0)+3f(x_1)+3f(x_2)+f(x_3)]-\frac {3h^5} {80} f^{(4)}(\varepsilon) \;\; x_0<\varepsilon<x_3$$
+%
+% * $$x_0 = a$$
+% * $$x_3 = b$$
+% * $$h = \frac {b-a} 3$$ (paso)
+% * $$x_i = a + ih \;\; i = 0,1,2,3$$
+% * $$x_1 = a + \frac {b-a} 3 = \frac {2a+b} 3$$
+% * $$x_2 = a + \frac {2b-2a} 3 = \frac {2b+a} 3$$
+%
+% $$\int_{-1}^1e^{-x^2}dx = \frac 3 8 (\frac 2 3)[e^{-1}+3e^{-\frac 1 9}+3e^{-\frac 1 9}+e^{-1}]-\frac 3 {80}(\frac 2 3)^5[-4e^{-\varepsilon ^2}(-4\varepsilon ^4 + 12\varepsilon ^2 - 3)] \;\;\;\; -1<\varepsilon <1$$
+%
+% $$= 1.5261 + \frac 8 {405} e^{-\varepsilon ^2}(-4\varepsilon ^4 + 12\varepsilon ^2 - 3)) \;\;\;\; -1<\varepsilon <1$$
+%
+% *3.* *Fórmulas cerradas de Newton-Cotes Compuestas*
+% 
+% *Regla compuesta del trapecio*
+%
+% $$\int_{a}^{b}f(x)dx = \frac h 2 [f(a)+2\sum_{j=1}^{n-1}f(x_j)+f(b)]-\frac
+% {b-a} {12} h^2f''(\mu) \;\; \mu \epsilon(a,b)$$
+%
+% * n número de subintervalos.
+% * $$h = \frac {b-a} n$$ (paso)
+% * $$x_j = a + jh \;\; j = 0,1,2,...,n$$
+%
+% Con n = 10 tenemos h = 0.2
+%
+% $$\int_{-1}^1e^{-x^2}dx = \frac {0.2} 2 [e^{-1}+2\sum_{j=1}^{n-1}e^{-x_j^2}+e^{-1}]-\frac 2 {12}(0.2)^2[-2e^{-\mu ^2}(1-2\mu ^2)] \;\;\;\; -1<\mu <1$$
+%
+% $$= 1.4887 + 0.0133 e^{-\mu ^2}(1-2\mu ^2) \;\;\;\; -1<\mu <1$$
+% 
+% *Regla compuesta de Simpson*
+%
+% $$\int_{a}^{b}f(x)dx = \frac h 3 [f(a)+2\sum_{j=1}^{(\frac n 2)-1}f(x_{2j})+4\sum_{j=1}^{(\frac n 2)}f(x_{2j-1})+f(b)]-\frac
+% {b-a} {180} h^4f^{(4)}(\mu) \;\; \mu \epsilon(a,b)$$
+%
+% * n par número de subintervalos.
+% * $$h = \frac {b-a} n$$ (paso)
+% * $$x_j = a + jh \;\; j = 0,1,2,...,n$$
+%
+% Con n = 10 tenemos h = 0.2
+%
+% $$\int_{-1}^1e^{-x^2}dx = \frac {0.2} 3 [e^{-1}+2\sum_{j=1}^4 e^{-x_{2j}^2}+4\sum_{j=1}^5 e^{-x_{2j-1}^2}+e^{-1}]-\frac 2 {180}(0.2)^4[-4e^{-\mu ^2}(-4\mu ^4+12\mu ^2 -3)] \;\;\;\; -1<\mu <1$$
+%
+% $$= 1.4936 + 0.000071 e^{-\mu ^2}(-4\mu ^4+12\mu ^2-3) \;\;\;\; -1<\mu <1$$
+%
+% *3.* *Cuadratura gaussiana*
+%
+% % $$\int_{a}^b f(x)dx \approx \sum_{i=1}^n C_i f(x_i);$$ 2n parámetros
+%
+% * Polinomios de Lagrange.
+% * Polinomis de Legendre.
+%
+% $$\{1, x, x^2-\frac 1 3, x^3-\frac 3 5x,x^4-\frac 6 7x^2+\frac 3
+% {35},...\}$$
+%
+% Teniedo:
+%
+% * $$P_n(x)$$ polinomio de Legendre de grado n
+% * $$x_1,x_2,...,x_n$$ de $$P_n(x)$$
+% * $$\int_{-1}^1P(x)dx = \sum_{i=1}^nC_iP(x_i)$$  P(x) con grado menos que 2n 
+%
+% Teniendo como resultado
+%
+% $$\int_a^b f(x)dx = \int_{-1}^1 f(\frac {(b-a)t+b+a} 2) \frac {b-a} 2
+% dt$$
+%
+% Con n=2
+%
+% $$\int_{-1}^1 e^{-x^2}dx \approx e^{-(0.5773502692)^2} +
+% e^{-(0.5773502692)^2}\approx 1.4331$$
+%
+% Con n=3
+%
+% $$\int_{-1}^1 e^{-x^2}dx \approx 0.5555555556e^{-(0.7745966692)^2} +
+% 0.8888888889 + 0.5555555556e^{-(0.7745966692)^2} \approx 1.4986$$
+%
+%% Desarrollo
+%
+% Resolver cada uno de los siguientes problemas:
+%
+% # Para el PR04 reporte la grafica de la simulación númerica
+% de la convolución y compare con el resultado análitico que obtuvo para el problema 1, esto
+% es, su práctica tendrá que incluir una llamada a la funciónn
+% _convconm_ y posteriormente se tendrá que mostrar (mediante el
+% Publish) la gráfica tanto de las señales involucradas como el resultado de
+% la convolución, y en esta última gráficara su resultado analitico, se
+% tendrá que incluir el resultado analitico. 
+% # Para el PR05 reporte la grafica de la simulación númerica
+% de la correalción y compare con el resultado análitico que obtuvo para el problema e), esto
+% es, su práctica tendrá que incluir una llamada a la funciónn
+% _convconm_ y posteriormente se tendrá que mostrar (mediante el
+% Publish) la gráfica tanto de las señales involucradas como el resultado de
+% su correlación, y en esta última graficara su resultado analitico, se
+% tendrá que incluir el resultado analitico. 
+% # Realice la simuación de la convolución de las señales (c) con (d) del
+% problema 3.1-1 
+% # Realice la simuación de la correlación de las señales (c) con (d) del
+% problema 3.1-1
+% # Realice la  la convolución de las señales (c) con (d) del
+% problema 3.1-1 utilizando el comando *conv* de MATLAB, muestre el código
+% utilizado y gráfique el resultado, sugerencia: Utilice las propiedades de
+% traslación de la convolución.
+%
+%% Problema 1
+%
+% Para el PR04 reporte la grafica de la simulación númerica
+% de la convolución y compare con el resultado análitico que obtuvo para el problema 1, esto
+% es, su práctica tendrá que incluir una llamada a la funciónn
+% _convconm_ y posteriormente se tendrá que mostrar (mediante el
+% Publish) la gráfica tanto de las señales involucradas como el resultado de
+% la convolución, y en esta última gráficara su resultado analitico, se
+% tendrá que incluir el resultado analitico.
+%
+% Realiza la convolución de las siguientes señales:
+%
+t =-2:0.001:2;
+f = @(t) exp(-t).*(t>=0 & t<=1);
+g = @(t) t.*(t>=-1 & t<=1);
+
+figure()
+plot(t,f(t),'LineWidth',1); title('Función f(t)'); xlabel('t'); ylabel('f(t)'); grid; axis([-2 2,-1,2])
+ax = gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+ax.Box = 'off';
+
+figure()
+plot(t,g(t),'LineWidth',1); title('Función g(t)'); xlabel('t'); ylabel('g(t)'); grid; axis([-2 2,-2,2])
+ax = gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+ax.Box = 'off';
+
+%%
+% Se tiene las siguientes 2 señales con su convolución en analítico:
+%
+% *f(t)*
+%
+% <<f(t).png>>
+%
+% *g(t)*
+%
+% <<g(t).png>>
+%
+% *y(t)*
+%
+% <<y(t).png>>
+%
+f = @(t) exp(-t).*(t>=0 & t<=1);
+g = @(t) t.*(t>=-1 & t<=1);
+convconm(f,g)
+%%
+%
+% <<P1.gif>>
+%
+%% Problema 2
+%
+% Para el PR05 reporte la grafica de la simulación númerica
+% de la correalción y compare con el resultado análitico que obtuvo para el problema e), esto
+% es, su práctica tendrá que incluir una llamada a la funciónn
+% _convconm_ y posteriormente se tendrá que mostrar (mediante el
+% Publish) la gráfica tanto de las señales involucradas como el resultado de
+% su correlación, y en esta última graficara su resultado analitico, se
+% tendrá que incluir el resultado analitico. 
+%
+% Realiza la autocorrelación de
+%
+% $$x_1(t)=u(t)-2u(t-3)+u(t-4)$$
+%
+% Se tiene la señal con su autocorrelación en analítico:
+%
+% $$x_1(t)$$
+%
+% <<x1(t).png>>
+%
+% $$\Upsilon_{x_1x_1}(t)$$
+%
+% <<x11(t).png>>
+%
+f = @(t) 1*(t<=0)-2*(t<=-3)+1*(t<=-4);
+g = @(t) 1*(t>=0)-2*(t>=3)+1*(t>=4);
+convconm2(f,g)
+%%
+%
+% <<P2.gif>>
+%
+%% Problema 3
+%
+% Realice la simulación de la convolución de las señales (c) con (d) del
+% problema 3.1-1
+%
+% <<P3_1-1.png>> 
+%
+n=-3:3;
+a=[-9 -6 -3 0 3 6 9];
+b=[0 4 2 0 2 4 0];
+convdisc([n;a],[n;b])
+%%
+%
+% <<P3.gif>>
+%
+%% Problema 4
+%
+% Realice la simuación de la correlación de las señales (c) con (d) del
+% problema 3.1-1
+%
+% <<P3_1-1.png>> 
+%
+n=-3:3;
+a=[-9 -6 -3 0 3 6 9];
+b=[0 4 2 0 2 4 0];
+convdisc2([n;a],[n;b])
+%%
+%
+% <<P4.gif>>
+%
+%
+% Resulta ser que la convolución y la correlación tienen el mismo resultado
+% ya que el espejo de la segunda función es la misma que la original.
+%
+%% Problema 5
+%
+% Realice la  la convolución de las señales (c) con (d) del
+% problema 3.1-1 utilizando el comando *conv* de MATLAB, muestre el código
+% utilizado y gráfique el resultado, sugerencia: Utilice las propiedades de
+% traslación de la convolución.
+figure()
+a=[-9 -6 -3 0 3 6 9];
+b=[0 4 2 0 2 4 0];
+w=conv(a,b,"full");
+m = (length(w) - 1)/2;
+n= -m:m;
+stem(n,w,'LineWidth',3); title('Función r(t)'); xlabel('t'); ylabel('r(t)'); grid;
+##### SOURCE END #####
+-->
+</body>
+</html>
