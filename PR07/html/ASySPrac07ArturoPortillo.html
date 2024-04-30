@@ -168,9 +168,9 @@ f=@(t) (2.*t).*(abs(t)&lt;=0.5) + (2.*(1-t)).*((0.5&lt;t)&amp;(t&lt;=1.5));
 armo=15;
 a=-6.5;
 b=3.5;
-sfc(t0,tf,dn,d0,f,armo,a,b)
+sfc(t0,tf,dn,d0,f,armo,a,b,1)
 </pre>
-<img vspace="5" hspace="5" src="PR07_01.png" alt=""> <img vspace="5" hspace="5" src="PR07_02.png" alt=""> <h2 id="5">Ejemplo 6.4</h2>
+<img vspace="5" hspace="5" src="PR07_01.png" alt=""> <h2 id="5">Ejemplo 6.4</h2>
 <p>Se tiene la siguiente serie de Fourirer en forma trigonom&eacute;trica compacta:</p>
 <p>
 <img src="PR07_eq02428907105236690489.png" alt="$$ x(t) = \frac 1 2 + \sum_{n=1}^\infty \frac {2} {n \pi} sen(\frac {n\pi} {2}) cos(nt) $$"></p>
@@ -185,7 +185,7 @@ f=@(t) (1).*(((-pi/2)&lt;t)&amp;(t&lt;(pi/2)))
 armo=15;
 a=-5*pi;
 b=5*pi;
-sfc(t0,tf,dn,d0,f,armo,a,b)
+sfc(t0,tf,dn,d0,f,armo,a,b,2)
 </pre>
 <pre class="codeoutput">
 f =
@@ -195,7 +195,7 @@ f =
     @(t)(1).*(((-pi/2)&lt;t)&amp;(t&lt;(pi/2)))
 
 </pre>
-<img vspace="5" hspace="5" src="PR07_03.png" alt=""> <img vspace="5" hspace="5" src="PR07_04.png" alt=""> <h2 id="6">PR08.1</h2>
+<img vspace="5" hspace="5" src="PR07_02.png" alt=""> <h2 id="6">PR08.1</h2>
 <p>Se tiene la siguiente serie de Fourirer en forma trigonom&eacute;trica compacta:</p>
 <p>
 <img src="PR07_eq11491740112403307242.png" alt="$$ x(t) = \sum_{n=1}^\infty (-\frac {2cos(\pi n)} {\pi n} + \frac {2sen(\pi n)} {(\pi n)^2}) cos(n \pi t) $$"></p>
@@ -278,7 +278,7 @@ f=@(t) (2.*t).*(abs(t)<=0.5) + (2.*(1-t)).*((0.5<t)&(t<=1.5));
 armo=15;
 a=-6.5;
 b=3.5;
-sfc(t0,tf,dn,d0,f,armo,a,b)
+sfc(t0,tf,dn,d0,f,armo,a,b,1)
 %% Ejemplo 6.4
 %
 % Se tiene la siguiente serie de Fourirer en forma trigonométrica compacta:
@@ -297,7 +297,7 @@ f=@(t) (1).*(((-pi/2)<t)&(t<(pi/2)))
 armo=15;
 a=-5*pi;
 b=5*pi;
-sfc(t0,tf,dn,d0,f,armo,a,b)
+sfc(t0,tf,dn,d0,f,armo,a,b,2)
 %% PR08.1
 %
 % Se tiene la siguiente serie de Fourirer en forma trigonométrica compacta:
