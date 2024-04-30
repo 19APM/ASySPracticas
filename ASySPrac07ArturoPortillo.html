@@ -1,0 +1,415 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>Pr&aacute;ctica 7: Series de Fourier en tiempo continuo</title>
+<meta name="generator" content="MATLAB 23.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-04-30">
+<meta name="DC.source" content="PR07.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>Pr&aacute;ctica 7: Series de Fourier en tiempo continuo</h1>
+<!--introduction-->
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Integrantes</a>
+</li>
+<li>
+<a href="#2">Objetivos</a>
+</li>
+<li>
+<a href="#3">Desarrollo</a>
+</li>
+<li>
+<a href="#4">Ejemplo 6.2</a>
+</li>
+<li>
+<a href="#5">Ejemplo 6.4</a>
+</li>
+<li>
+<a href="#6">PR08.1</a>
+</li>
+<li>
+<a href="#7">PR08.2</a>
+</li>
+<li>
+<a href="#8">PR10</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Integrantes</h2>
+<p>Portillo Mart&iacute;nez Arturo</p>
+<h2 id="2">Objetivos</h2>
+<div>
+<ul>
+<li>Realizar gr&aacute;ficas de series de Fourier exponenciales y trigonom&eacute;tricas en tiempo continuo.</li>
+<li>Manipulaci&oacute;n de instrucciones en MATLAB.</li>
+</ul>
+</div>
+<h2 id="3">Desarrollo</h2>
+<p>Resolver cada uno de los siguientes problemas:</p>
+<div>
+<ol>
+<li>Gr&aacute;fica de la serie de Fourier en un intervalo que muestre 5 repeticiones.</li>
+<li>Gr&aacute;fica de la se&ntilde;al y la serie de Fourier para 15 arm&oacute;nicos.</li>
+<li>Gr&aacute;fica del error.</li>
+<li>Gr&aacute;fica de la energ&iacute;a del error.</li>
+<li>Espectro de magnitud para 15 arm&oacute;nicos.</li>
+<li>Espectro de fase para 15 arm&oacute;nicos.</li>
+</ol>
+</div>
+<div>
+<ul>
+<li>
+<b>Ejemplo 6.2</b> Agregar la expresi&oacute;n an&aacute;litica de la serie en ambos formatos. Utilizar A = 1.</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<b>Ejemplo 6.4</b> Agregar la expresi&oacute;n an&aacute;litica de la serie en ambos formatos.</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<b>PR08</b> Agregar la expresi&oacute;n an&aacute;litica de la serie en ambos formatos (hay dos series en esta tarea).</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<b>PR10</b> Agregar la expresi&oacute;n an&aacute;litica de la serie en ambos formatos (ejercicio 1 y <img src="PR07_eq08775146270570894060.png" alt="$a=2$">).</li>
+</ul>
+</div>
+<h2 id="4">Ejemplo 6.2</h2>
+<p>Se tiene la siguiente serie de Fourirer en forma trigonom&eacute;trica compacta:</p>
+<p>
+<img src="PR07_eq09404824361037226410.png" alt="$$ x(t) = \sum_{n=1}^\infty \frac {8} {n^2 \pi^2} sen(\frac {n\pi} {2}) cos(n \pi t) $$"></p>
+<p>Y se tienen la siguiente serie de Fourier en forma exponencial compleja:</p>
+<p>
+<img src="PR07_eq02966674098297677894.png" alt="$$ x(t) = \sum_{n=-\infty}^\infty -\frac {4} {n^2 \pi^2} sen(\frac {n \pi} {2})j e^{n \pi jt} $$"></p>
+<pre class="codeinput">d0=0;
+dn=@(n) -j*(4/((n^2)*(pi^2)))*sin((n*pi)/2);
+t0=-0.5;
+tf=1.5;
+f=@(t) (2.*t).*(abs(t)&lt;=0.5) + (2.*(1-t)).*((0.5&lt;t)&amp;(t&lt;=1.5));
+armo=15;
+a=-6.5;
+b=3.5;
+sfc(t0,tf,dn,d0,f,armo,a,b,1)
+</pre>
+<img vspace="5" hspace="5" src="PR07_01.png" alt=""> <h2 id="5">Ejemplo 6.4</h2>
+<p>Se tiene la siguiente serie de Fourirer en forma trigonom&eacute;trica compacta:</p>
+<p>
+<img src="PR07_eq02428907105236690489.png" alt="$$ x(t) = \frac 1 2 + \sum_{n=1}^\infty \frac {2} {n \pi} sen(\frac {n\pi} {2}) cos(nt) $$"></p>
+<p>Y se tienen la siguiente serie de Fourier en forma exponencial compleja:</p>
+<p>
+<img src="PR07_eq08415239079489650720.png" alt="$$ x(t) = \sum_{n=-\infty}^\infty \frac {1} {n \pi} sen(\frac {n \pi} {2}) e^{njt} $$"></p>
+<pre class="codeinput">d0=0.5;
+dn=@(n) (1/(n*pi))*sin((n*pi)/2);
+t0=-pi;
+tf=pi;
+f=@(t) (1).*(((-pi/2)&lt;t)&amp;(t&lt;(pi/2)))
+armo=15;
+a=-5*pi;
+b=5*pi;
+sfc(t0,tf,dn,d0,f,armo,a,b,2)
+</pre>
+<pre class="codeoutput">
+f =
+
+  function_handle with value:
+
+    @(t)(1).*(((-pi/2)&lt;t)&amp;(t&lt;(pi/2)))
+
+</pre>
+<img vspace="5" hspace="5" src="PR07_02.png" alt=""> <h2 id="6">PR08.1</h2>
+<p>Se tiene la siguiente serie de Fourirer en forma trigonom&eacute;trica compacta:</p>
+<p>
+<img src="PR07_eq12295907665688494380.png" alt="$$ x(t) = \sum_{n=1}^\infty (-\frac {2cos(\pi n)} {\pi n} + \frac {2sen(\pi n)} {\pi ^2 n^2}) cos(n \pi t) $$"></p>
+<p>Y se tienen la siguiente serie de Fourier en forma exponencial compleja:</p>
+<p>
+<img src="PR07_eq15026461797624024752.png" alt="$$ x(t) = \sum_{n=-\infty}^\infty (\frac {cos(\pi n)} {\pi n} - \frac {sen(\pi n)} {\pi ^2 n^2})j e^{\pi njt} $$"></p>
+<pre class="codeinput">d0=0;
+dn=@(n) ((cos(pi*n)/(pi*n))-(sin(pi*n)/((pi^2)*(n^2))))*j;
+t0=-1;
+tf=1;
+f=@(t) (t).*((-1&lt;t)&amp;(t&lt;1))
+armo=15;
+a=-5;
+b=5;
+sfc(t0,tf,dn,d0,f,armo,a,b,3)
+</pre>
+<pre class="codeoutput">
+f =
+
+  function_handle with value:
+
+    @(t)(t).*((-1&lt;t)&amp;(t&lt;1))
+
+</pre>
+<img vspace="5" hspace="5" src="PR07_03.png" alt=""> <h2 id="7">PR08.2</h2>
+<p>Se tiene la siguiente serie de Fourirer en forma trigonom&eacute;trica compacta:</p>
+<p>
+<img src="PR07_eq15122536630720492716.png" alt="$$ x(t) = \frac 4 3 + \sum_{n=1}^\infty \frac {8cos(\pi n)\sqrt {4+\pi ^4 n^4}} {\pi ^3 n^3} cos(n \frac {\pi} {2} t + tan^{-1}(\frac {2 - \pi ^2 n^2} {2\pi n})) $$"></p>
+<p>Y se tienen la siguiente serie de Fourier en forma exponencial compleja:</p>
+<p>
+<img src="PR07_eq09797414746506742685.png" alt="$$ x(t) = \frac 4 3 + \sum_{n=-\infty}^\infty (\frac {8} {\pi ^2 n^2} cos(\pi n) - \frac {8} {\pi ^3 n^3} cos(\pi n)j + \frac {4} {\pi n} cos(\pi n)j) e^{\frac {\pi} 2 n jt}  $$"></p>
+<pre class="codeinput">d0=(4/3);
+dn=@(n) ((8/(pi^2 * n^2))*cos(pi*n)) - (8/(pi^3 * n^3))*cos(pi*n)*j + (4/(pi*n))*cos(pi*n)*j;
+t0=-2;
+tf=2;
+f=@(t) (t.^2).*((-2&lt;t)&amp;(t&lt;2))
+armo=15;
+a=-10;
+b=10;
+sfc(t0,tf,dn,d0,f,armo,a,b,4)
+</pre>
+<pre class="codeoutput">
+f =
+
+  function_handle with value:
+
+    @(t)(t.^2).*((-2&lt;t)&amp;(t&lt;2))
+
+</pre>
+<img vspace="5" hspace="5" src="PR07_04.png" alt=""> <h2 id="8">PR10</h2>
+<p>Se tiene la siguiente serie de Fourirer en forma trigonom&eacute;trica compacta:</p>
+<p>
+<img src="PR07_eq14184433005648695127.png" alt="$$ x(t) = \sum_{n=1}^\infty \frac {8(1-e^{-2}cos(\pi n))} {4 + n^2 \pi ^2} cos(n \pi t) $$"></p>
+<p>Y se tienen la siguiente serie de Fourier en forma exponencial compleja:</p>
+<p>
+<img src="PR07_eq00358142354497094839.png" alt="$$ x(t) = \sum_{n=-\infty}^\infty \frac {4(1-e^{-2}cos(\pi n))} {4 + n^2 \pi ^2} e^{\pi njt}  $$"></p>
+<pre class="codeinput">d0=(4*(1-exp(-4)))/4;
+dn=@(n) (4*(1-(exp(-4)*cos(pi*n))))/(4+(pi^2)*(n^2));
+t0=-0.5;
+tf=0.5;
+f=@(t) 2.*exp(-2.*abs(t))
+armo=15;
+a=-2.5;
+b=2.5;
+sfc(t0,tf,dn,d0,f,armo,a,b,5)
+</pre>
+<pre class="codeoutput">
+f =
+
+  function_handle with value:
+
+    @(t)2.*exp(-2.*abs(t))
+
+</pre>
+<img vspace="5" hspace="5" src="PR07_05.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Práctica 7: Series de Fourier en tiempo continuo
+%
+%
+%% Integrantes
+%
+% Portillo Martínez Arturo
+%
+%% Objetivos
+%
+% * Realizar gráficas de series de Fourier exponenciales y trigonométricas en tiempo continuo.
+% * Manipulación de instrucciones en MATLAB.
+%
+%% Desarrollo
+%
+% Resolver cada uno de los siguientes problemas:
+%
+% # Gráfica de la serie de Fourier en un intervalo que muestre 5
+% repeticiones.
+% # Gráfica de la señal y la serie de Fourier para 15 armónicos. 
+% # Gráfica del error.
+% # Gráfica de la energía del error.
+% # Espectro de magnitud para 15 armónicos.
+% # Espectro de fase para 15 armónicos.
+%
+% * *Ejemplo 6.2*  Agregar la expresión análitica
+% de la serie en ambos formatos. Utilizar A = 1.
+%
+% * *Ejemplo 6.4* Agregar la expresión análitica
+% de la serie en ambos formatos.
+% 
+% * *PR08* Agregar la expresión análitica
+% de la serie en ambos formatos (hay dos series en esta tarea).
+%
+% * *PR10* Agregar la expresión análitica
+% de la serie en ambos formatos (ejercicio 1 y $a=2$).
+%
+%% Ejemplo 6.2
+%
+% Se tiene la siguiente serie de Fourirer en forma trigonométrica compacta:
+%
+% $$ x(t) = \sum_{n=1}^\infty \frac {8} {n^2 \pi^2} sen(\frac {n\pi} {2}) cos(n \pi t) $$
+%
+% Y se tienen la siguiente serie de Fourier en forma exponencial compleja:
+%
+% $$ x(t) = \sum_{n=-\infty}^\infty -\frac {4} {n^2 \pi^2} sen(\frac {n \pi} {2})j e^{n \pi jt} $$
+%
+d0=0;
+dn=@(n) -j*(4/((n^2)*(pi^2)))*sin((n*pi)/2);
+t0=-0.5;
+tf=1.5;
+f=@(t) (2.*t).*(abs(t)<=0.5) + (2.*(1-t)).*((0.5<t)&(t<=1.5));
+armo=15;
+a=-6.5;
+b=3.5;
+sfc(t0,tf,dn,d0,f,armo,a,b,1)
+%% Ejemplo 6.4
+%
+% Se tiene la siguiente serie de Fourirer en forma trigonométrica compacta:
+%
+% $$ x(t) = \frac 1 2 + \sum_{n=1}^\infty \frac {2} {n \pi} sen(\frac {n\pi} {2}) cos(nt) $$
+%
+% Y se tienen la siguiente serie de Fourier en forma exponencial compleja:
+%
+% $$ x(t) = \sum_{n=-\infty}^\infty \frac {1} {n \pi} sen(\frac {n \pi} {2}) e^{njt} $$
+%
+d0=0.5;
+dn=@(n) (1/(n*pi))*sin((n*pi)/2);
+t0=-pi;
+tf=pi;
+f=@(t) (1).*(((-pi/2)<t)&(t<(pi/2)))
+armo=15;
+a=-5*pi;
+b=5*pi;
+sfc(t0,tf,dn,d0,f,armo,a,b,2)
+%% PR08.1
+%
+% Se tiene la siguiente serie de Fourirer en forma trigonométrica compacta:
+%
+% $$ x(t) = \sum_{n=1}^\infty (-\frac {2cos(\pi n)} {\pi n} + \frac {2sen(\pi n)} {\pi ^2 n^2}) cos(n \pi t) $$
+%
+% Y se tienen la siguiente serie de Fourier en forma exponencial compleja:
+%
+% $$ x(t) = \sum_{n=-\infty}^\infty (\frac {cos(\pi n)} {\pi n} - \frac {sen(\pi n)} {\pi ^2 n^2})j e^{\pi njt} $$
+%
+d0=0;
+dn=@(n) ((cos(pi*n)/(pi*n))-(sin(pi*n)/((pi^2)*(n^2))))*j;
+t0=-1;
+tf=1;
+f=@(t) (t).*((-1<t)&(t<1))
+armo=15;
+a=-5;
+b=5;
+sfc(t0,tf,dn,d0,f,armo,a,b,3)
+%% PR08.2
+%
+% Se tiene la siguiente serie de Fourirer en forma trigonométrica compacta:
+%
+% $$ x(t) = \frac 4 3 + \sum_{n=1}^\infty \frac {8cos(\pi n)\sqrt {4+\pi ^4 n^4}} {\pi ^3 n^3} cos(n \frac {\pi} {2} t + tan^{-1}(\frac {2 - \pi ^2 n^2} {2\pi n})) $$
+%
+% Y se tienen la siguiente serie de Fourier en forma exponencial compleja:
+%
+% $$ x(t) = \frac 4 3 + \sum_{n=-\infty}^\infty (\frac {8} {\pi ^2 n^2} cos(\pi n) - \frac {8} {\pi ^3 n^3} cos(\pi n)j + \frac {4} {\pi n} cos(\pi n)j) e^{\frac {\pi} 2 n jt}  $$
+%
+d0=(4/3);
+dn=@(n) ((8/(pi^2 * n^2))*cos(pi*n)) - (8/(pi^3 * n^3))*cos(pi*n)*j + (4/(pi*n))*cos(pi*n)*j;
+t0=-2;
+tf=2;
+f=@(t) (t.^2).*((-2<t)&(t<2))
+armo=15;
+a=-10;
+b=10;
+sfc(t0,tf,dn,d0,f,armo,a,b,4)
+%% PR10
+%
+% Se tiene la siguiente serie de Fourirer en forma trigonométrica compacta:
+%
+% $$ x(t) = \sum_{n=1}^\infty \frac {8(1-e^{-2}cos(\pi n))} {4 + n^2 \pi ^2} cos(n \pi t) $$
+%
+% Y se tienen la siguiente serie de Fourier en forma exponencial compleja:
+%
+% $$ x(t) = \sum_{n=-\infty}^\infty \frac {4(1-e^{-2}cos(\pi n))} {4 + n^2 \pi ^2} e^{\pi njt}  $$
+%
+d0=(4*(1-exp(-4)))/4;
+dn=@(n) (4*(1-(exp(-4)*cos(pi*n))))/(4+(pi^2)*(n^2));
+t0=-0.5;
+tf=0.5;
+f=@(t) 2.*exp(-2.*abs(t))
+armo=15;
+a=-2.5;
+b=2.5;
+sfc(t0,tf,dn,d0,f,armo,a,b,5)
+##### SOURCE END #####
+-->
+</body>
+</html>
