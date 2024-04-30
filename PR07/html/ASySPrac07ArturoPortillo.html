@@ -9,7 +9,7 @@ To make changes, update the MATLAB code and republish this document.
 <title>Pr&aacute;ctica 7: Series de Fourier en tiempo continuo</title>
 <meta name="generator" content="MATLAB 23.2">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2024-04-29">
+<meta name="DC.date" content="2024-04-30">
 <meta name="DC.source" content="PR07.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -177,7 +177,7 @@ sfc(t0,tf,dn,d0,f,armo,a,b,1)
 <p>Y se tienen la siguiente serie de Fourier en forma exponencial compleja:</p>
 <p>
 <img src="PR07_eq08415239079489650720.png" alt="$$ x(t) = \sum_{n=-\infty}^\infty \frac {1} {n \pi} sen(\frac {n \pi} {2}) e^{njt} $$"></p>
-<pre class="codeinput">d0=0;
+<pre class="codeinput">d0=0.5;
 dn=@(n) (1/(n*pi))*sin((n*pi)/2);
 t0=-pi;
 tf=pi;
@@ -198,25 +198,79 @@ f =
 <img vspace="5" hspace="5" src="PR07_02.png" alt=""> <h2 id="6">PR08.1</h2>
 <p>Se tiene la siguiente serie de Fourirer en forma trigonom&eacute;trica compacta:</p>
 <p>
-<img src="PR07_eq11491740112403307242.png" alt="$$ x(t) = \sum_{n=1}^\infty (-\frac {2cos(\pi n)} {\pi n} + \frac {2sen(\pi n)} {(\pi n)^2}) cos(n \pi t) $$"></p>
+<img src="PR07_eq12295907665688494380.png" alt="$$ x(t) = \sum_{n=1}^\infty (-\frac {2cos(\pi n)} {\pi n} + \frac {2sen(\pi n)} {\pi ^2 n^2}) cos(n \pi t) $$"></p>
 <p>Y se tienen la siguiente serie de Fourier en forma exponencial compleja:</p>
 <p>
-<img src="PR07_eq09807228093914013503.png" alt="$$ x(t) = \sum_{n=-\infty}^\infty (-\frac {cos(\pi n)} {\pi n} + \frac {sen(\pi n)} {(\pi n)^2}) e^{\pi njt} $$"></p>
-<h2 id="7">PR08.2</h2>
+<img src="PR07_eq15026461797624024752.png" alt="$$ x(t) = \sum_{n=-\infty}^\infty (\frac {cos(\pi n)} {\pi n} - \frac {sen(\pi n)} {\pi ^2 n^2})j e^{\pi njt} $$"></p>
+<pre class="codeinput">d0=0;
+dn=@(n) ((cos(pi*n)/(pi*n))-(sin(pi*n)/((pi^2)*(n^2))))*j;
+t0=-1;
+tf=1;
+f=@(t) (t).*((-1&lt;t)&amp;(t&lt;1))
+armo=15;
+a=-5;
+b=5;
+sfc(t0,tf,dn,d0,f,armo,a,b,3)
+</pre>
+<pre class="codeoutput">
+f =
+
+  function_handle with value:
+
+    @(t)(t).*((-1&lt;t)&amp;(t&lt;1))
+
+</pre>
+<img vspace="5" hspace="5" src="PR07_03.png" alt=""> <h2 id="7">PR08.2</h2>
 <p>Se tiene la siguiente serie de Fourirer en forma trigonom&eacute;trica compacta:</p>
 <p>
-<img src="PR07_eq13733446347446821512.png" alt="$$ x(t) = \frac 4 3 + \sum_{n=1}^\infty \frac {8cos(\pi n)\sqrt {4+\pi ^4 n^4}} {\pi ^3 n^3} cos(n \frac {\pi} {2} t + tan^{-1}(\frac {\pi ^2 n^2 + 2} {2\pi n})) $$"></p>
+<img src="PR07_eq15122536630720492716.png" alt="$$ x(t) = \frac 4 3 + \sum_{n=1}^\infty \frac {8cos(\pi n)\sqrt {4+\pi ^4 n^4}} {\pi ^3 n^3} cos(n \frac {\pi} {2} t + tan^{-1}(\frac {2 - \pi ^2 n^2} {2\pi n})) $$"></p>
 <p>Y se tienen la siguiente serie de Fourier en forma exponencial compleja:</p>
 <p>
-<img src="PR07_eq11153516918196878221.png" alt="$$ x(t) = \sum_{n=-\infty}^\infty \frac {4cos(\pi n)\sqrt {4+\pi ^4 n^4}} {\pi ^3 n^3} e^{tan^{-1}(\frac {\pi ^2 n^2 + 2} {2\pi n})j} e^{\frac {\pi} 2 n jt}  $$"></p>
-<h2 id="8">PR10</h2>
+<img src="PR07_eq09797414746506742685.png" alt="$$ x(t) = \frac 4 3 + \sum_{n=-\infty}^\infty (\frac {8} {\pi ^2 n^2} cos(\pi n) - \frac {8} {\pi ^3 n^3} cos(\pi n)j + \frac {4} {\pi n} cos(\pi n)j) e^{\frac {\pi} 2 n jt}  $$"></p>
+<pre class="codeinput">d0=(4/3);
+dn=@(n) ((8/(pi^2 * n^2))*cos(pi*n)) - (8/(pi^3 * n^3))*cos(pi*n)*j + (4/(pi*n))*cos(pi*n)*j;
+t0=-2;
+tf=2;
+f=@(t) (t.^2).*((-2&lt;t)&amp;(t&lt;2))
+armo=15;
+a=-10;
+b=10;
+sfc(t0,tf,dn,d0,f,armo,a,b,4)
+</pre>
+<pre class="codeoutput">
+f =
+
+  function_handle with value:
+
+    @(t)(t.^2).*((-2&lt;t)&amp;(t&lt;2))
+
+</pre>
+<img vspace="5" hspace="5" src="PR07_04.png" alt=""> <h2 id="8">PR10</h2>
 <p>Se tiene la siguiente serie de Fourirer en forma trigonom&eacute;trica compacta:</p>
 <p>
 <img src="PR07_eq14184433005648695127.png" alt="$$ x(t) = \sum_{n=1}^\infty \frac {8(1-e^{-2}cos(\pi n))} {4 + n^2 \pi ^2} cos(n \pi t) $$"></p>
 <p>Y se tienen la siguiente serie de Fourier en forma exponencial compleja:</p>
 <p>
 <img src="PR07_eq00358142354497094839.png" alt="$$ x(t) = \sum_{n=-\infty}^\infty \frac {4(1-e^{-2}cos(\pi n))} {4 + n^2 \pi ^2} e^{\pi njt}  $$"></p>
-<p class="footer">
+<pre class="codeinput">d0=(4*(1-exp(-4)))/4;
+dn=@(n) (4*(1-(exp(-4)*cos(pi*n))))/(4+(pi^2)*(n^2));
+t0=-0.5;
+tf=0.5;
+f=@(t) 2.*exp(-2.*abs(t))
+armo=15;
+a=-2.5;
+b=2.5;
+sfc(t0,tf,dn,d0,f,armo,a,b,5)
+</pre>
+<pre class="codeoutput">
+f =
+
+  function_handle with value:
+
+    @(t)2.*exp(-2.*abs(t))
+
+</pre>
+<img vspace="5" hspace="5" src="PR07_05.png" alt=""> <p class="footer">
 <br>
 <a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023b</a>
 <br>
@@ -289,7 +343,7 @@ sfc(t0,tf,dn,d0,f,armo,a,b,1)
 %
 % $$ x(t) = \sum_{n=-\infty}^\infty \frac {1} {n \pi} sen(\frac {n \pi} {2}) e^{njt} $$
 %
-d0=0;
+d0=0.5;
 dn=@(n) (1/(n*pi))*sin((n*pi)/2);
 t0=-pi;
 tf=pi;
@@ -302,22 +356,40 @@ sfc(t0,tf,dn,d0,f,armo,a,b,2)
 %
 % Se tiene la siguiente serie de Fourirer en forma trigonométrica compacta:
 %
-% $$ x(t) = \sum_{n=1}^\infty (-\frac {2cos(\pi n)} {\pi n} + \frac {2sen(\pi n)} {(\pi n)^2}) cos(n \pi t) $$
+% $$ x(t) = \sum_{n=1}^\infty (-\frac {2cos(\pi n)} {\pi n} + \frac {2sen(\pi n)} {\pi ^2 n^2}) cos(n \pi t) $$
 %
 % Y se tienen la siguiente serie de Fourier en forma exponencial compleja:
 %
-% $$ x(t) = \sum_{n=-\infty}^\infty (-\frac {cos(\pi n)} {\pi n} + \frac {sen(\pi n)} {(\pi n)^2}) e^{\pi njt} $$
+% $$ x(t) = \sum_{n=-\infty}^\infty (\frac {cos(\pi n)} {\pi n} - \frac {sen(\pi n)} {\pi ^2 n^2})j e^{\pi njt} $$
 %
+d0=0;
+dn=@(n) ((cos(pi*n)/(pi*n))-(sin(pi*n)/((pi^2)*(n^2))))*j;
+t0=-1;
+tf=1;
+f=@(t) (t).*((-1<t)&(t<1))
+armo=15;
+a=-5;
+b=5;
+sfc(t0,tf,dn,d0,f,armo,a,b,3)
 %% PR08.2
 %
 % Se tiene la siguiente serie de Fourirer en forma trigonométrica compacta:
 %
-% $$ x(t) = \frac 4 3 + \sum_{n=1}^\infty \frac {8cos(\pi n)\sqrt {4+\pi ^4 n^4}} {\pi ^3 n^3} cos(n \frac {\pi} {2} t + tan^{-1}(\frac {\pi ^2 n^2 + 2} {2\pi n})) $$
+% $$ x(t) = \frac 4 3 + \sum_{n=1}^\infty \frac {8cos(\pi n)\sqrt {4+\pi ^4 n^4}} {\pi ^3 n^3} cos(n \frac {\pi} {2} t + tan^{-1}(\frac {2 - \pi ^2 n^2} {2\pi n})) $$
 %
 % Y se tienen la siguiente serie de Fourier en forma exponencial compleja:
 %
-% $$ x(t) = \sum_{n=-\infty}^\infty \frac {4cos(\pi n)\sqrt {4+\pi ^4 n^4}} {\pi ^3 n^3} e^{tan^{-1}(\frac {\pi ^2 n^2 + 2} {2\pi n})j} e^{\frac {\pi} 2 n jt}  $$
+% $$ x(t) = \frac 4 3 + \sum_{n=-\infty}^\infty (\frac {8} {\pi ^2 n^2} cos(\pi n) - \frac {8} {\pi ^3 n^3} cos(\pi n)j + \frac {4} {\pi n} cos(\pi n)j) e^{\frac {\pi} 2 n jt}  $$
 %
+d0=(4/3);
+dn=@(n) ((8/(pi^2 * n^2))*cos(pi*n)) - (8/(pi^3 * n^3))*cos(pi*n)*j + (4/(pi*n))*cos(pi*n)*j;
+t0=-2;
+tf=2;
+f=@(t) (t.^2).*((-2<t)&(t<2))
+armo=15;
+a=-10;
+b=10;
+sfc(t0,tf,dn,d0,f,armo,a,b,4)
 %% PR10
 %
 % Se tiene la siguiente serie de Fourirer en forma trigonométrica compacta:
@@ -328,6 +400,15 @@ sfc(t0,tf,dn,d0,f,armo,a,b,2)
 %
 % $$ x(t) = \sum_{n=-\infty}^\infty \frac {4(1-e^{-2}cos(\pi n))} {4 + n^2 \pi ^2} e^{\pi njt}  $$
 %
+d0=(4*(1-exp(-4)))/4;
+dn=@(n) (4*(1-(exp(-4)*cos(pi*n))))/(4+(pi^2)*(n^2));
+t0=-0.5;
+tf=0.5;
+f=@(t) 2.*exp(-2.*abs(t))
+armo=15;
+a=-2.5;
+b=2.5;
+sfc(t0,tf,dn,d0,f,armo,a,b,5)
 ##### SOURCE END #####
 -->
 </body>
