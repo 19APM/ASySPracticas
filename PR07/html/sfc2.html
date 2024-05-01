@@ -6,11 +6,11 @@
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
       -->
-<title>sfc</title>
+<title>sfc2</title>
 <meta name="generator" content="MATLAB 23.2">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
 <meta name="DC.date" content="2024-04-30">
-<meta name="DC.source" content="sfc.m">
+<meta name="DC.source" content="sfc2.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
@@ -77,7 +77,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <body>
 <div class="content">
 <pre class="codeinput">
-<span class="keyword">function</span> sfc(t0,tf,cn,c0,f,armo,a,b,x)
+<span class="keyword">function</span> sfc2(t0,tf,cn,c0,On,f,armo,a,b,x)
 <span class="comment">% t0 el valor inicial para calcular la serie</span>
 <span class="comment">% tf el valor final donde calcular la serie</span>
 <span class="comment">% dn funci&oacute;n de la f&oacute;rmula de los dn</span>
@@ -91,7 +91,7 @@ sf=c0;
 t=a:0.0001:b;
 
 <span class="keyword">for</span> n=1:armo
-    sf=sf-cn(-n)*exp(w0*-n*t*j)+dn(n)*exp(w0*n*t*j);
+    sf=sf+cn(n)*cos((w0*n*t)+On);
 <span class="keyword">end</span>
 figure (x)
 hFig = figure(x);
@@ -102,11 +102,11 @@ grid <span class="string">on</span>
 legend(<span class="string">'Serie de Fourier'</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>)
 xlabel(<span class="string">'t'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
 
-sf=d0;
+sf=c0;
 t1=t0:0.0001:tf;
 
 <span class="keyword">for</span> n=1:armo
-    sf=sf+dn(-n)*exp(w0*-n*t1*j)+dn(n)*exp(w0*n*t1*j);
+    sf=sf+(cn(n)*cos((w0*n*t)+On));
 <span class="keyword">end</span>
 
 subplot(3,2,2)
@@ -139,10 +139,10 @@ absdn=zeros(1,length(nn));
 cont=1;
 <span class="keyword">for</span> i =-armo:armo
     <span class="keyword">if</span> i==0
-        absdn(cont)=d0;
+        absdn(cont)=c0;
     <span class="keyword">end</span>
 
-    absdn(cont)=dn(i);
+    absdn(cont)=cn(i);
     cont=cont+1;
 <span class="keyword">end</span>
 
@@ -162,7 +162,7 @@ grid <span class="string">on</span>
 </pre>
 <pre class="codeoutput error">Not enough input arguments.
 
-Error in sfc (line 9)
+Error in sfc2 (line 9)
 w0=2*pi/(tf-t0);
 </pre>
 <p class="footer">
@@ -173,7 +173,7 @@ w0=2*pi/(tf-t0);
 </div>
 <!--
 ##### SOURCE BEGIN #####
-function sfc(t0,tf,cn,c0,f,armo,a,b,x)
+function sfc2(t0,tf,cn,c0,On,f,armo,a,b,x)
 % t0 el valor inicial para calcular la serie
 % tf el valor final donde calcular la serie
 % dn función de la fórmula de los dn
@@ -187,7 +187,7 @@ sf=c0;
 t=a:0.0001:b;
 
 for n=1:armo
-    sf=sf-cn(-n)*exp(w0*-n*t*j)+dn(n)*exp(w0*n*t*j);
+    sf=sf+cn(n)*cos((w0*n*t)+On);
 end
 figure (x)
 hFig = figure(x);
@@ -198,11 +198,11 @@ grid on
 legend('Serie de Fourier','Location','Best')
 xlabel('t','FontWeight','bold','FontSize',16)
 
-sf=d0;
+sf=c0;
 t1=t0:0.0001:tf;
 
 for n=1:armo
-    sf=sf+dn(-n)*exp(w0*-n*t1*j)+dn(n)*exp(w0*n*t1*j);
+    sf=sf+(cn(n)*cos((w0*n*t)+On));
 end
 
 subplot(3,2,2)
@@ -235,10 +235,10 @@ absdn=zeros(1,length(nn));
 cont=1;
 for i =-armo:armo
     if i==0
-        absdn(cont)=d0;
+        absdn(cont)=c0;
     end
     
-    absdn(cont)=dn(i);
+    absdn(cont)=cn(i);
     cont=cont+1;
 end
 
