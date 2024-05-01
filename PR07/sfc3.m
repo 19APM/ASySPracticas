@@ -1,4 +1,4 @@
-function sfc(t0,tf,dn,d0,f,armo,a,b,x)
+function sfc3(t0,tf,cn,c0,On,f,armo,a,b,x)
 % t0 el valor inicial para calcular la serie
 % tf el valor final donde calcular la serie
 % dn función de la fórmula de los dn
@@ -8,11 +8,11 @@ function sfc(t0,tf,dn,d0,f,armo,a,b,x)
 
 w0=2*pi/(tf-t0);
 
-sf=d0;
+sf=c0;
 t=a:0.0001:b;
 
 for n=1:armo
-    sf=sf+dn(-n)*exp(w0*-n*t*j)+dn(n)*exp(w0*n*t*j);
+    sf=sf+cn(n)*cos((w0*n*t)+On(n));
 end
 figure (x)
 hFig = figure(x);
@@ -23,11 +23,11 @@ grid on
 legend('Serie de Fourier','Location','Best')
 xlabel('t','FontWeight','bold','FontSize',16)
 
-sf=d0;
+sf=c0;
 t1=t0:0.0001:tf;
 
 for n=1:armo
-    sf=sf+dn(-n)*exp(w0*-n*t1*j)+dn(n)*exp(w0*n*t1*j);
+    sf=sf+cn(n)*cos((w0*n*t1)+On(n));
 end
 
 subplot(3,2,2)
@@ -60,10 +60,10 @@ absdn=zeros(1,length(nn));
 cont=1;
 for i =-armo:armo
     if i==0
-        absdn(cont)=d0;
+        absdn(cont)=c0;
     end
     
-    absdn(cont)=dn(i);
+    absdn(cont)=cn(i);
     cont=cont+1;
 end
 
