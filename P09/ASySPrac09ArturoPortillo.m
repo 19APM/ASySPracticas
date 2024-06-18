@@ -47,7 +47,7 @@
 %%
 syms t
 diferenciales([3 3 1],[1 -1],[1 1],cos(2*t)*heaviside(t),10)
-%% Sistemas en diferencias
+%% Sistemas en Diferencias
 % A continuación se muestra el código realizado para cumplir las
 % características solicitadas.
 %
