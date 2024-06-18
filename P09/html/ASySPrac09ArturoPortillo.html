@@ -1,0 +1,746 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>Pr&aacute;ctica 9: Sistemas diferenciales y en diferencias</title>
+<meta name="generator" content="MATLAB 23.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-06-17">
+<meta name="DC.source" content="ASySPrac09ArturoPortillo.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>Pr&aacute;ctica 9: Sistemas diferenciales y en diferencias</h1>
+<!--introduction-->
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Integrantes</a>
+</li>
+<li>
+<a href="#2">Desarrollo</a>
+</li>
+<li>
+<a href="#3">Sistemas Diferenciales</a>
+</li>
+<li>
+<a href="#7">Sistemas en diferencias</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Integrantes</h2>
+<p>Portillo Mart&iacute;nez Arturo</p>
+<h2 id="2">Desarrollo</h2>
+<p>Para sistemas diferenciales realiza un programa con las siguientes caracter&iacute;sticas:</p>
+<div>
+<ol>
+<li>Muestra la funci&oacute;n de transferencia del sistema.</li>
+<li>Muestra la respuesta al impulso (simb&oacute;lico, gr&aacute;fica).</li>
+<li>Muestra la respuesta a entrada cero (simb&oacute;lico, gr&aacute;fica).</li>
+<li>Muestra la respuesta a estado cero (simb&oacute;lico, gr&aacute;fica).</li>
+<li>Muestra la respuesta total (simb&oacute;lico, gr&aacute;fica).</li>
+<li>La respuesta total al escal&oacute;n con condiciones iniciales 0 (simb&oacute;lico, gr&aacute;fica).</li>
+<li>Usando subplot, depliega una figura con 5 gr&aacute;ficas.</li>
+</ol>
+</div>
+<p>Para sistemas en diferencias realiza un progra con las siguiente caracter&iacute;sticas :</p>
+<div>
+<ol>
+<li>Muestra la funci&oacute;n de transferencia del sistema.</li>
+<li>Muestra la respuesta al impulso (simb&oacute;lico, gr&aacute;fica, ver KroneckerDelta).</li>
+<li>Muestra la respuesta a entrada cero (simb&oacute;lico, gr&aacute;fica).</li>
+<li>Muestra la respuesta a estado cero (simb&oacute;lico, gr&aacute;fica).</li>
+<li>Muestra la respuesta total (simb&oacute;lico, gr&aacute;fica)).</li>
+<li>La respuesta total al escal&oacute;n con condiciones iniciales 0 (simb&oacute;lico, gr&aacute;fica).</li>
+<li>Usando subplot, depliega una figura con 5 gr&aacute;ficas.</li>
+</ol>
+</div>
+<h2 id="3">Sistemas Diferenciales</h2>
+<p>A continuaci&oacute;n se muestra el c&oacute;digo realizado para cumplir las caracter&iacute;sticas solicitadas.</p>
+<pre class="language-matlab">
+<span class="keyword">function</span> diferenciales(a,b,ciy,xi,t0)
+<span class="comment">% Portillo Mart&iacute;nez Arturo</span>
+<span class="comment">% 2MV1</span>
+<span class="comment">% An&aacute;lisis de Se&ntilde;ales y Sistemas</span>
+<span class="comment">% Sistemas diferenciales</span>
+
+<span class="comment">% ejemplo: resolver y^(2)+3y^(1)+3y = -x^(1)+x con y^(1)=1</span>
+<span class="comment">% y(0)=1, x(t)=cos(2t)u(t), para 10 segundos, se resuleve como</span>
+<span class="comment">% syms t</span>
+<span class="comment">% diferenciales([3 3 1],[1 -1],[1 1],cos(2t)*heaviside(t),10)</span>
+
+sympref(<span class="string">'HeavisideAtOrigin'</span>, 1);
+close <span class="string">all</span>
+tam=size(a);
+tami=size(b);
+syms <span class="string">y(t)</span> <span class="string">Y(s)</span> <span class="string">x(t)</span> <span class="string">X(s)</span> <span class="string">Yy</span> <span class="string">fp</span> <span class="string">trans</span> <span class="string">imp(t)</span> <span class="string">enCe(t)</span> <span class="string">esCe(t)</span> <span class="string">To(t)</span> <span class="string">Te(t)</span>;
+syms <span class="string">edd</span> <span class="string">edi</span> 
+edd=0;
+edi=0;
+
+<span class="comment">% Funci&oacute;n de transferencia</span>
+<span class="keyword">for</span> i=1:tam(2)
+   edd=edd+a(i)*s^(i-1);
+<span class="keyword">end</span>
+<span class="keyword">for</span> i=1:tami(2)
+   edi=edi+b(i)*s^(i-1);
+<span class="keyword">end</span>
+mensaje(<span class="string">'FUNCI&Oacute;N DE TRANSFERENCIA'</span>)
+disp(<span class="string">'H(s)='</span>)
+trans=edi/edd;
+pretty(trans)
+
+<span class="comment">% Respuesta al impulso</span>
+mensaje(<span class="string">'RESPUESTA AL IMPULSO'</span>)
+disp(<span class="string">'Respuesta al impulso='</span>)
+imp(t)=ilaplace(trans);
+pretty(imp(t))
+
+<span class="comment">% Respuesta a entrada cero</span>
+edd=0;
+edi=0;
+<span class="keyword">for</span> i=1:tam(2)
+   edd=edd+a(i)*s^(i-1)*Y(s);
+   <span class="keyword">for</span> k=1:i-1
+       edd=edd-a(i)*(s^(i-1-k)*ciy(k));
+   <span class="keyword">end</span>
+<span class="keyword">end</span>
+edd=collect(edd,Y(s));
+edd=subs(edd,Y(s),Yy);
+eq1=edd==edi;
+edd=solve(eq1, Yy);
+mensaje(<span class="string">'RESPUESTA A ENTRADA CERO'</span>)
+disp(<span class="string">'Respuesta a entrada cero='</span>)
+enCe(t)=ilaplace(edd);
+pretty(enCe(t))
+
+<span class="comment">% Respuesta a estado cero</span>
+edd=0;
+edi=0;
+<span class="keyword">for</span> i=1:tam(2)
+   edd=edd+a(i)*s^(i-1)*Y(s);
+<span class="keyword">end</span>
+<span class="keyword">for</span> i=1:tami(2)
+   edi=edi+b(i)*s^(i-1)*X(s);
+<span class="keyword">end</span>
+edi=subs(edi,X(s), laplace(xi));
+edd=collect(edd,Y(s));
+edd=subs(edd,Y(s),Yy);
+eq1=edd==edi;
+edd=solve(eq1, Yy);
+mensaje(<span class="string">'RESPUESTA A ESTADO CERO'</span>)
+disp(<span class="string">'Respuesta a estado cero='</span>)
+esCe(t)=ilaplace(edd);
+pretty(esCe(t))
+
+<span class="comment">% Respuesta total</span>
+edd=0;
+edi=0;
+<span class="keyword">for</span> i=1:tam(2)
+   edd=edd+a(i)*s^(i-1)*Y(s);
+   <span class="keyword">for</span> k=1:i-1
+       edd=edd-a(i)*(s^(i-1-k)*ciy(k));
+   <span class="keyword">end</span>
+<span class="keyword">end</span>
+<span class="keyword">for</span> i=1:tami(2)
+   edi=edi+b(i)*s^(i-1)*X(s);
+<span class="keyword">end</span>
+edi=subs(edi,X(s), laplace(xi));
+edd=collect(edd,Y(s));
+edd=subs(edd,Y(s),Yy);
+eq1=edd==edi;
+edd=solve(eq1, Yy);
+mensaje(<span class="string">'RESPUESTA TOTAL'</span>)
+disp(<span class="string">'y(t)='</span>)
+To(t)=ilaplace(edd);
+pretty(To(t))
+
+<span class="comment">% Respuesta total al escal&oacute;n con codiciones iniciales 0</span>
+edd=0;
+edi=0;
+<span class="keyword">for</span> i=1:tam(2)
+   edd=edd+a(i)*s^(i-1)*Y(s);
+<span class="keyword">end</span>
+<span class="keyword">for</span> i=1:tami(2)
+   edi=edi+b(i)*s^(i-1)*X(s);
+<span class="keyword">end</span>
+edi=subs(edi,X(s), laplace(heaviside(t)));
+edd=collect(edd,Y(s));
+edd=subs(edd,Y(s),Yy);
+eq1=edd==edi;
+edd=solve(eq1, Yy);
+mensaje(<span class="string">'RESPUESTA TOTAL AL ESCAL&Oacute;N UNITARIO CON CONDICIONES INICIALES 0'</span>)
+disp(<span class="string">'y(t)='</span>)
+Te(t)=ilaplace(edd);
+pretty(Te(t))
+
+<span class="comment">% Gr&aacute;ficas</span>
+figure (1)
+t=0:0.001:t0;
+hFig = figure(1);
+set(hFig, <span class="string">'Position'</span>, [0 0 900 2250])
+subplot(5,1,1)
+plot(t,imp(t),<span class="string">'LineWidth'</span>,2); title(<span class="string">'RESPUESTA AL IMPULSO'</span>); xlabel(<span class="string">'TIEMPO'</span>);
+subplot(5,1,2)
+plot(t,enCe(t),<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2); title(<span class="string">'RESPUESTA A ENTRADA CERO'</span>); xlabel(<span class="string">'TIEMPO'</span>);
+subplot(5,1,3)
+plot(t,esCe(t),<span class="string">'k'</span>,<span class="string">'LineWidth'</span>,2); title(<span class="string">'RESPUESTA A ESTADO CERO'</span>); xlabel(<span class="string">'TIEMPO'</span>);
+subplot(5,1,4)
+plot(t,To(t),<span class="string">'m'</span>,<span class="string">'LineWidth'</span>,2); title(<span class="string">'RESPUESTA TOTAL'</span>); xlabel(<span class="string">'TIEMPO'</span>);
+subplot(5,1,5)
+plot(t,Te(t),<span class="string">'c'</span>,<span class="string">'LineWidth'</span>,2); title(<span class="string">'RESPUESTA TOTAL AL ESCAL&Oacute;N UNITARIO CON CONDICIONES INICIALES 0'</span>); xlabel(<span class="string">'TIEMPO'</span>);
+grid <span class="string">on</span>
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> mensaje(texto)
+disp( <span class="string">' '</span>)
+disp(texto)
+disp( <span class="string">' '</span>)
+<span class="keyword">end</span>
+
+</pre>
+<p>Se puede consultar el archivo del c&oacute;digo <a href="https://19apm.github.io/ASySPracticas/P09/diferenciales.m">aqui</a>
+</p>
+<p>Entonces si se quiere resolver la ecuaci&oacute;n diferencial</p>
+<p>
+<img src="ASySPrac09ArturoPortillo_eq12619500679061357418.png" alt="$$\ddot{y}(t)+3\dot{y}(t)+3y(t)=-\dot{x}(t)+x(t),\;\;y(0)=1,\;y'(0)=1$$"></p>
+<p>Hasta t=10.</p>
+<pre class="codeinput">syms <span class="string">t</span>
+diferenciales([3 3 1],[1 -1],[1 1],cos(2*t)*heaviside(t),10)
+</pre>
+<pre class="codeoutput"> 
+FUNCI&Oacute;N DE TRANSFERENCIA
+ 
+H(s)=
+      s - 1
+- ------------
+   2
+  s  + 3 s + 3
+
+ 
+RESPUESTA AL IMPULSO
+ 
+Respuesta al impulso=
+              /                               / sqrt(3) t \   \
+              |                    sqrt(3) sin| --------- | 5 |
+    /   3 t \ |    / sqrt(3) t \              \     2     /   |
+-exp| - --- | | cos| --------- | - -------------------------- |
+    \    2  / \    \     2     /                3             /
+
+ 
+RESPUESTA A ENTRADA CERO
+ 
+Respuesta a entrada cero=
+             /                               / sqrt(3) t \   \
+             |                    sqrt(3) sin| --------- | 5 |
+   /   3 t \ |    / sqrt(3) t \              \     2     /   |
+exp| - --- | | cos| --------- | + -------------------------- |
+   \    2  / \    \     2     /                3             /
+
+ 
+RESPUESTA A ESTADO CERO
+ 
+Respuesta a estado cero=
+sin(2 t) 4   cos(2 t) 13
+---------- - -----------
+    37            37
+
+                  /                               / sqrt(3) t \    \
+                  |                    sqrt(3) sin| --------- | 17 |
+        /   3 t \ |    / sqrt(3) t \              \     2     /    |
+     exp| - --- | | cos| --------- | - --------------------------- | 13
+        \    2  / \    \     2     /                13             /
+   + ------------------------------------------------------------------
+                                     37
+
+ 
+RESPUESTA TOTAL
+ 
+y(t)=
+sin(2 t) 4   cos(2 t) 13
+---------- - -----------
+    37            37
+
+                  /                               / sqrt(3) t \    \
+                  |                    sqrt(3) sin| --------- | 67 |
+        /   3 t \ |    / sqrt(3) t \              \     2     /    |
+     exp| - --- | | cos| --------- | + --------------------------- | 50
+        \    2  / \    \     2     /                75             /
+   + ------------------------------------------------------------------
+                                     37
+
+ 
+RESPUESTA TOTAL AL ESCAL&Oacute;N UNITARIO CON CONDICIONES INICIALES 0
+ 
+y(t)=
+       /   3 t \ /    / sqrt(3) t \              / sqrt(3) t \   \
+    exp| - --- | | cos| --------- | + sqrt(3) sin| --------- | 3 |
+1      \    2  / \    \     2     /              \     2     /   /
+- - --------------------------------------------------------------
+3                                  3
+
+</pre>
+<img vspace="5" hspace="5" src="ASySPrac09ArturoPortillo_01.png" alt=""> <h2 id="7">Sistemas en diferencias</h2>
+<p>A continuaci&oacute;n se muestra el c&oacute;digo realizado para cumplir las caracter&iacute;sticas solicitadas.</p>
+<pre class="language-matlab">
+<span class="keyword">function</span> diferencias(a,b,ciy,cix,xi,n0)
+<span class="comment">% Portillo Mart&iacute;nez Arturo</span>
+<span class="comment">% 2MV1</span>
+<span class="comment">% An&aacute;lisis de Se&ntilde;ales y Sistemas</span>
+<span class="comment">% Sistemas en diferencias</span>
+
+<span class="comment">% ejemplo: resolver 2y[n]+y[n+1] = 2x[n-1] con y[-1]=3 </span>
+<span class="comment">%x[n]=u[n], para 5 segundos, se resuleve como</span>
+<span class="comment">% syms n</span>
+<span class="comment">% diferencias([1 2],[2],[3],[0],heaviside(n),5)</span>
+
+sympref(<span class="string">'HeavisideAtOrigin'</span>, 1);
+close <span class="string">all</span>
+tam=size(a);
+tami=size(b);
+syms <span class="string">y(n)</span> <span class="string">n</span> <span class="string">z</span> <span class="string">Y(z)</span> <span class="string">x(n)</span> <span class="string">X(z)</span> <span class="string">Yy</span> <span class="string">fp</span> <span class="string">trans</span> <span class="string">imp(n)</span> <span class="string">enCe(n)</span> <span class="string">esCe(n)</span> <span class="string">To(n)</span> <span class="string">Te(n)</span>;
+syms <span class="string">edd</span> <span class="string">edi</span>
+edd=0;
+edi=1;
+
+<span class="comment">% Funci&oacute;n de transferencia</span>
+<span class="keyword">for</span> i=1:tam(2)
+   yd(i)=y(n+tam(2)-i);
+   edd=edd+ a(i)*ztrans(yd(i));   
+<span class="keyword">end</span>
+mensaje(<span class="string">'FUNCI&Oacute;N DE TRANSFERENCIA'</span>)
+edd=subs(edd,ztrans(y(n),n,z), Y(z));
+edi=subs(edi,ztrans(x(n),n,z), X(z));
+<span class="keyword">for</span> j=1:tami(2)-1
+edi=subs(edi,x(tami(2)-1-j),0);
+<span class="keyword">end</span>
+<span class="keyword">for</span> j=1:tam(2)-1
+edd=subs(edd,y(tam(2)-1-j),0);
+<span class="keyword">end</span>
+edd=collect(edd,Y(z));
+edd=subs(edd,Y(z),Yy);
+eq1=edd==edi;
+disp(<span class="string">'H[Z]='</span>)
+trans=solve(eq1, Yy);
+pretty(trans)
+
+<span class="comment">% Respuesta al impulso</span>
+mensaje(<span class="string">'RESPUESTA AL IMPULSO'</span>)
+disp(<span class="string">'Respuesta al impulso='</span>)
+imp(n)=iztrans(trans);
+pretty(imp(n))
+
+<span class="comment">% Respuesta a entrada cero</span>
+edd=0;
+edi=0;
+<span class="keyword">for</span> i=1:tam(2)
+   yd(i)=y(n+tam(2)-i);
+   edd=edd+ a(i)*ztrans(yd(i));   
+<span class="keyword">end</span>
+edd=subs(edd,ztrans(y(n),n,z), Y(z));
+edi=subs(edi,ztrans(x(n),n,z), X(z));
+<span class="keyword">for</span> j=1:tami(2)-1
+edi=subs(edi,x(tami(2)-1-j),cix(j));
+<span class="keyword">end</span>
+<span class="keyword">for</span> j=1:tam(2)-1
+edd=subs(edd,y(tam(2)-1-j),ciy(j));
+<span class="keyword">end</span>
+edi=subs(edi,X(z), 0);
+edd=collect(edd,Y(z));
+edd=subs(edd,Y(z),Yy);
+eq1=edd==edi;
+edd=solve(eq1, Yy);
+mensaje(<span class="string">'RESPUESTA A ENTRADA CERO'</span>)
+disp(<span class="string">'Respuesta a entrada cero='</span>)
+enCe(n)=iztrans(edd);
+pretty(enCe(n))
+
+<span class="comment">% Respuesta a estado cero</span>
+edd=0;
+edi=0;
+<span class="keyword">for</span> i=1:tam(2)
+   yd(i)=y(n+tam(2)-i);
+   edd=edd+ a(i)*ztrans(yd(i));   
+<span class="keyword">end</span>
+<span class="keyword">for</span> i=1:tami(2)
+   xd(i)=x(n+tami(2)-i);
+   edi=edi+ b(i)*ztrans(xd(i));   
+<span class="keyword">end</span>
+edd=subs(edd,ztrans(y(n),n,z), Y(z));
+edi=subs(edi,ztrans(x(n),n,z), X(z));
+<span class="keyword">for</span> j=1:tami(2)-1
+edi=subs(edi,x(tami(2)-1-j),0);
+<span class="keyword">end</span>
+<span class="keyword">for</span> j=1:tam(2)-1
+edd=subs(edd,y(tam(2)-1-j),0);
+<span class="keyword">end</span>
+edi=subs(edi,X(z), ztrans(xi));
+edd=collect(edd,Y(z));
+edd=subs(edd,Y(z),Yy);
+eq1=edd==edi;
+edd=solve(eq1, Yy);
+mensaje(<span class="string">'RESPUESTA A ESTADO CERO'</span>)
+disp(<span class="string">'Respuesta a estado cero='</span>)
+esCe(n)=iztrans(edd);
+pretty(esCe(n))
+
+<span class="comment">% Respuesta total</span>
+edd=0;
+edi=0;
+<span class="keyword">for</span> i=1:tam(2)
+   yd(i)=y(n+tam(2)-i);
+   edd=edd+ a(i)*ztrans(yd(i));   
+<span class="keyword">end</span>
+<span class="keyword">for</span> i=1:tami(2)
+   xd(i)=x(n+tami(2)-i);
+   edi=edi+ b(i)*ztrans(xd(i));   
+<span class="keyword">end</span>
+edd=subs(edd,ztrans(y(n),n,z), Y(z));
+edi=subs(edi,ztrans(x(n),n,z), X(z));
+<span class="keyword">for</span> j=1:tami(2)-1
+edi=subs(edi,x(tami(2)-1-j),cix(j));
+<span class="keyword">end</span>
+<span class="keyword">for</span> j=1:tam(2)-1
+edd=subs(edd,y(tam(2)-1-j),ciy(j));
+<span class="keyword">end</span>
+edi=subs(edi,X(z), ztrans(xi));
+edd=collect(edd,Y(z));
+edd=subs(edd,Y(z),Yy);
+eq1=edd==edi;
+edd=solve(eq1, Yy);
+mensaje(<span class="string">'RESPUESTA TOTAL'</span>)
+disp(<span class="string">'y(n)='</span>)
+To(n)=iztrans(edd);
+pretty(To(n))
+
+<span class="comment">% Respuesta total al escal&oacute;n con codiciones iniciales 0</span>
+edd=0;
+edi=0;
+<span class="keyword">for</span> i=1:tam(2)
+   yd(i)=y(n+tam(2)-i);
+   edd=edd+ a(i)*ztrans(yd(i));   
+<span class="keyword">end</span>
+<span class="keyword">for</span> i=1:tami(2)
+   xd(i)=x(n+tami(2)-i);
+   edi=edi+ b(i)*ztrans(xd(i));   
+<span class="keyword">end</span>
+edd=subs(edd,ztrans(y(n),n,z), Y(z));
+edi=subs(edi,ztrans(x(n),n,z), X(z));
+<span class="keyword">for</span> j=1:tami(2)-1
+edi=subs(edi,x(tami(2)-1-j),cix(j));
+<span class="keyword">end</span>
+<span class="keyword">for</span> j=1:tam(2)-1
+edd=subs(edd,y(tam(2)-1-j),ciy(j));
+<span class="keyword">end</span>
+edi=subs(edi,X(z), ztrans(heaviside(n)));
+edd=collect(edd,Y(z));
+edd=subs(edd,Y(z),Yy);
+eq1=edd==edi;
+edd=solve(eq1, Yy);
+mensaje(<span class="string">'RESPUESTA TOTAL AL ESCAL&Oacute;N UNITARIO CON CONDICIONES INICIALES 0'</span>)
+disp(<span class="string">'y(n)='</span>)
+Te(n)=iztrans(edd);
+pretty(Te(n))
+
+figure (2)
+hFig = figure(2);
+set(hFig, <span class="string">'Position'</span>, [0 0 900 2250])
+n=0:1:n0;
+subplot(5,1,1)
+stem(n,imp(n),<span class="string">'LineWidth'</span>,2); title(<span class="string">'RESPUESTA AL IMPULSO'</span>); xlabel(<span class="string">'TIEMPO'</span>);
+subplot(5,1,2)
+stem(n,enCe(n),<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2); title(<span class="string">'RESPUESTA A ENTRADA CERO'</span>); xlabel(<span class="string">'TIEMPO'</span>);
+subplot(5,1,3)
+stem(n,esCe(n),<span class="string">'k'</span>,<span class="string">'LineWidth'</span>,2); title(<span class="string">'RESPUESTA A ESTADO CERO'</span>); xlabel(<span class="string">'TIEMPO'</span>);
+subplot(5,1,4)
+stem(n,To(n),<span class="string">'m'</span>,<span class="string">'LineWidth'</span>,2); title(<span class="string">'RESPUESTA TOTAL'</span>); xlabel(<span class="string">'TIEMPO'</span>);
+subplot(5,1,5)
+stem(n,Te(n),<span class="string">'c'</span>,<span class="string">'LineWidth'</span>,2); title(<span class="string">'RESPUESTA TOTAL AL ESCAL&Oacute;N UNITARIO CON CONDICIONES INICIALES 0'</span>); xlabel(<span class="string">'TIEMPO'</span>);
+grid <span class="string">on</span>
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> mensaje(texto)
+disp( <span class="string">' '</span>)
+disp(texto)
+disp( <span class="string">' '</span>)
+<span class="keyword">end</span>
+
+</pre>
+<p>Se puede consultar el archivo del c&oacute;digo <a href="https://19apm.github.io/ASySPracticas/P09/diferencias.m">aqui</a>
+</p>
+<p>Entonces si se quiere resolver la ecuaci&oacute;n diferencial</p>
+<p>
+<img src="ASySPrac09ArturoPortillo_eq16945807531133635809.png" alt="$$2y[n]+y[n+1]=2x[n-1],\;\;y[-1]=3,\;x[n]=u[n]$$"></p>
+<p>Hasta n=5.</p>
+<pre class="codeinput">syms <span class="string">n</span>
+diferencias([1 2],[2],[3],[0],heaviside(n),5)
+</pre>
+<pre class="codeoutput"> 
+FUNCI&Oacute;N DE TRANSFERENCIA
+ 
+H[Z]=
+  1
+-----
+z + 2
+
+ 
+RESPUESTA AL IMPULSO
+ 
+Respuesta al impulso=
+                           n
+kroneckerDelta(n, 0)   (-2)
+-------------------- - -----
+          2              2
+
+ 
+RESPUESTA A ENTRADA CERO
+ 
+Respuesta a entrada cero=
+      n
+3 (-2)
+
+ 
+RESPUESTA A ESTADO CERO
+ 
+Respuesta a estado cero=
+          n
+2   2 (-2)
+- - -------
+3      3
+
+ 
+RESPUESTA TOTAL
+ 
+y(n)=
+      n
+7 (-2)    2
+------- + -
+   3      3
+
+ 
+RESPUESTA TOTAL AL ESCAL&Oacute;N UNITARIO CON CONDICIONES INICIALES 0
+ 
+y(n)=
+      n
+7 (-2)    2
+------- + -
+   3      3
+
+</pre>
+<img vspace="5" hspace="5" src="ASySPrac09ArturoPortillo_02.png" alt=""> <p>Si se quiere resolver la ecuaci&oacute;n diferencial</p>
+<p>
+<img src="ASySPrac09ArturoPortillo_eq11771746271134572116.png" alt="$$2y[n+2]-3y[n+1]+y[n]=4x[n+2]-3x[n+1],\;\;y[-1]=0,\;y[-2]=1,\;x[n]=(1/4)^n u[n]$$"></p>
+<p>Hasta n=5.</p>
+<pre class="codeinput">syms <span class="string">n</span>
+diferencias([2 -3 1],[4 -3],[0 1],[0],((1/4)^n)*heaviside(n),5)
+</pre>
+<pre class="codeoutput"> 
+FUNCI&Oacute;N DE TRANSFERENCIA
+ 
+H[Z]=
+       1
+--------------
+   2
+2 z  - 3 z + 1
+
+ 
+RESPUESTA AL IMPULSO
+ 
+Respuesta al impulso=
+                         / 1 \n
+kroneckerDelta(n, 0) - 2 | - |  + 1
+                         \ 2 /
+
+ 
+RESPUESTA A ENTRADA CERO
+ 
+Respuesta a entrada cero=
+  / 1 \n
+2 | - |  - 1
+  \ 2 /
+
+ 
+RESPUESTA A ESTADO CERO
+ 
+Respuesta a estado cero=
+              / 1 \n
+           16 | - |
+  / 1 \n      \ 4 /    4
+4 | - |  - --------- + -
+  \ 2 /        3       3
+
+ 
+RESPUESTA TOTAL
+ 
+y(n)=
+              / 1 \n
+           16 | - |
+  / 1 \n      \ 4 /    1
+6 | - |  - --------- + -
+  \ 2 /        3       3
+
+ 
+RESPUESTA TOTAL AL ESCAL&Oacute;N UNITARIO CON CONDICIONES INICIALES 0
+ 
+y(n)=
+n + 1
+
+</pre>
+<img vspace="5" hspace="5" src="ASySPrac09ArturoPortillo_03.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Práctica 9: Sistemas diferenciales y en diferencias
+%
+%
+%% Integrantes
+%
+% Portillo Martínez Arturo
+%
+%% Desarrollo
+%
+% Para sistemas diferenciales realiza un programa con las siguientes características:
+%
+% # Muestra la función de transferencia del sistema.
+% # Muestra la respuesta al impulso (simbólico, gráfica). 
+% # Muestra la respuesta a entrada cero (simbólico, gráfica).
+% # Muestra la respuesta a estado cero (simbólico, gráfica).
+% # Muestra la respuesta total (simbólico, gráfica).
+% # La respuesta total al escalón con condiciones iniciales 0 (simbólico, gráfica).
+% # Usando subplot, depliega una figura con 5 gráficas.
+%
+% Para sistemas en diferencias realiza un progra con las siguiente
+% características :
+%
+% # Muestra la función de transferencia del sistema.
+% # Muestra la respuesta al impulso (simbólico, gráfica, ver KroneckerDelta). 
+% # Muestra la respuesta a entrada cero (simbólico, gráfica).
+% # Muestra la respuesta a estado cero (simbólico, gráfica).
+% # Muestra la respuesta total (simbólico, gráfica)).
+% # La respuesta total al escalón con condiciones iniciales 0 (simbólico, gráfica).
+% # Usando subplot, depliega una figura con 5 gráficas.
+%
+%% Sistemas Diferenciales
+% A continuación se muestra el código realizado para cumplir las
+% características solicitadas.
+%
+% <include>diferenciales.m</include>
+%
+%
+% Se puede consultar el archivo del código <https://19apm.github.io/ASySPracticas/P09/diferenciales.m aqui>
+%
+%%
+% Entonces si se quiere resolver la ecuación diferencial
+%%
+% 
+% $$\ddot{y}(t)+3\dot{y}(t)+3y(t)=-\dot{x}(t)+x(t),\;\;y(0)=1,\;y'(0)=1$$
+%
+% Hasta t=10. 
+%%
+syms t
+diferenciales([3 3 1],[1 -1],[1 1],cos(2*t)*heaviside(t),10)
+%% Sistemas en diferencias
+% A continuación se muestra el código realizado para cumplir las
+% características solicitadas.
+%
+% <include>diferencias.m</include>
+%
+%
+% Se puede consultar el archivo del código <https://19apm.github.io/ASySPracticas/P09/diferencias.m aqui>
+%
+%%
+% Entonces si se quiere resolver la ecuación diferencial
+%%
+% 
+% $$2y[n]+y[n+1]=2x[n-1],\;\;y[-1]=3,\;x[n]=u[n]$$
+%
+% Hasta n=5. 
+%%
+syms n
+diferencias([1 2],[2],[3],[0],heaviside(n),5)
+%%
+% Si se quiere resolver la ecuación diferencial
+% 
+% $$2y[n+2]-3y[n+1]+y[n]=4x[n+2]-3x[n+1],\;\;y[-1]=0,\;y[-2]=1,\;x[n]=(1/4)^n u[n]$$
+%
+% Hasta n=5. 
+%%
+syms n
+diferencias([2 -3 1],[4 -3],[0 1],[0],((1/4)^n)*heaviside(n),5)
+%%
+##### SOURCE END #####
+-->
+</body>
+</html>
