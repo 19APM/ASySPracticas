@@ -1,0 +1,703 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>Pr&aacute;ctica 4: Se&ntilde;ales en tiempo discreto</title>
+<meta name="generator" content="MATLAB 23.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-06-24">
+<meta name="DC.source" content="P10.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>Pr&aacute;ctica 4: Se&ntilde;ales en tiempo discreto</h1>
+<!--introduction-->
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Integrantes</a>
+</li>
+<li>
+<a href="#2">Objetivos</a>
+</li>
+<li>
+<a href="#3">Introducci&oacute;n</a>
+</li>
+<li>
+<a href="#4">Desarrollo</a>
+</li>
+<li>
+<a href="#5">Problema 1</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Integrantes</h2>
+<p>Portillo Mart&iacute;nez Arturo</p>
+<h2 id="2">Objetivos</h2>
+<div>
+<ul>
+<li>Conocer los conceptos de respuesta en frecuencia.</li>
+<li>Conocer los conceptos de filtros.</li>
+<li>Realizar graficas de Bode (manual y con MATLAB).</li>
+<li>Realizar simulaciones num&eacute;ricas de sistemas con MATLAB.</li>
+</ul>
+</div>
+<h2 id="3">Introducci&oacute;n</h2>
+<p>4.10 Dise&ntilde;o de filtro por colocaci&oacute;n de polos y ceros de <img src="P10_eq09230322972160416371.png" alt="$H(s)$"></p>
+<p>La respuesta de la frecuencia de un sistema, que describe su capacidad de filtrado, depende de los polos y ceros de su funci&oacute;n de transferencia <img src="P10_eq09230322972160416371.png" alt="$H(s)$">.</p>
+<p>Esta funci&oacute;n puede expresarse en t&eacute;rminos de sus polos <img src="P10_eq17503020375009222629.png" alt="$(\lambda_i)$"> y ceros <img src="P10_eq17450442569193507375.png" alt="$(Z_i)$">. La magnitud y el &aacute;ngulo de <img src="P10_eq09230322972160416371.png" alt="$H(s)$"> en una frecuencia espec&iacute;fica <img src="P10_eq10457930845786210252.png" alt="$s=p$"> se calculan usando las distancias y &aacute;ngulos de los ceros y polos a ese punto <img src="P10_eq03729901751903020778.png" alt="$p$"> en el plano complejo. La magnitud de <img src="P10_eq09230322972160416371.png" alt="$H(s)$"> es el producto de las distancias de los ceros a <img src="P10_eq03729901751903020778.png" alt="$p$"> dividido por el producto de las distancias de los polos a <img src="P10_eq03729901751903020778.png" alt="$p$">. El &aacute;ngulo de <img src="P10_eq09230322972160416371.png" alt="$H(s)$"> es la suma de los &aacute;ngulos de los ceros a <img src="P10_eq03729901751903020778.png" alt="$p$"> menos la suma de los &aacute;ngulos de los polos a <img src="P10_eq03729901751903020778.png" alt="$p$">. Este m&eacute;todo se aplica para calcular la respuesta den frecuencia <img src="P10_eq03984882095637579914.png" alt="$H(j\omega)$"> a lo largo del eje imaginario, repitiendo el procedimiento para todos los valores de <img src="P10_eq11614052705438996851.png" alt="$\omega$">.</p>
+<p>AUMENTO DE GANANCIA POR UN POLO</p>
+<p>La ubicaci&oacute;n de un polo complejo <img src="P10_eq04228790652716314645.png" alt="$-\alpha + j\omega_0 $"> afecta la respuesta en frecuencia de un sistema. A medida que la frecuencia <img src="P10_eq11614052705438996851.png" alt="$\omega$"> se aproxima a <img src="P10_eq07344504133822531019.png" alt="$\omega_0$"> la respuesta en amplitud <img src="P10_eq05003985003608650451.png" alt="$|H(j\omega)|$"> aumenta,alcanzando un m&aacute;ximo en <img src="P10_eq07344504133822531019.png" alt="$\omega_0$">, y luego disminuye. Esto crea un comportamiento resonante, donde la ganancia es la m&aacute;xima en <img src="P10_eq07344504133822531019.png" alt="$\omega_0$">. Cuanto m&aacute;s cerca est&eacute; el polo del eje imaginario, mayor ser&aacute; la resonancia. En sistemas reales, cada polo commplejo debe tener su conjugado, lo que no afecta significativamente la selectividad en frecuencia cerca de <img src="P10_eq07344504133822531019.png" alt="$\omega_0$">. Para estabilidad, los polos deben ubicarse en el semiplano izquierdo.</p>
+<p>La presencia de polos complejos y sus conjugados afecta la respuesta en frecuencia de un sistema. La ganancia se define como <img src="P10_eq09031270985765024336.png" alt="$K/(d*d')$">, donde <img src="P10_eq10517210026693618754.png" alt="$d$"> es la distancia al polo y <img src="P10_eq18123725481068545683.png" alt="$d'$"> es la distancia al polo conjugado. Aunque el polo original afecta significativamente la ganancia cerca de <img src="P10_eq07344504133822531019.png" alt="$\omega_0$">, el polo conjugado, que est&aacute; m&aacute;s lejos de <img src="P10_eq07344504133822531019.png" alt="$\omega_0$">, no cambia dr&aacute;sticamente la longitud <img src="P10_eq18123725481068545683.png" alt="$d'$"> y, por lo tanto, la selectividad en frecuencia permanece pr&aacute;cticamente sin cambios con solo aumentos graduales en <img src="P10_eq18123725481068545683.png" alt="$d'$"> a medida que <img src="P10_eq11614052705438996851.png" alt="$\omega$"> crece.</p>
+<p>SUPRESI&Oacute;N DE GANANCIA POR UN CERO</p>
+<p>La ubicaci&oacute;n de ceros complejos <img src="P10_eq04865360511343126094.png" alt="$-\alpha \pm j\omega_0$"> afecta la respuesta en frecuencia de un sistema al suprimir la ganancia cerca de <img src="P10_eq07344504133822531019.png" alt="$\omega_0$">. Un cero en <img src="P10_eq02890573825380438766.png" alt="$j\omega_0$"> elimina completamente la ganancia en esa frecuencia, y ceros repetidos aumentan este efecto. Un par de polo y cero cercano tiende a cancelar sus efectos mutuos. La colocaci&oacute;n estrat&eacute;gica de polos y ceros permite dise&ntilde;ar diversos filtros (pasa-bajos, pasa-altos, pasa-banda y elimina-banda9. Adem&aacute;s, la respuesta en fase se puede analizar gr&aacute;ficamente observando los &aacute;ngulos formados por los polos y ceros complejos a medida que <img src="P10_eq11614052705438996851.png" alt="$\omega$"> var&iacute;a.</p>
+<p>FILTROS PASA-BAJOS</p>
+<p>Los filtros pasa-bajos t&iacute;picos tienen una ganancia m&aacute;xima en <img src="P10_eq05395492936896171415.png" alt="$\omega=0$">, lograda colocando un polo en el eje real opuesto al origen. La funci&oacute;n de transferencia normalizada para estos filtros es <img src="P10_eq13630056319448842371.png" alt="$H(s)=\frac{\omega_c}{s+\omega_c}$">. La ganancia disminuye a medida que <img src="P10_eq11614052705438996851.png" alt="$\omega$"> aumenta, lo que se ilustra en la Fig. 4.50d para <img src="P10_eq05671542907553195824.png" alt="$N=1$">.</p>
+<p>Un filtro pasa-bajos ideal tiene un a ganacia constante hasta <img src="P10_eq10874952498519892238.png" alt="$\omega_c$"> y luego cae a cero. Para aproximar este comportamiento, se coloca una "pared de polos" frente al eje imaginario hasta <img src="P10_eq10874952498519892238.png" alt="$\omega_c$">. La disposici&oacute;n &oacute;ptima es un semic&iacute;rculo con polos infinitos, pero en la pr&aacute;ctica se usa un n&uacute;mero finitos de polos. Los filtros Butterworth tienen una respuesta m&aacute;xima plana en la banda de paso y sus caracter&iacute;sticas mejoran al aumentar el n&uacute;mero de polos (N). Los filtros Chebyshev, aunque tienen ondulaciones en la banda de paso, ofrecen una ca&iacute;da de ganancia m&aacute;s r&aacute;pida en la banda de rechazo.</p>
+<p>FILTROS PASA-BANDA</p>
+<p>En un filtro pasa-banda ideal, la ganancia se incrementa uniformemente en toda la banda de paso. Pra lograr esto, se requiere una pared de polos frente al eje imaginario centrada en la frecuancia de resonancia <img src="P10_eq07344504133822531019.png" alt="$\omega_0$">, as&iacute; como una pared de polos conjugados opuesta a %%-\omega_0$$. En la pr&aacute;ctica, debido a limitaciones, se utilizan un n&uacute;mero finito de polos, lo que resulta en caracter&iacute;sticas menos ideales pero funcionalmente aceptables.</p>
+<p>FILTROS NOTCH (RECHAZO DE BANDA)</p>
+<p>La respuesta ideal en amplitud de un filtro notch (rechazo de banda) es el complemento de la de un filtro pasa-banda ideal, con ganancia cero en una banda centrada en <img src="P10_eq07344504133822531019.png" alt="$\omega_0$"> y ganancia unitaria en las dem&aacute;s frecuancias. Para lograr esto pr&aacute;cticamente, se utiliza un filtro notch de segundo orden con ceros en %%\pm j\omega_0%% y polos colocados de manera que satisfagan condiciones de equidistancia. La r&aacute;pida recupareci&oacute;n de la ganancia de 0 a 1 fuera de la frecuencia <img src="P10_eq07344504133822531019.png" alt="$\omega_0$"> se logra colocando los polos m&aacute;s cerca de los ceros en el semic&iacute;rculo de radio <img src="P10_eq07344504133822531019.png" alt="$\omega_0$">.</p>
+<p>FILTROS PR&Aacute;CTICOS Y SUS ESPECIFICACIONES</p>
+<p>En la pr&aacute;ctica, los filtros ideales deben de aproximarse debido a las limitaciones del mundo real. Esto implica transiciones graduales entre las bandas de paso y rechazo, y especificaciones de ganancia en t&eacute;rminos de decibelios. Los filtros pr&aacute;cticos no pueden tener una ganancia cero sobre una abnda finita, y por lo tanto, se define una banda de rechazo como aquella donde la ganancia est&aacute; por debajo de cierto umbral $$(G_s). Los filtros de diferentes tipos se pueden derivar de un filtro pasa-bajos b&aacute;sico mediante transformaciones de frecuencia adecuadas.</p>
+<h2 id="4">Desarrollo</h2>
+<p>Para el desarrollo se tienen que resolver cada uno de los siguientes problemas comenzando una nueva secci&oacute;n (para la publicaci&oacute;n) en cada uno de ellos.</p>
+<div>
+<ul>
+<li>
+<b>Problema 1.</b> El siguiente sistema es un ciruito electrico RLC en serie, donde la estrada es el voltaje suministrado al circuito y la salida es el voltaje en la resistencia,</li>
+</ul>
+</div>
+<p>
+<img vspace="5" hspace="5" src="RLC_schematic.PNG" alt=""> </p>
+<p>realiza lo siguiente</p>
+<p>
+<b>1a.</b> Demuestra que la ecuaci&oacute;n que modela el sistema es</p>
+<p>
+<img src="P10_eq02316162932818542872.png" alt="$$\ddot{V}_o(t)+\frac{R}{L}\dot{V}_o(t)+\frac{1}{LC}V_o(t) = \frac{R}{L}\dot{V_i}(t)$$"></p>
+<p>Ayuda: Voltaje suministrado es igual a voltaje consumido, escribir las variables en terminos de la salida mediante las relaciones de voltaje corriente en cada elemento y utilizar el hecho de que es un circuito en serie</p>
+<p>
+<b>1b.</b> Encuentre la funci&oacute;n de transferencia.</p>
+<p>En adelante suponga que <img src="P10_eq07279642365218962603.png" alt="$L=1 H$">, <img src="P10_eq02492045161753404405.png" alt="$C=510\,\mu F$"> y <img src="P10_eq04094607166141170979.png" alt="$R=50\, \Omega$"></p>
+<p>
+<b>1c.</b> Reporta el c&oacute;digo y la gr&aacute;fica de la respuesta al impulso, para diferentes tiempos de simulaci&oacute;n de tal manera que se muestre el comportamiento del sistema</p>
+<p>
+<b>1d.</b> Reporta el codigo y la gr&aacute;fica de la respuesta al escal&oacute;n, para diferentes tiempos de simulaci&oacute;n de tal manera que se muestre el comportamiento del sistema</p>
+<p>Define <img src="P10_eq18087908237299890506.png" alt="$\omega_0=1/\sqrt(L*C)$"></p>
+<p>
+<b>1e.</b> Presenta las simulaciones con una entrada seno de de amplitud 1 con frecuencias, <img src="P10_eq13136457725270781312.png" alt="$\frac{1}{2}\omega_0$">, <img src="P10_eq07344504133822531019.png" alt="$\omega_0$">, y <img src="P10_eq16393876745260679214.png" alt="$2\omega_0$">, para diferentes tiempos de simulaci&oacute;n de tal manera que se muestre el comportamiento del sistema</p>
+<p>
+<b>1f.</b> Reporta las gr&aacute;ficas de Bode para los valores de <img src="P10_eq04843170888871284642.png" alt="$R$"> y <img src="P10_eq08596374860807106346.png" alt="$C$"> propuestos y varia <img src="P10_eq11651993296838524737.png" alt="$L$"> de 1 a 1e-6 (en potencias de 10), &iquest;Qu&eacute; sucede con la respuesta en frecuencia?</p>
+<p>
+<b>1g.</b> Reporta las gr&aacute;ficas de Bode para los valores de <img src="P10_eq11651993296838524737.png" alt="$L$"> y <img src="P10_eq08596374860807106346.png" alt="$C$"> propuestos y varia <img src="P10_eq04843170888871284642.png" alt="$R$"> para <img src="P10_eq17880264166735837292.png" alt="$2,10,20 K\Omega$">, &iquest;Qu&eacute; sucede con la respuesta en frecuencia?</p>
+<div>
+<ul>
+<li>
+<b>Problema 2.</b> Consideremos el siguiente sistema</li>
+</ul>
+</div>
+<p>
+<img src="P10_eq03243362705990396640.png" alt="$$G(s)=\omega_c/(s+\omega_c)$$"></p>
+<p>
+<b>2a.</b> Muestra que <img src="P10_eq02871244678257302244.png" alt="$|G(0j)|=1$"></p>
+<p>
+<b>2b.</b> Muestra que si se tiene una ganancia de <img src="P10_eq14980222903727240296.png" alt="$-3db$"> entonces <img src="P10_eq04517580539070852432.png" alt="$\omega=\omega_c$"></p>
+<p>
+<b>2c.</b> Para modificar el comportamiento del sistema, se realiza una retroalimentaci&oacute;n negativa con <img src="P10_eq18192616975017341192.png" alt="$k=9$">. &iquest;Para qu&eacute; valor de <img src="P10_eq11614052705438996851.png" alt="$\omega$"> se tiene una ganancia de <img src="P10_eq14980222903727240296.png" alt="$-3db$">?, &iquest;Qu&eacute; concluye?</p>
+<p>
+<b>2d.</b> Para modificar el comportamiento del sistema, se realiza una retroalimentaci&oacute;n negativa con <img src="P10_eq00941806516521278432.png" alt="$k=0.9$">. &iquest;Para qu&eacute; valor de <img src="P10_eq11614052705438996851.png" alt="$\omega$"> se tiene una ganancia de <img src="P10_eq14980222903727240296.png" alt="$-3db$">?, &iquest;Qu&eacute; concluye?</p>
+<p>
+<b>2e.</b> Reporte las graficas de bode (c&oacute;digo) de los tres sistemas anteriores si <img src="P10_eq08829335244849330099.png" alt="$\omega_c=2$">.</p>
+<p>
+<img vspace="5" hspace="5" src="Bloques1.png" alt=""> </p>
+<div>
+<ul>
+<li>
+<b>Problema 3</b> Para el siguiente sistema</li>
+</ul>
+</div>
+<p>
+<img src="P10_eq11884291200743666117.png" alt="$$H(s)=\frac{(s+10)(s+20)}{s^2(s+100)}$$"></p>
+<p>
+<b>3a.</b> Bosqueja las gr&aacute;ficas de Bode a mano paso a paso, puedes revisar el ejemplo 4.25 y 4.26 de Lathi</p>
+<p>
+<b>3b.</b> Utiliza la instrucci&oacute;n <i>bode</i> para realizar las gr&aacute;ficas de bode</p>
+<div>
+<ul>
+<li>
+<b>Problema 4</b> Para el sistema</li>
+</ul>
+</div>
+<p>
+<img src="P10_eq10894085176573889402.png" alt="$$H(s)=\frac{10(s+2)}{s^2+8s+15}$$"></p>
+<p>Simule la respuesta al escal&oacute;n (CI=0), para diferentes tiempos de simulaci&oacute;n de tal manera que se muestre el comportamiento del sistema y comparela con la soluci&oacute;n anal&iacute;tica</p>
+<p>
+<img src="P10_eq02243051872387091314.png" alt="$$y(t)=1.33u(t)+1.67e^{-3t}u(t)-3e^{-5t}u(t)$$"></p>
+<div>
+<ul>
+<li>
+<b>Problema 5</b> Se tiene el siguiente sistema</li>
+</ul>
+</div>
+<p>
+<img src="P10_eq14604642488180518021.png" alt="$$\ddot{x}+5x=f$$"></p>
+<p>
+<b>5a.</b> &iquest;El sistema es BIBO estable?</p>
+<p>
+<b>5b.</b> Encuentre la respuesta (anal&iacute;tica) para condiciones iniciales cero del sistema si <img src="P10_eq18018461542035916181.png" alt="$f(t)=sen(\sqrt{5}t)u(t)$">, recuerde aplicar el resultado de convoluci&oacute;n si es necesario.</p>
+<p>
+<b>5c.</b> De acuerdo a 5a, &iquest;tiene sentido hablar de la respuesta en estado estacionario?</p>
+<p>
+<b>5d.</b> Presente las graficas de Bode del sistema utilizando la instrucci&oacute;n <i>bode</i>
+</p>
+<p>
+<b>5e.</b> &iquest;Cu&aacute;les son sus conclusiones al respecto?</p>
+<p>
+<b>5f.</b> Encuentre la respuesta (anal&iacute;tica) para condiciones iniciales cero del sistema si <img src="P10_eq02947161559625880321.png" alt="$f(t)=sen(\sqrt{5}/2t)u(t)$">, compare con la simulaci&oacute;n en MATLAB</p>
+<p>
+<b>5g.</b> Encuentre la respuesta (anal&iacute;tica) para condiciones iniciales cero del sistema si <img src="P10_eq00408068805186166046.png" alt="$f(t)=sen(2\sqrt{5}t)u(t)$">, compare con la simulaci&oacute;n en MATLAB</p>
+<div>
+<ul>
+<li>
+<b>Problema 6</b> Investigue la instrucci&oacute;n <i>linearSystemAnalyzer</i> (disposible a partir de 2015a) y con ayuda de esta, reporte las gr&aacute;ficas de</li>
+</ul>
+</div>
+<p>
+<b>6a.</b> Respuesta al Impulso</p>
+<p>
+<b>6b.</b> Respuesta al escal&oacute;n</p>
+<p>
+<b>6c.</b> Respuesta a <img src="P10_eq07034522856528101865.png" alt="$x(t)=cos(2t)u(t)$"></p>
+<p>
+<b>6d.</b> Graficas de Bode</p>
+<p>Para condiciones iniciales cero y 10 segundos de simulaci&oacute;n, para el sistema.</p>
+<p>
+<img src="P10_eq06199611254215234743.png" alt="$$\ddot{y}+3\dot{y}+2y=x$$"></p>
+<div>
+<ul>
+<li>
+<b>Problema 7</b> Reproduzca los resultados de la MATLAB session 4 del libro de Lathi.</li>
+</ul>
+</div>
+<h2 id="5">Problema 1</h2>
+<div>
+<ul>
+<li>
+<b>Problema 1.</b> El siguiente sistema es un ciruito electrico RLC en serie, donde la estrada es el voltaje suministrado al circuito y la salida es el voltaje en la resistencia,</li>
+</ul>
+</div>
+<p>
+<img vspace="5" hspace="5" src="RLC_schematic.PNG" alt=""> </p>
+<p>realiza lo siguiente</p>
+<p>
+<b>1a.</b> Demuestra que la ecuaci&oacute;n que modela el sistema es</p>
+<p>
+<img src="P10_eq02316162932818542872.png" alt="$$\ddot{V}_o(t)+\frac{R}{L}\dot{V}_o(t)+\frac{1}{LC}V_o(t) = \frac{R}{L}\dot{V_i}(t)$$"></p>
+<p>Tenemos primeramente que:</p>
+<p>
+<img src="P10_eq08725164254734945079.png" alt="$$V_i(t)=V_L(t)+V_C(t)+V_R(t)=L\frac{di_{(t)}}{dt}+\frac{1}{C}\int i_{(t)}\,dt+V_R(t)$$"></p>
+<p>Sustituimos <img src="P10_eq02837223563643969024.png" alt="$V_R(t)$"> con <img src="P10_eq12579002083745426379.png" alt="$V_o(t)$"></p>
+<p>
+<img src="P10_eq08356656817338816716.png" alt="$$V_i(t)=L\frac{di_{(t)}}{dt}+\frac{1}{C}\int i_{(t)}\,dt+V_o(t)$$"></p>
+<p>Despejamos <img src="P10_eq10978024836781442955.png" alt="$i(t)$"> en <img src="P10_eq02837223563643969024.png" alt="$V_R(t)$"></p>
+<p>
+<img src="P10_eq04939690973923675073.png" alt="$$i(t)=\frac{1}{R}V_o(t)$$"></p>
+<p>Sustituimos <img src="P10_eq10978024836781442955.png" alt="$i(t)$"> en <img src="P10_eq02364055697300614865.png" alt="$V_i(t)$"></p>
+<p>
+<img src="P10_eq05767271208053829625.png" alt="$$V_i(t)=L\frac{d}{dt}\frac{1}{R}V_o(t)+\frac{1}{C}\int\frac{1}{R}V_o(t)\,dt+V_o(t)$$"></p>
+<p>Sacamos la primera derivada de <img src="P10_eq02364055697300614865.png" alt="$V_i(t)$"></p>
+<p>
+<img src="P10_eq09302549239349001640.png" alt="$$\dot{V}_i(t)=\frac{L}{R}\ddot{V}_o(t)+\frac{1}{CR}V_o(t)+\dot{V}_o(t)$$"></p>
+<p>Sustituimos <img src="P10_eq03457307215345996290.png" alt="$\dot{V}_i(t)$"></p>
+<p>
+<img src="P10_eq06702267463719101922.png" alt="$$\ddot{V}_o(t)+\frac{R}{L}\dot{V}_o(t)+\frac{1}{LC}V_o(t) = \frac{R}{L}(\frac{L}{R}\ddot{V}_o(t)+\frac{1}{CR}V_o(t)+\dot{V}_o(t))$$"></p>
+<p>Reducimos</p>
+<p>
+<img src="P10_eq14219251268537538696.png" alt="$$\ddot{V}_o(t)+\frac{R}{L}\dot{V}_o(t)+\frac{1}{LC}V_o(t)=\ddot{V}_o(t)+\frac{R}{L}\dot{V}_o(t)+\frac{1}{LC}V_o(t)$$"></p>
+<p>Por lo tanto La ecuaci&oacute;n que modela el sistema est&aacute; en lo correcto.</p>
+<p>
+<b>1b.</b> Encuentre la funci&oacute;n de transferencia.</p>
+<p>En adelante suponga que <img src="P10_eq07279642365218962603.png" alt="$L=1 H$">, <img src="P10_eq02492045161753404405.png" alt="$C=510\,\mu F$"> y <img src="P10_eq04094607166141170979.png" alt="$R=50\, \Omega$"></p>
+<p>Sustitu&iacute;mos los valores en la ecuaci&oacute;n</p>
+<p>
+<img src="P10_eq00632468673780402193.png" alt="$$\ddot{V}_o(t)+\frac{50\, \Omega}{1 H}\dot{V}_o(t)+\frac{1}{1 H * 510\,\mu F}V_o(t) = \frac{50\, \Omega}{1 H}\dot{V_i}(t)$$"></p>
+<p>Donde:</p>
+<p>
+<img src="P10_eq15365616209223330747.png" alt="$$Q(j\omega)=(j\omega)^2 + \frac{50\, \Omega}{1 H}j\omega + \frac{1}{1 H * 510\,\mu F}$$"></p>
+<p>
+<img src="P10_eq01520048067912780457.png" alt="$$P(j\omega)=\frac{50\, \Omega}{1 H}j\omega$$"></p>
+<p>
+<img src="P10_eq13102991981469331829.png" alt="$$H(j\omega)=\frac{P(j\omega)}{Q(j\omega)}=\frac{\frac{50\, \Omega}{1 H}j\omega}{(j\omega)^2 + \frac{50\, \Omega}{1 H}j\omega + \frac{1}{1 H * 510\,\mu F}}=\frac{50j\omega}{(j\omega)^2 + 50j\omega + \frac{1}{510\,\mu}}$$"></p>
+<p>
+<b>1c.</b> Reporta el c&oacute;digo y la gr&aacute;fica de la respuesta al impulso, para diferentes tiempos de simulaci&oacute;n de tal manera que se muestre el comportamiento del sistema</p>
+<pre class="codeinput">syms <span class="string">s</span> <span class="string">y(t)</span>;
+imp = (50*s)/((s^2)+(50*s)+0.00051);
+y(t) = ilaplace(imp);
+
+t=0:0.001:0.5;
+subplot(2,2,1)
+plot(t,y(t),<span class="string">'LineWidth'</span>,2); title(<span class="string">'IMPULSO DE 0 A 0.5'</span>); xlabel(<span class="string">'TIEMPO'</span>);
+t=0:0.001:0.1;
+subplot(2,2,2)
+plot(t,y(t),<span class="string">'LineWidth'</span>,2); title(<span class="string">'IMPULSO DE 0 A 0.1'</span>); xlabel(<span class="string">'TIEMPO'</span>);
+t=0:0.001:0.05;
+subplot(2,2,3)
+plot(t,y(t),<span class="string">'LineWidth'</span>,2); title(<span class="string">'IMPULSO DE 0.A 0.05'</span>); xlabel(<span class="string">'TIEMPO'</span>);
+t=0:0.001:0.025;
+subplot(2,2,4)
+plot(t,y(t),<span class="string">'LineWidth'</span>,2); title(<span class="string">'IMPULSO DE 0 A 0.025'</span>); xlabel(<span class="string">'TIEMPO'</span>);
+</pre>
+<img vspace="5" hspace="5" src="P10_01.png" alt=""> <p>
+<b>1d.</b> Reporta el codigo y la gr&aacute;fica de la respuesta al escal&oacute;n, para diferentes tiempos de simulaci&oacute;n de tal manera que se muestre el comportamiento del sistema</p>
+<p>Define <img src="P10_eq18087908237299890506.png" alt="$\omega_0=1/\sqrt(L*C)$"></p>
+<pre class="codeinput">syms <span class="string">s</span> <span class="string">y(t)</span>;
+imp = ((50*s)/((s^2)+(50*s)+0.00051))*laplace(heaviside(t));
+y(t) = ilaplace(imp);
+
+t=0:0.001:0.5;
+subplot(2,2,1)
+plot(t,y(t),<span class="string">'LineWidth'</span>,2); title(<span class="string">'ESCAL&Oacute;N DE 0 A 0.5'</span>); xlabel(<span class="string">'TIEMPO'</span>);
+t=0:0.001:0.1;
+subplot(2,2,2)
+plot(t,y(t),<span class="string">'LineWidth'</span>,2); title(<span class="string">'ESCAL&Oacute;N DE 0 A 0.1'</span>); xlabel(<span class="string">'TIEMPO'</span>);
+t=0:0.001:0.05;
+subplot(2,2,3)
+plot(t,y(t),<span class="string">'LineWidth'</span>,2); title(<span class="string">'ESCAL&Oacute;N DE 0 A 0.05'</span>); xlabel(<span class="string">'TIEMPO'</span>);
+t=0:0.001:0.025;
+subplot(2,2,4)
+plot(t,y(t),<span class="string">'LineWidth'</span>,2); title(<span class="string">'ESCAL&Oacute;N DE 0 A 0.025'</span>); xlabel(<span class="string">'TIEMPO'</span>);
+</pre>
+<img vspace="5" hspace="5" src="P10_02.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Práctica 4: Señales en tiempo discreto
+%
+%
+%% Integrantes
+%
+% Portillo Martínez Arturo
+%
+%% Objetivos
+%
+% * Conocer los conceptos de respuesta en frecuencia.
+% * Conocer los conceptos de filtros.
+% * Realizar graficas de Bode (manual y con MATLAB).
+% * Realizar simulaciones numéricas de sistemas con MATLAB.
+%
+%% Introducción
+%
+% 4.10 Diseño de filtro por colocación de polos y ceros de $$H(s)$$
+% 
+% La respuesta de la frecuencia de un sistema, que describe su capacidad de
+% filtrado, depende de los polos y ceros de su función de transferencia $$H(s)$$.
+% 
+% Esta función puede expresarse en términos de sus polos $$(\lambda_i)$$ y
+% ceros $$(Z_i)$$. La magnitud y el ángulo de $$H(s)$$ en una frecuencia
+% específica $$s=p$$ se calculan usando las distancias y ángulos de los
+% ceros y polos a ese punto $$p$$ en el plano complejo. La magnitud de
+% $$H(s)$$ es el producto de las distancias de los ceros a $$p$$ dividido
+% por el producto de las distancias de los polos a $$p$$. El ángulo de $$H(s)$$
+% es la suma de los ángulos de los ceros a $$p$$ menos la suma de los
+% ángulos de los polos a $$p$$. Este método se aplica para calcular la
+% respuesta den frecuencia $$H(j\omega)$$ a lo largo del eje imaginario,
+% repitiendo el procedimiento para todos los valores de $$\omega$$.
+%
+% AUMENTO DE GANANCIA POR UN POLO
+%
+% La ubicación de un polo complejo $$-\alpha + j\omega_0 $$ afecta la respuesta en frecuencia
+% de un sistema. A medida que la frecuencia $$\omega$$ se aproxima a $$\omega_0$$ la
+% respuesta en amplitud $$|H(j\omega)|$$ aumenta,alcanzando un máximo en $$\omega_0$$, y
+% luego disminuye. Esto crea un comportamiento resonante, donde la ganancia
+% es la máxima en $$\omega_0$$. Cuanto más cerca esté el polo del eje imaginario,
+% mayor será la resonancia. En sistemas reales, cada polo commplejo debe
+% tener su conjugado, lo que no afecta significativamente la selectividad
+% en frecuencia cerca de $$\omega_0$$. Para estabilidad, los polos deben ubicarse
+% en el semiplano izquierdo.
+%
+% La presencia de polos complejos y sus conjugados afecta la respuesta en frecuencia de un sistema.
+% La ganancia se define como $$K/(d*d')$$, donde $$d$$ es la distancia al polo y
+% $$d'$$ es la distancia al polo conjugado. Aunque el polo original afecta
+% significativamente la ganancia cerca de $$\omega_0$$, el polo conjugado, que
+% está más lejos de $$\omega_0$$, no cambia drásticamente la longitud $$d'$$ y, por
+% lo tanto, la selectividad en frecuencia permanece prácticamente sin
+% cambios con solo aumentos graduales en $$d'$$ a medida que $$\omega$$ crece.
+%
+% SUPRESIÓN DE GANANCIA POR UN CERO
+%
+% La ubicación de ceros complejos $$-\alpha \pm j\omega_0$$ afecta la
+% respuesta en frecuencia de un sistema al suprimir la ganancia cerca de
+% $$\omega_0$$. Un cero en $$j\omega_0$$ elimina completamente la ganancia
+% en esa frecuencia, y ceros repetidos aumentan este efecto. Un par de polo
+% y cero cercano tiende a cancelar sus efectos mutuos. La colocación
+% estratégica de polos y ceros permite diseñar diversos filtros
+% (pasa-bajos, pasa-altos, pasa-banda y elimina-banda9. Además, la
+% respuesta en fase se puede analizar gráficamente observando los ángulos
+% formados por los polos y ceros complejos a medida que $$\omega$$ varía.
+%
+% FILTROS PASA-BAJOS
+%
+% Los filtros pasa-bajos típicos tienen una ganancia máxima en
+% $$\omega=0$$, lograda colocando un polo en el eje real opuesto al origen.
+% La función de transferencia normalizada para estos filtros es
+% $$H(s)=\frac{\omega_c}{s+\omega_c}$$. La ganancia disminuye a medida que
+% $$\omega$$ aumenta, lo que se ilustra en la Fig. 4.50d para $$N=1$$.
+%
+% Un filtro pasa-bajos ideal tiene un a ganacia constante hasta $$\omega_c$$
+% y luego cae a cero. Para aproximar este comportamiento, se coloca una
+% "pared de polos" frente al eje imaginario hasta $$\omega_c$$. La
+% disposición óptima es un semicírculo con polos infinitos, pero en la
+% práctica se usa un número finitos de polos. Los filtros Butterworth
+% tienen una respuesta máxima plana en la banda de paso y sus
+% características mejoran al aumentar el número de polos (N). Los filtros
+% Chebyshev, aunque tienen ondulaciones en la banda de paso, ofrecen una
+% caída de ganancia más rápida en la banda de rechazo.
+%
+% FILTROS PASA-BANDA
+% 
+% En un filtro pasa-banda ideal, la ganancia se incrementa uniformemente en
+% toda la banda de paso. Pra lograr esto, se requiere una pared de polos
+% frente al eje imaginario centrada en la frecuancia de resonancia
+% $$\omega_0$$, así como una pared de polos conjugados opuesta a
+% %%-\omega_0$$. En la práctica, debido a limitaciones, se utilizan un
+% número finito de polos, lo que resulta en características menos ideales
+% pero funcionalmente aceptables.
+% 
+% FILTROS NOTCH (RECHAZO DE BANDA)
+%
+% La respuesta ideal en amplitud de un filtro notch (rechazo de banda) es
+% el complemento de la de un filtro pasa-banda ideal, con ganancia cero en
+% una banda centrada en $$\omega_0$$ y ganancia unitaria en las demás
+% frecuancias. Para lograr esto prácticamente, se utiliza un filtro notch
+% de segundo orden con ceros en %%\pm j\omega_0%% y polos colocados de
+% manera que satisfagan condiciones de equidistancia. La rápida
+% recupareción de la ganancia de 0 a 1 fuera de la frecuencia $$\omega_0$$
+% se logra colocando los polos más cerca de los ceros en el semicírculo de
+% radio $$\omega_0$$.
+%
+% FILTROS PRÁCTICOS Y SUS ESPECIFICACIONES
+%
+% En la práctica, los filtros ideales deben de aproximarse debido a las
+% limitaciones del mundo real. Esto implica transiciones graduales entre
+% las bandas de paso y rechazo, y especificaciones de ganancia en términos
+% de decibelios. Los filtros prácticos no pueden tener una ganancia cero
+% sobre una abnda finita, y por lo tanto, se define una banda de rechazo
+% como aquella donde la ganancia está por debajo de cierto umbral $$(G_s).
+% Los filtros de diferentes tipos se pueden derivar de un filtro pasa-bajos
+% básico mediante transformaciones de frecuencia adecuadas.
+%
+%% Desarrollo
+%
+% Para el desarrollo se tienen que resolver cada uno de los siguientes problemas comenzando 
+% una nueva sección (para la publicación) en cada uno de ellos.
+%
+% * *Problema 1.* El siguiente sistema es un ciruito electrico RLC en serie, donde la
+% estrada es el voltaje suministrado al circuito y la salida es el voltaje
+% en la resistencia,
+% 
+% <<RLC_schematic.PNG>>
+% 
+% realiza lo siguiente 
+% 
+% *1a.* Demuestra que la ecuación que modela el sistema es 
+%
+% $$\ddot{V}_o(t)+\frac{R}{L}\dot{V}_o(t)+\frac{1}{LC}V_o(t) = \frac{R}{L}\dot{V_i}(t)$$
+%  
+% Ayuda: Voltaje suministrado es igual a voltaje consumido, escribir las
+% variables en terminos de la salida mediante las relaciones de voltaje
+% corriente en cada elemento y utilizar el hecho de que es un circuito en
+% serie
+% 
+% *1b.* Encuentre la función de transferencia. 
+%
+% En adelante suponga que $L=1 H$, $C=510\,\mu F$ y $R=50\, \Omega$
+%
+% *1c.* Reporta el código y la gráfica de la respuesta al impulso, para
+% diferentes tiempos de simulación de tal manera que se muestre el
+% comportamiento del sistema
+%
+% *1d.* Reporta el codigo y la gráfica de la respuesta al escalón, para
+% diferentes tiempos de simulación de tal manera que se muestre el
+% comportamiento del sistema
+%
+% Define $\omega_0=1/\sqrt(L*C)$
+%
+% *1e.* Presenta las simulaciones con una entrada seno de 
+% de amplitud 1 con frecuencias, $\frac{1}{2}\omega_0$, $\omega_0$, y
+% $2\omega_0$, para
+% diferentes tiempos de simulación de tal manera que se muestre el
+% comportamiento del sistema
+%
+% *1f.* Reporta las gráficas de Bode para los valores de $R$ y $C$ propuestos y
+% varia $L$ de 1 a 1e-6 (en potencias de 10), ¿Qué sucede con la respuesta
+% en frecuencia?
+%
+% *1g.* Reporta las gráficas de Bode para los valores de $L$ y $C$ propuestos y
+% varia $R$ para $2,10,20 K\Omega$, ¿Qué sucede con la respuesta
+% en frecuencia?
+%
+% * *Problema 2.* Consideremos el siguiente sistema
+%
+% $$G(s)=\omega_c/(s+\omega_c)$$
+%
+% *2a.* Muestra que $|G(0j)|=1$
+%
+% *2b.* Muestra que si se tiene una ganancia de
+% $-3db$ entonces $\omega=\omega_c$
+%
+% *2c.* Para modificar el comportamiento del sistema, se realiza una
+% retroalimentación negativa con $k=9$. ¿Para qué valor de $\omega$ se
+% tiene una ganancia de $-3db$?, ¿Qué concluye?
+%
+% *2d.* Para modificar el comportamiento del sistema, se realiza una
+% retroalimentación negativa con $k=0.9$. ¿Para qué valor de $\omega$ se
+% tiene una ganancia de $-3db$?, ¿Qué concluye?
+%
+% *2e.* Reporte las graficas de bode (código) de los tres sistemas anteriores
+% si $\omega_c=2$.
+%
+% <<Bloques1.png>>
+%
+% * *Problema 3* Para el siguiente sistema
+%
+% $$H(s)=\frac{(s+10)(s+20)}{s^2(s+100)}$$
+%
+% *3a.* Bosqueja las gráficas de Bode a mano paso a paso, puedes revisar el
+% ejemplo 4.25 y 4.26 de Lathi
+%
+% *3b.* Utiliza la instrucción _bode_ para realizar las gráficas de bode
+%
+% * *Problema 4* Para el sistema 
+%
+% $$H(s)=\frac{10(s+2)}{s^2+8s+15}$$
+%
+% Simule la respuesta al escalón (CI=0), para
+% diferentes tiempos de simulación de tal manera que se muestre el
+% comportamiento del sistema y comparela con la solución
+% analítica
+%
+% $$y(t)=1.33u(t)+1.67e^{-3t}u(t)-3e^{-5t}u(t)$$
+%
+% * *Problema 5* Se tiene el siguiente sistema 
+%
+% $$\ddot{x}+5x=f$$
+%
+% *5a.* ¿El sistema es BIBO estable? 
+%
+% *5b.* Encuentre la respuesta  (analítica) para condiciones iniciales cero del sistema si
+% $f(t)=sen(\sqrt{5}t)u(t)$, recuerde aplicar el resultado de convolución si es
+% necesario.
+%
+% *5c.* De acuerdo a 5a, ¿tiene sentido hablar de la respuesta en estado
+% estacionario?
+%
+% *5d.* Presente las graficas de Bode del sistema utilizando la instrucción
+% _bode_
+%
+% *5e.* ¿Cuáles son sus conclusiones al respecto?
+% 
+% *5f.* Encuentre la respuesta  (analítica) para condiciones iniciales cero del sistema si
+% $f(t)=sen(\sqrt{5}/2t)u(t)$, compare con la simulación en MATLAB
+%
+% *5g.* Encuentre la respuesta  (analítica) para condiciones iniciales cero del sistema si
+% $f(t)=sen(2\sqrt{5}t)u(t)$, compare con la simulación en MATLAB
+%
+% * *Problema 6* Investigue la instrucción _linearSystemAnalyzer_ (disposible a partir de 2015a)
+% y con ayuda de esta, reporte las gráficas de 
+%
+% *6a.* Respuesta al Impulso
+%
+% *6b.* Respuesta al escalón
+%
+% *6c.* Respuesta a $x(t)=cos(2t)u(t)$
+%
+% *6d.* Graficas de Bode
+%
+% Para condiciones iniciales cero y 10 segundos de simulación, para el sistema.
+%
+% $$\ddot{y}+3\dot{y}+2y=x$$
+%
+% * *Problema 7* Reproduzca los resultados de la MATLAB session 4 del libro
+% de Lathi.
+%
+%% Problema 1
+% * *Problema 1.* El siguiente sistema es un ciruito electrico RLC en serie, donde la
+% estrada es el voltaje suministrado al circuito y la salida es el voltaje
+% en la resistencia,
+% 
+% <<RLC_schematic.PNG>>
+% 
+% realiza lo siguiente 
+%
+% *1a.* Demuestra que la ecuación que modela el sistema es 
+%
+% $$\ddot{V}_o(t)+\frac{R}{L}\dot{V}_o(t)+\frac{1}{LC}V_o(t) = \frac{R}{L}\dot{V_i}(t)$$
+%  
+% Tenemos primeramente que:
+%
+% $$V_i(t)=V_L(t)+V_C(t)+V_R(t)=L\frac{di_{(t)}}{dt}+\frac{1}{C}\int i_{(t)}\,dt+V_R(t)$$
+%
+% Sustituimos $$V_R(t)$$ con $$V_o(t)$$
+%
+% $$V_i(t)=L\frac{di_{(t)}}{dt}+\frac{1}{C}\int i_{(t)}\,dt+V_o(t)$$
+% 
+% Despejamos $$i(t)$$ en $$V_R(t)$$
+%
+% $$i(t)=\frac{1}{R}V_o(t)$$
+%
+% Sustituimos $$i(t)$$ en $$V_i(t)$$
+%
+% $$V_i(t)=L\frac{d}{dt}\frac{1}{R}V_o(t)+\frac{1}{C}\int\frac{1}{R}V_o(t)\,dt+V_o(t)$$
+%
+% Sacamos la primera derivada de $$V_i(t)$$
+% 
+% $$\dot{V}_i(t)=\frac{L}{R}\ddot{V}_o(t)+\frac{1}{CR}V_o(t)+\dot{V}_o(t)$$
+%
+% Sustituimos $$\dot{V}_i(t)$$
+%
+% $$\ddot{V}_o(t)+\frac{R}{L}\dot{V}_o(t)+\frac{1}{LC}V_o(t) = \frac{R}{L}(\frac{L}{R}\ddot{V}_o(t)+\frac{1}{CR}V_o(t)+\dot{V}_o(t))$$
+%
+% Reducimos
+%
+% $$\ddot{V}_o(t)+\frac{R}{L}\dot{V}_o(t)+\frac{1}{LC}V_o(t)=\ddot{V}_o(t)+\frac{R}{L}\dot{V}_o(t)+\frac{1}{LC}V_o(t)$$
+%
+% Por lo tanto La ecuación que modela el sistema está en lo correcto.
+%
+% *1b.* Encuentre la función de transferencia. 
+%
+% En adelante suponga que $L=1 H$, $C=510\,\mu F$ y $R=50\, \Omega$
+%
+% Sustituímos los valores en la ecuación
+%
+% $$\ddot{V}_o(t)+\frac{50\, \Omega}{1 H}\dot{V}_o(t)+\frac{1}{1 H * 510\,\mu F}V_o(t) = \frac{50\, \Omega}{1 H}\dot{V_i}(t)$$
+%
+% Donde:
+%
+% $$Q(j\omega)=(j\omega)^2 + \frac{50\, \Omega}{1 H}j\omega + \frac{1}{1 H * 510\,\mu F}$$
+%
+% $$P(j\omega)=\frac{50\, \Omega}{1 H}j\omega$$
+%
+% $$H(j\omega)=\frac{P(j\omega)}{Q(j\omega)}=\frac{\frac{50\, \Omega}{1 H}j\omega}{(j\omega)^2 + \frac{50\, \Omega}{1 H}j\omega + \frac{1}{1 H * 510\,\mu F}}=\frac{50j\omega}{(j\omega)^2 + 50j\omega + \frac{1}{510\,\mu}}$$
+%
+% *1c.* Reporta el código y la gráfica de la respuesta al impulso, para
+% diferentes tiempos de simulación de tal manera que se muestre el
+% comportamiento del sistema
+%
+syms s y(t);
+imp = (50*s)/((s^2)+(50*s)+0.00051);
+y(t) = ilaplace(imp);
+
+t=0:0.001:0.5;
+subplot(2,2,1)
+plot(t,y(t),'LineWidth',2); title('IMPULSO DE 0 A 0.5'); xlabel('TIEMPO');
+t=0:0.001:0.1;
+subplot(2,2,2)
+plot(t,y(t),'LineWidth',2); title('IMPULSO DE 0 A 0.1'); xlabel('TIEMPO');
+t=0:0.001:0.05;
+subplot(2,2,3)
+plot(t,y(t),'LineWidth',2); title('IMPULSO DE 0.A 0.05'); xlabel('TIEMPO');
+t=0:0.001:0.025;
+subplot(2,2,4)
+plot(t,y(t),'LineWidth',2); title('IMPULSO DE 0 A 0.025'); xlabel('TIEMPO');
+%%
+%
+% *1d.* Reporta el codigo y la gráfica de la respuesta al escalón, para
+% diferentes tiempos de simulación de tal manera que se muestre el
+% comportamiento del sistema
+%
+% Define $\omega_0=1/\sqrt(L*C)$
+%
+syms s y(t);
+imp = ((50*s)/((s^2)+(50*s)+0.00051))*laplace(heaviside(t));
+y(t) = ilaplace(imp);
+
+t=0:0.001:0.5;
+subplot(2,2,1)
+plot(t,y(t),'LineWidth',2); title('ESCALÓN DE 0 A 0.5'); xlabel('TIEMPO');
+t=0:0.001:0.1;
+subplot(2,2,2)
+plot(t,y(t),'LineWidth',2); title('ESCALÓN DE 0 A 0.1'); xlabel('TIEMPO');
+t=0:0.001:0.05;
+subplot(2,2,3)
+plot(t,y(t),'LineWidth',2); title('ESCALÓN DE 0 A 0.05'); xlabel('TIEMPO');
+t=0:0.001:0.025;
+subplot(2,2,4)
+plot(t,y(t),'LineWidth',2); title('ESCALÓN DE 0 A 0.025'); xlabel('TIEMPO');
+%%
+
+##### SOURCE END #####
+-->
+</body>
+</html>
