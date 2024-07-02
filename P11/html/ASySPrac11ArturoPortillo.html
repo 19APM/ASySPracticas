@@ -1,0 +1,510 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>Pr&aacute;ctica 11: Simulink</title>
+<meta name="generator" content="MATLAB 23.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-07-01">
+<meta name="DC.source" content="ASySPrac11ArturoPortillo.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>Pr&aacute;ctica 11: Simulink</h1>
+<!--introduction-->
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Integrantes</a>
+</li>
+<li>
+<a href="#2">Objetivos</a>
+</li>
+<li>
+<a href="#3">Desarrollo</a>
+</li>
+<li>
+<a href="#4">Problema 1 Ecuaci&oacute;n a)</a>
+</li>
+<li>
+<a href="#8">Problema 1 Ecuaci&oacute;n b)</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Integrantes</h2>
+<p>Portillo Mart&iacute;nez Arturo</p>
+<h2 id="2">Objetivos</h2>
+<div>
+<ul>
+<li>Conocer Simulink.</li>
+<li>Implementar simulaciones de ecuaciones diferenciales en Simulink.</li>
+</ul>
+</div>
+<h2 id="3">Desarrollo</h2>
+<p>Para el desarrollo se tienen que resolver cada uno de los siguientes problemas comenzando una nueva secci&oacute;n (para la publicaci&oacute;n) en cada uno de ellos.</p>
+<p>
+<b>1.</b> Para las siguientes ecuaciones obtenga</p>
+<p>
+<img vspace="5" hspace="5" src="ecu1.png" alt=""> </p>
+<p>
+<b>a)</b> La soluci&oacute;n anal&iacute;tica mediante transformada de laplace, puede ayudarse de programas previos</p>
+<p>
+<b>b)</b> La gr&aacute;fica de la soluci&oacute;n anal&iacute;tica, puede presentar diferentes intervalos en la grafica y acercamientos a la gr&aacute;fica seg&uacute;n considere necesario.</p>
+<p>
+<b>c)</b> El diagrama de la para Simulink, iopndicando en caso de que no sea claro, el valor de cada par&aacute;metro en Simulink, por ejemplo, reportar las condiciones Iniciales de simulaci&oacute;n ya que no son visibles a simple vista desde el esquema inplementado.</p>
+<p>
+<b>d)</b> La grafica de la soluci&oacute;n en Simulink, puede presentar diferentes intervalos en la grafica y acercamientos a la gr&aacute;fica seg&uacute;n considere necesario.</p>
+<p>
+<b>e)</b> La gr&aacute;fica, en la misma figura, de la Simulaci&oacute;n y la soluci&oacute;n anal&iacute;tica.</p>
+<p>
+<b>f)</b> En caso de que la entrada sea una funci&oacute;n senoidal:</p>
+<p>
+<b>i)</b> Encuentre el escalamiento y desfasamiento de la respuesta en estado estacionario a partir de la evaluaci&oacute;n de la funci&oacute;n de transferencia (soluci&oacute;n anal&iacute;tica).</p>
+<p>
+<b>ii)</b> Encuentre el escalamiento y desfasamiento de la respuesta forzada a partir de las gr&aacute;ficas de Bode generadas en Matlab (soluci&oacute;n num&eacute;rica).</p>
+<p>
+<b>iii)</b> Verifique que concuerde la soluci&oacute;n anal&iacute;tica y la soluci&oacute;n num&eacute;rica</p>
+<p>
+<b>2.</b> Un p&eacute;ndulo doble oscila en un plano vertical bajo la acci&oacute;n de la gravedad. Para desplazamientos peque&ntilde;os <img src="ASySPrac11ArturoPortillo_eq05883467537480801594.png" alt="$\theta_1(t)$"> y <img src="ASySPrac11ArturoPortillo_eq06360884827356943511.png" alt="$\theta_2(t)$">, es posible demostrar que las ecuaciones diferenciales del movimiento son:</p>
+<p>
+<img src="ASySPrac11ArturoPortillo_eq03779223655448065288.png" alt="$$ (m_1+m_2)l_1^2\ddot{\theta_1}(t)+m_2l_1l_2\ddot{\theta_2}(t)+(m_1+m_2)l_1g\theta_1(t)=0$$"></p>
+<p>
+<img src="ASySPrac11ArturoPortillo_eq14214374272700259868.png" alt="$$m_2l_2^2\ddot{\theta}_2+m_2l_1l_2\ddot{\theta_1}+m_2l_2g\theta_2(t)=0$$"></p>
+<p>donde <img src="ASySPrac11ArturoPortillo_eq14826395166570924532.png" alt="$m_1=0.1$">, <img src="ASySPrac11ArturoPortillo_eq14843020832342987862.png" alt="$m_2=0.1$">, <img src="ASySPrac11ArturoPortillo_eq16332617504463632864.png" alt="$l_1=l_2=1$">, <img src="ASySPrac11ArturoPortillo_eq07373845301188183784.png" alt="$\theta_1(0)=-1$">, <img src="ASySPrac11ArturoPortillo_eq16724258297238591817.png" alt="$\theta_2(0)=1$">, <img src="ASySPrac11ArturoPortillo_eq17840566201799528655.png" alt="$\dot{\theta_1}(0)=0$"> <img src="ASySPrac11ArturoPortillo_eq16642747512799582851.png" alt="$\dot{\theta_2}(0)=0$">.</p>
+<p>
+<img vspace="5" hspace="5" src="pendulo.png" alt=""> </p>
+<p>
+<b>a)</b> Realiza la soluci&oacute;n s&iacute;mbolica como en el siguiente <a href="https://www.mathworks.com/help/symbolic/solve-differential-equations-using-laplace-transform.html">documento</a> , y gr&aacute;fica las soluciones</p>
+<p>
+<b>b)</b> Implementa las simulaci&oacute;n en Simulink, reporta las gr&aacute;ficas de las soluciones</p>
+<p>
+<b>c)</b> Reporta las gr&aacute;ficas de las soluciones, num&eacute;rica y simb&oacute;lica en la misma figura, una para cada soluci&oacute;n.</p>
+<p>
+<b>3.</b> En el siguiente <a href="https://www.mathworks.com/help/simulink/examples.html?category=index&amp;s_tid=CRUX_lftnav_example_index">enlace</a> puede encontrar varias aplicaciones desarrolladas en Simulink, elija una de estas aplicaciones, explique el problema y la implementaci&oacute;n y reproduzca los resultados, debe tomar en cuenta que algunas aplicaciones requieren una investigaci&oacute;n para poder enterlas de forma completa, no es necesario que elija la aplicaci&oacute;n mas avanzada, el objetivo de este problema es que conozca algunas de las aplicaciones que se pueden desarrollar. Podr&iacute;a ser que algunos ejemplos del enlace no necesariamente enten enfocados a Simulink, para este punto es necesario que la aplicaci&oacute;n elegida este desarrolada en Simulink.</p>
+<p>
+<b>Nota 1:</b> El esquema implementado en simulink puede ser tambi&eacute;n una realizaci&oacute;n especifica (serie, palalelo, can&oacute;nica, etc), se ha decidido exponer un esquema que no hace referencia a una realizaci&oacute;n especifica</p>
+<p>
+<b>Nota 2:</b> Existen varias maneras de realizar la simulaci&oacute;n en Simulink, la variedad es amplia, no se debe pensar que lo implementado en esta practica es la &uacute;nica manera de realizar una simulaci&oacute;n en Simulink.</p>
+<p>
+<b>Nota 3:</b> En Simulink puede observar muchas m&aacute;s herramientas que las utilizadas en esta pr&aacute;ctica, se pueden observar bloques dise&ntilde;ados para diferentes ciencias.</p>
+<p>
+<b>Nota 4:</b> Recordar que cada Bloque en Simulink va mas alla, al final cada una de las simulaciones es la implementaci&oacute;n de m&eacute;todos num&eacute;ricos.</p>
+<h2 id="4">Problema 1 Ecuaci&oacute;n a)</h2>
+<p>
+<b>1.</b> Para las siguientes ecuaciones obtenga</p>
+<p>
+<img vspace="5" hspace="5" src="ecu1.png" alt=""> </p>
+<p>
+<b>a)</b> La soluci&oacute;n anal&iacute;tica mediante transformada de laplace, puede ayudarse de programas previos</p>
+<p>
+<b>b)</b> La gr&aacute;fica de la soluci&oacute;n anal&iacute;tica, puede presentar diferentes intervalos en la grafica y acercamientos a la gr&aacute;fica seg&uacute;n considere necesario.</p>
+<p>
+<b>c)</b> El diagrama de la para Simulink, indicando en caso de que no sea claro, el valor de cada par&aacute;metro en Simulink, por ejemplo, reportar las condiciones Iniciales de simulaci&oacute;n ya que no son visibles a simple vista desde el esquema inplementado.</p>
+<p>
+<b>d)</b> La grafica de la soluci&oacute;n en Simulink, puede presentar diferentes intervalos en la grafica y acercamientos a la gr&aacute;fica seg&uacute;n considere necesario.</p>
+<p>
+<b>e)</b> La gr&aacute;fica, en la misma figura, de la Simulaci&oacute;n y la soluci&oacute;n anal&iacute;tica.</p>
+<p>
+<b>f)</b> En caso de que la entrada sea una funci&oacute;n senoidal:</p>
+<p>
+<b>i)</b> Encuentre el escalamiento y desfasamiento de la respuesta en estado estacionario a partir de la evaluaci&oacute;n de la funci&oacute;n de transferencia (soluci&oacute;n anal&iacute;tica).</p>
+<p>
+<b>ii)</b> Encuentre el escalamiento y desfasamiento de la respuesta forzada a partir de las gr&aacute;ficas de Bode generadas en Matlab (soluci&oacute;n num&eacute;rica).</p>
+<p>
+<b>iii)</b> Verifique que concuerde la soluci&oacute;n anal&iacute;tica y la soluci&oacute;n num&eacute;rica</p>
+<p>Utilizaremos las funciones dise&ntilde;adas en pr&aacute;cticas anteriores para obtener la soluci&oacute;n an&aacute;litica utilizacndo transformada de laplace.</p>
+<p>Modificaremos un poco la funci&oacute;n para solo mostrar la respuesta total anal&iacute;tica y solo se graficar&aacute; la respuesta total en un intervalos de 10 unidades.</p>
+<p>a) y b)</p>
+<pre class="codeinput">syms <span class="string">t</span>;
+diferenciales([6 5 1],1,[1 0],2*cos((4*t)-(pi/3))*heaviside(t),10)
+</pre>
+<pre class="codeoutput"> 
+RESPUESTA TOTAL
+ 
+y(t)=
+sin(4 t)   cos(4 t)   sqrt(3) sin(4 t)             / sqrt(3)   29 \
+-------- - -------- - ---------------- + exp(-2 t) | ------- + -- |
+   25         50             50                    \    5      10 /
+
+               / 4 sqrt(3)   47 \   sqrt(3) cos(4 t)
+   - exp(-3 t) | --------- + -- | - ----------------
+               \     25      25 /          25
+
+</pre>
+<img vspace="5" hspace="5" src="ASySPrac11ArturoPortillo_01.png" alt=""> <img vspace="5" hspace="5" src="ASySPrac11ArturoPortillo_02.png" alt=""> <img vspace="5" hspace="5" src="ASySPrac11ArturoPortillo_03.png" alt=""> <p>c)</p>
+<p> <img src="p_a.png" width="560" height="315"/>
+</p>
+<p>d)</p>
+<p> <img src="g_a.png" width="560" height="315"/>
+</p>
+<p>e) Se muestran ambas gr&aacute;ficas en la misma figura pero se solapa una con la otra y solo se puede observar la gr&aacute;fica azul del anal&iacute;tico</p>
+<p> <img src="dos_a.png" width="560" height="315"/>
+</p>
+<p> <img src="Gra_a.png" width="560" height="315"/>
+</p>
+<p>f)</p>
+<p>i) Tenemos la funci&oacute;n de transferencia</p>
+<p>
+<img src="ASySPrac11ArturoPortillo_eq04298435104493414314.png" alt="$$H(s)=\frac{1}{s^2+5s+6}$$"></p>
+<p>
+<img src="ASySPrac11ArturoPortillo_eq01260673966469121785.png" alt="$$H(j\omega)=\frac{1}{(j\omega)^2+5j\omega+6}$$"></p>
+<p>Sustituimos el valor de <img src="ASySPrac11ArturoPortillo_eq11614052705438996851.png" alt="$\omega$"></p>
+<p>
+<img src="ASySPrac11ArturoPortillo_eq00970935605117726795.png" alt="$$\omega=4$$"></p>
+<p>
+<img src="ASySPrac11ArturoPortillo_eq02534148707862190021.png" alt="$$H(4j)=\frac{1}{-16+20j+6}=\frac{1}{-10+20j}$$"></p>
+<p>Despues obtenemos <img src="ASySPrac11ArturoPortillo_eq13063389107025469049.png" alt="$|H(4j)|$"> y <img src="ASySPrac11ArturoPortillo_eq06247511385731716703.png" alt="$\angle H(4j)$"></p>
+<p>
+<img src="ASySPrac11ArturoPortillo_eq00933174359497180624.png" alt="$$|H(4j)|=\frac{1}{\sqrt{20^2+10^2}}=\frac{1}{10\sqrt{5}}=\frac{\sqrt{5}}{50}$$"></p>
+<p>Ya que el vector se encuentra en el segundo cuadrante tendremos que sumar el resultando del arcotangente a <img src="ASySPrac11ArturoPortillo_eq11942183284836905855.png" alt="$\pi$"></p>
+<p>
+<img src="ASySPrac11ArturoPortillo_eq06766549808766281179.png" alt="$$\angle H(4j)=-(\pi+arctan(\frac{20}{-10}))=-2.0344$$"></p>
+<p>Con estos valores ya podemos obtener la respuesta en estado estacionario</p>
+<p>
+<img src="ASySPrac11ArturoPortillo_eq04207432392600446999.png" alt="$$Y_{ss}(t)=|H(jw)|Acos(\omega t+\theta +\angle H(j\omega))$$"></p>
+<p>
+<img src="ASySPrac11ArturoPortillo_eq15427265939998817721.png" alt="$$Y_{ss}(t)=\frac{\sqrt{5}}{25}cos(4t-\frac{\pi}{3}-2.0344)u(t)=\frac{\sqrt{5}}{25}cos(4t-3.08159)u(t)$$"></p>
+<pre class="codeinput">t=0:0.001:10;
+Y=(sqrt(5)/25)*cos((4*t)-3.08159);
+plot(t,Y,<span class="string">'LineWidth'</span>,2); title(<span class="string">'RESPUESTA EN ESTADO ESTACIONARIO'</span>); xlabel(<span class="string">'TIEMPO'</span>);
+grid <span class="string">on</span>
+</pre>
+<img vspace="5" hspace="5" src="ASySPrac11ArturoPortillo_04.png" alt=""> <p>ii) La respuesta forzada es la siguiente:</p>
+<p>
+<img src="ASySPrac11ArturoPortillo_eq02079579791611417286.png" alt="$$\frac{(1-5\sqrt{3})cos(2t)}{52} + \frac{(5+\sqrt{3})sin(2t)}{52}$$"></p>
+<pre class="codeinput">f=((-1-2*sqrt(3))/50)*cos(4*t) + ((2-sqrt(3))/50)*sin(4*t);
+plot(t,f,<span class="string">'LineWidth'</span>,2); title(<span class="string">'RESPUESTA FORZADA'</span>); xlabel(<span class="string">'TIEMPO'</span>);
+grid <span class="string">on</span>
+</pre>
+<img vspace="5" hspace="5" src="ASySPrac11ArturoPortillo_05.png" alt=""> <p>iii) Al comparar los resultados y ambas gr&aacute;ficas podemos observar que obtenemos el mismo resultado y coinsiden con la gr&aacute;fica de la respuesta total.</p>
+<h2 id="8">Problema 1 Ecuaci&oacute;n b)</h2>
+<p>Realizaremos el mismo procedimiento que en la ecuaci&oacute;n anterior</p>
+<p>a) y b)</p>
+<pre class="codeinput">syms <span class="string">t</span>;
+diferenciales2([6 5 1],[0 1],[1 0],heaviside(t),10)
+</pre>
+<pre class="codeoutput"> 
+RESPUESTA TOTAL
+ 
+y(t)=
+exp(-2 t) 4 - exp(-3 t) 3
+
+</pre>
+<img vspace="5" hspace="5" src="ASySPrac11ArturoPortillo_06.png" alt=""> <p>c)</p>
+<p> <img src="p_b.png" width="560" height="315"/>
+</p>
+<p>d)</p>
+<p> <img src="g_b.png" width="560" height="315"/>
+</p>
+<p>e) Se muestran ambas gr&aacute;ficas en la misma figura pero se solapa una con la otra y solo se puede observar la gr&aacute;fica azul del anal&iacute;tico</p>
+<p> <img src="dos_b.png" width="560" height="315"/>
+</p>
+<p> <img src="Gra_b.png" width="560" height="315"/>
+</p>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Práctica 11: Simulink
+%
+%
+%% Integrantes
+%
+% Portillo Martínez Arturo
+%
+%% Objetivos
+%
+% * Conocer Simulink.
+% * Implementar simulaciones de ecuaciones diferenciales en Simulink.
+%
+%% Desarrollo
+%
+% Para el desarrollo se tienen que resolver cada uno de los siguientes problemas comenzando 
+% una nueva sección (para la publicación) en cada uno de ellos.
+%
+% *1.* Para las siguientes ecuaciones obtenga
+%
+% <<ecu1.png>>
+% 
+% *a)* La solución analítica mediante transformada de laplace, puede ayudarse de programas previos 
+%
+% *b)* La gráfica de la solución analítica, puede presentar diferentes 
+% intervalos en la grafica y acercamientos a la gráfica según considere necesario.
+%
+% *c)* El diagrama de la para Simulink, iopndicando en caso
+% de que no sea claro, el valor de cada parámetro en Simulink, por ejemplo,
+% reportar las condiciones Iniciales de simulación ya que no son visibles 
+% a simple vista desde el esquema inplementado.
+%
+% *d)* La grafica de la solución en Simulink, puede presentar diferentes 
+% intervalos en la grafica y acercamientos a la gráfica según considere necesario.
+%
+% *e)* La gráfica, en la misma figura, de la Simulación y la solución analítica.
+%
+% *f)* En caso de que la entrada sea una función senoidal: 
+%
+% *i)* Encuentre el escalamiento y desfasamiento de la respuesta en estado estacionario a 
+% partir de la evaluación de la función de transferencia (solución analítica).
+%
+% *ii)*	Encuentre el escalamiento y desfasamiento de la respuesta forzada a partir 
+% de las gráficas de Bode generadas en Matlab  (solución numérica).
+%
+% *iii)*	Verifique que concuerde la solución analítica y la solución numérica
+%
+% *2.* Un péndulo doble oscila en un plano vertical bajo la acción de la gravedad. 
+% Para desplazamientos pequeños $\theta_1(t)$ y $\theta_2(t)$, es posible 
+% demostrar que las ecuaciones diferenciales del movimiento son:
+% 
+% $$ (m_1+m_2)l_1^2\ddot{\theta_1}(t)+m_2l_1l_2\ddot{\theta_2}(t)+(m_1+m_2)l_1g\theta_1(t)=0$$
+% 
+% $$m_2l_2^2\ddot{\theta}_2+m_2l_1l_2\ddot{\theta_1}+m_2l_2g\theta_2(t)=0$$
+% 
+% donde $m_1=0.1$, $m_2=0.1$, 
+% $l_1=l_2=1$, $\theta_1(0)=-1$, $\theta_2(0)=1$, $\dot{\theta_1}(0)=0$ 
+% $\dot{\theta_2}(0)=0$. 
+%
+% <<pendulo.png>>
+%
+% *a)* Realiza la solución símbolica como en el siguiente <https://www.mathworks.com/help/symbolic/solve-differential-equations-using-laplace-transform.html documento> 
+% , y gráfica las soluciones  
+%
+% *b)* Implementa las simulación en Simulink, reporta las gráficas de las
+% soluciones
+% 
+% *c)* Reporta las gráficas de las soluciones, numérica y simbólica en la misma figura, una para cada solución. 
+% 
+% *3.* En el siguiente <https://www.mathworks.com/help/simulink/examples.html?category=index&s_tid=CRUX_lftnav_example_index enlace>
+% puede encontrar varias aplicaciones desarrolladas en Simulink, 
+% elija una de estas aplicaciones,
+% explique el problema y la implementación y reproduzca los
+% resultados, debe tomar en cuenta que algunas aplicaciones requieren
+% una investigación para poder enterlas de forma completa, no es necesario
+% que elija la aplicación mas avanzada, el objetivo de este problema es que
+% conozca algunas de las aplicaciones que se pueden desarrollar. Podría ser
+% que algunos ejemplos del enlace no necesariamente enten enfocados a Simulink, para
+% este punto es necesario que la aplicación elegida este desarrolada en
+% Simulink.
+%
+% *Nota 1:* El esquema implementado en simulink puede ser también una realización especifica
+% (serie, palalelo, canónica, etc), se ha decidido exponer
+% un esquema que no hace referencia a una realización especifica 
+%
+% *Nota 2:* Existen varias maneras de realizar la simulación en
+% Simulink, la variedad es amplia, no se debe pensar que lo implementado  en esta
+% practica es la única manera de realizar una simulación en Simulink.
+%
+% *Nota 3:* En Simulink puede observar muchas más herramientas
+% que las utilizadas en esta práctica, se pueden observar bloques diseñados
+% para diferentes ciencias. 
+%
+% *Nota 4:* Recordar que cada Bloque en Simulink va mas alla, al final cada una de las simulaciones
+% es la implementación de métodos numéricos.
+%
+%% Problema 1 Ecuación a)
+%
+% *1.* Para las siguientes ecuaciones obtenga
+%
+% <<ecu1.png>>
+% 
+% *a)* La solución analítica mediante transformada de laplace, puede ayudarse de programas previos 
+%
+% *b)* La gráfica de la solución analítica, puede presentar diferentes 
+% intervalos en la grafica y acercamientos a la gráfica según considere necesario.
+%
+% *c)* El diagrama de la para Simulink, indicando en caso
+% de que no sea claro, el valor de cada parámetro en Simulink, por ejemplo,
+% reportar las condiciones Iniciales de simulación ya que no son visibles 
+% a simple vista desde el esquema inplementado.
+%
+% *d)* La grafica de la solución en Simulink, puede presentar diferentes 
+% intervalos en la grafica y acercamientos a la gráfica según considere necesario.
+%
+% *e)* La gráfica, en la misma figura, de la Simulación y la solución analítica.
+%
+% *f)* En caso de que la entrada sea una función senoidal: 
+%
+% *i)* Encuentre el escalamiento y desfasamiento de la respuesta en estado estacionario a 
+% partir de la evaluación de la función de transferencia (solución analítica).
+%
+% *ii)*	Encuentre el escalamiento y desfasamiento de la respuesta forzada a partir 
+% de las gráficas de Bode generadas en Matlab  (solución numérica).
+%
+% *iii)*	Verifique que concuerde la solución analítica y la solución numérica
+%
+% Utilizaremos las funciones diseñadas en prácticas anteriores para obtener
+% la solución análitica utilizacndo transformada de laplace.
+%
+% Modificaremos un poco la función para solo mostrar la respuesta total
+% analítica y solo se graficará la respuesta total en un intervalos de 10
+% unidades.
+%
+% a) y b)
+syms t;
+diferenciales([6 5 1],1,[1 0],2*cos((4*t)-(pi/3))*heaviside(t),10)
+%%
+% c)
+% 
+% <html> <img src="p_a.png" width="560" height="315"/>
+% </html>
+% 
+% d)
+%
+% <html> <img src="g_a.png" width="560" height="315"/>
+% </html>
+%
+% e) Se muestran ambas gráficas en la misma figura pero se solapa una con
+% la otra y solo se puede observar la gráfica azul del analítico
+%
+% <html> <img src="dos_a.png" width="560" height="315"/>
+% </html>
+%
+% <html> <img src="Gra_a.png" width="560" height="315"/>
+% </html>
+%
+% f)
+% 
+% i) Tenemos la función de transferencia
+%
+% $$H(s)=\frac{1}{s^2+5s+6}$$
+%
+% $$H(j\omega)=\frac{1}{(j\omega)^2+5j\omega+6}$$
+%
+% Sustituimos el valor de $$\omega$$
+%
+% $$\omega=4$$
+%
+% $$H(4j)=\frac{1}{-16+20j+6}=\frac{1}{-10+20j}$$
+% 
+% Despues obtenemos $$|H(4j)|$$ y $$\angle H(4j)$$
+%
+% $$|H(4j)|=\frac{1}{\sqrt{20^2+10^2}}=\frac{1}{10\sqrt{5}}=\frac{\sqrt{5}}{50}$$
+%
+% Ya que el vector se encuentra en el segundo cuadrante tendremos que sumar el resultando del arcotangente a $$\pi$$
+%
+% $$\angle H(4j)=-(\pi+arctan(\frac{20}{-10}))=-2.0344$$
+%
+% Con estos valores ya podemos obtener la respuesta en estado estacionario
+%
+% $$Y_{ss}(t)=|H(jw)|Acos(\omega t+\theta +\angle H(j\omega))$$
+%
+% $$Y_{ss}(t)=\frac{\sqrt{5}}{25}cos(4t-\frac{\pi}{3}-2.0344)u(t)=\frac{\sqrt{5}}{25}cos(4t-3.08159)u(t)$$
+t=0:0.001:10;
+Y=(sqrt(5)/25)*cos((4*t)-3.08159);
+plot(t,Y,'LineWidth',2); title('RESPUESTA EN ESTADO ESTACIONARIO'); xlabel('TIEMPO');
+grid on
+%%
+% ii) La respuesta forzada es la siguiente:
+%
+% $$\frac{(1-5\sqrt{3})cos(2t)}{52} + \frac{(5+\sqrt{3})sin(2t)}{52}$$
+f=((-1-2*sqrt(3))/50)*cos(4*t) + ((2-sqrt(3))/50)*sin(4*t);
+plot(t,f,'LineWidth',2); title('RESPUESTA FORZADA'); xlabel('TIEMPO');
+grid on
+%%
+% iii) Al comparar los resultados y ambas gráficas podemos observar que
+% obtenemos el mismo resultado y coinsiden con la gráfica de la respuesta
+% total.
+%
+%% Problema 1 Ecuación b)
+%
+% Realizaremos el mismo procedimiento que en la ecuación anterior
+%
+% a) y b)
+syms t;
+diferenciales2([6 5 1],[0 1],[1 0],heaviside(t),10)
+%%
+% c)
+% 
+% <html> <img src="p_b.png" width="560" height="315"/>
+% </html>
+% 
+% d)
+%
+% <html> <img src="g_b.png" width="560" height="315"/>
+% </html>
+%
+% e) Se muestran ambas gráficas en la misma figura pero se solapa una con
+% la otra y solo se puede observar la gráfica azul del analítico
+%
+% <html> <img src="dos_b.png" width="560" height="315"/>
+% </html>
+%
+% <html> <img src="Gra_b.png" width="560" height="315"/>
+% </html>
+%
+
+##### SOURCE END #####
+-->
+</body>
+</html>
